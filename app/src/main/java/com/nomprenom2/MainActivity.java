@@ -1,6 +1,8 @@
 package com.nomprenom2;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    private DbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,27 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDbHelper = new DbHelper(this);
+        // pre populate tables
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NamesBaseContract.GroupRecord.COLUMN_GROUP_NAME, "Europe");
+        long newRowId= db.insert(
+                NamesBaseContract.GroupRecord.TABLE_NAME,
+                null,
+                values);
+        values.clear();
+        values.put(NamesBaseContract.NameRecord.COLUMN_NAMES_GROUP, newRowId);
+        values.put(NamesBaseContract.NameRecord.COLUMN_NAMES_NAME, "John");
+        db.insert(
+                NamesBaseContract.NameRecord.TABLE_NAME,
+                null,
+                values);
     }
 
     @Override
