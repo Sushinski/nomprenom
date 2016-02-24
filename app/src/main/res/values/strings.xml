@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">nomprenom2</string>
+
+    <!-- Activities-->
+    <string name="title_screen3">Screen 3</string>
+
+    <!-- Menu -->
     <string name="action_settings">Settings</string>
+
+    <string name="menu_favorites">Избранное</string>
+    <string name="menu_my_names">Мои имена</string>
+    <string name="menu_choose_name">Подобрать имя</string>
+
 </resources>
