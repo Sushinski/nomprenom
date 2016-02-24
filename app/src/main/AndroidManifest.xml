@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
+            android:name=".Screen3Activity"
+            android:label="@string/title_screen3"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
