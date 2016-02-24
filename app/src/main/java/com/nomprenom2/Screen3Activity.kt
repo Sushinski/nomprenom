@@ -2,7 +2,6 @@ package com.nomprenom2
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.InflateException
 import android.view.Menu
 import android.view.MenuItem
 
@@ -28,5 +27,3 @@ class Screen3Activity : AppCompatActivity()
         else -> super.onOptionsItemSelected(item)
     }
 }
-
-fun checkedInflate( operation: () -> Unit)= try { operation(); true } catch (e: InflateException) { false } // todo : move -> utils
