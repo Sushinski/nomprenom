@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.nomprenom2.models.NameRecord;
+import com.nomprenom2.model.DbHelper;
+import com.nomprenom2.model.NameRecord;
 
 import java.util.ArrayList;
 

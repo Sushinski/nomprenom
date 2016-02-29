@@ -1,4 +1,4 @@
-package com.nomprenom2;
+package com.nomprenom2.model;
 
 
 import android.provider.BaseColumns;

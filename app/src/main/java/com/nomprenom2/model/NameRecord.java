@@ -1,4 +1,4 @@
-package com.nomprenom2.models;
+package com.nomprenom2.model;
 
 public class NameRecord {
     public NameRecord(){}

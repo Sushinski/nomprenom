@@ -1,10 +1,9 @@
-package com.nomprenom2;
+package com.nomprenom2.model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.nomprenom2.NamesBaseContract.GroupRecord;
-import com.nomprenom2.models.NameRecord;
+import com.nomprenom2.model.NamesBaseContract.GroupRecord;
 
 import java.util.ArrayList;
 
