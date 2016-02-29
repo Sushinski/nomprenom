@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.nomprenom2.model.DbHelper;
 
@@ -68,11 +68,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.title_screen3) {
+            selectScreen3();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     public void selectRegion(View view) {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
+        startActivity(intent);
+    }
+
+    private void selectScreen3()
+    {
+        Intent intent = new Intent(this, Screen3Activity.class);
         startActivity(intent);
     }
 }
