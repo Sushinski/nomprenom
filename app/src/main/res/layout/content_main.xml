@@ -62,7 +62,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_name_region_button"
+        android:text="@string/select_region_button"
         android:id="@+id/select_region_button"
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"
