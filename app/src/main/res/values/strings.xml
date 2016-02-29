@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">nomprenom2</string>
+
     <string name="action_settings">Settings</string>
-    <string name="first_name">Father\'s name</string>
-    <string name="Surname">Surname</string>
+
+    <string name="input_first_name">Father\'s name</string>
+    <string name="input_surname">Surname</string>
+
     <string name="title_activity_select_region_actvity">Select name region</string>
 </resources>
