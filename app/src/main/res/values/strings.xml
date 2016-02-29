@@ -7,4 +7,6 @@
     <string name="input_surname">Surname</string>
 
     <string name="title_activity_select_region_actvity">Select name region</string>
+    <string name="select_name_region_button">Select name region</string>
+    <string name="search_name_button">Search</string>
 </resources>
