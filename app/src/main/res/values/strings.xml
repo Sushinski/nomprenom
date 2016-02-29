@@ -18,6 +18,6 @@
 
     <!-- Buttons-->
     <string name="select_region_button">Select name region</string>
-    <string name="search_name_button">Select name region</string>
+    <string name="search_name_button">Search</string>
 
 </resources>
