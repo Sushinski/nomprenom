@@ -19,8 +19,8 @@ public class SelectedRegionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView select_region_list_view = (ListView) findViewById(R.id.select_region_list_view);
-        select_region_list_view.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Test.names));
+        ListView names_list_view = (ListView) findViewById(R.id.select_region_list_view);
+        names_list_view.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Test.names));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     }
