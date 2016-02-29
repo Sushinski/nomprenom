@@ -30,7 +30,7 @@
 
         <activity
             android:name=".SelectedRegionActivity"
-            android:label="@string/title_select_region"
+            android:label="@string/title_selected_region"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
