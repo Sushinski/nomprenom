@@ -3,6 +3,7 @@
 
     <!-- Activities-->
     <string name="title_screen3">Screen 3</string>
+    <string name="title_select_region">Select name region</string>
 
     <!-- Menu -->
     <string name="action_settings">Settings</string> <!-- todo: rename : menu_app_settings -->
@@ -16,7 +17,6 @@
     <string name="input_surname">Surname</string>
 
     <!-- Buttons-->
-    <string name="btn_first_name">Father\'s name</string>
-    <string name="btn_surname">Surname</string>
+    <string name="btn_select_region">Select name region</string>
 
 </resources>

@@ -21,7 +21,21 @@
         <activity
             android:name=".Screen3Activity"
             android:label="@string/title_screen3"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+            />
+        </activity>
+
+        <activity
+            android:name=".SelectedRegionActivity"
+            android:label="@string/title_select_region"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
