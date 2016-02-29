@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.nomprenom2.SelectRegionActvity"
-    tools:showIn="@layout/activity_select_region_actvity"
+    tools:showIn="@layout/activity_select_region"
     android:id="@+id/select_region_content">
 
     <ListView

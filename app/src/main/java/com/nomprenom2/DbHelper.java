@@ -4,8 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.nomprenom2.NamesBaseContract.GroupRecord;
-import com.nomprenom2.NamesBaseContract.NameRecord;
-import com.nomprenom2.models.name_record;
+import com.nomprenom2.models.NameRecord;
 
 import java.util.ArrayList;
 
@@ -27,17 +26,17 @@ public class DbHelper extends SQLiteOpenHelper {
                     GroupRecord.COLUMN_GROUP_NAME + TEXT_TYPE + " );";
     private static final String SQL_CREATE_NAMES_TBL =
                     "CREATE TABLE " +
-                    NameRecord.TABLE_NAME + " (" +
-                    NameRecord._ID + " INTEGER PRIMARY KEY," +
-                    NameRecord.COLUMN_NAMES_NAME + TEXT_TYPE + COMMA_SEP +
-                    NameRecord.COLUMN_NAMES_GROUP + INT_TYPE + COMMA_SEP +
-                    "FOREIGN KEY(" + NameRecord.COLUMN_NAMES_GROUP + ") " +
+                    NamesBaseContract.NameRecord.TABLE_NAME + " (" +
+                    NamesBaseContract.NameRecord._ID + " INTEGER PRIMARY KEY," +
+                    NamesBaseContract.NameRecord.COLUMN_NAMES_NAME + TEXT_TYPE + COMMA_SEP +
+                    NamesBaseContract.NameRecord.COLUMN_NAMES_GROUP + INT_TYPE + COMMA_SEP +
+                    "FOREIGN KEY(" + NamesBaseContract.NameRecord.COLUMN_NAMES_GROUP + ") " +
                     "REFERENCES " + GroupRecord.TABLE_NAME + "(" +
-                            NameRecord._ID + "));";
+                            NamesBaseContract.NameRecord._ID + "));";
 
     private static final String SQL_DELETE_TABLES =
             "DROP TABLE IF EXISTS " + GroupRecord.TABLE_NAME + "; " +
-            "DROP TABLE IF EXISTS " + NameRecord.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + NamesBaseContract.NameRecord.TABLE_NAME;
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,21 +60,21 @@ public class DbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public ArrayList<name_record> getAllNames(ArrayList<Integer> group_ids)
+    public ArrayList<NameRecord> getAllNames(ArrayList<Integer> group_ids)
     {
-        ArrayList<name_record> array_list = new ArrayList<>();
+        ArrayList<NameRecord> array_list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select * from name_record";
+        String query = "select * from NameRecord";
         if( group_ids.size() != 0 )
             query += " where group_id in " + group_ids.toString() + ";";
         Cursor res =  db.rawQuery(query, null);
         res.moveToFirst();
 
         while(!res.isAfterLast()){
-            name_record rec = new name_record();
-            rec._id = res.getInt(res.getColumnIndex(NameRecord._ID));
-            rec.name = res.getString(res.getColumnIndex(NameRecord.COLUMN_NAMES_NAME));
-            rec.group_id = res.getInt(res.getColumnIndex(NameRecord.COLUMN_NAMES_GROUP));
+            NameRecord rec = new NameRecord();
+            rec._id = res.getInt(res.getColumnIndex(NamesBaseContract.NameRecord._ID));
+            rec.name = res.getString(res.getColumnIndex(NamesBaseContract.NameRecord.COLUMN_NAMES_NAME));
+            rec.group_id = res.getInt(res.getColumnIndex(NamesBaseContract.NameRecord.COLUMN_NAMES_GROUP));
             array_list.add(rec);
             res.moveToNext();
         }
