@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.nomprenom2.model.NamesBaseContract.GroupRecord;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class DbHelper extends SQLiteOpenHelper {
@@ -59,8 +59,16 @@ public class DbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public ArrayList<NameRecord> getAllNames(ArrayList<Integer> group_ids)
+    public void setNames()
     {
+        Test.names = Test.test_names;
+    }
+
+    public List<NameRecord> getAllNames(ArrayList<Integer> group_ids)
+    {
+        return Test.names;
+
+        /*
         ArrayList<NameRecord> array_list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "select * from NameRecord";
@@ -79,5 +87,6 @@ public class DbHelper extends SQLiteOpenHelper {
         }
         res.close();
         return array_list;
+        */
     }
 }

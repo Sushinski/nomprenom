@@ -1,8 +1,6 @@
 package com.nomprenom2;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nomprenom2.model.DbHelper;
-import com.nomprenom2.model.NamesBaseContract;
 
 public class MainActivity extends AppCompatActivity {
-    private DbHelper mDbHelper;
+    //private DbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+
+        DbHelper dbHelper = new DbHelper(this);
+        dbHelper.setNames();
+
+        /*
         mDbHelper = new DbHelper(this);
         // pre populate tables
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 NamesBaseContract.NameRecord.TABLE_NAME,
                 null,
                 values);
+        */
     }
 
     @Override
