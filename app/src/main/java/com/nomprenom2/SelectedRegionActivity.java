@@ -12,16 +12,16 @@ import com.nomprenom2.model.NameRecord;
 
 import java.util.ArrayList;
 
-public class SelectRegionActivity extends AppCompatActivity {
+public class SelectedRegionActivity extends AppCompatActivity {
 
-    public SelectRegionActivity() {
+    public SelectedRegionActivity() {
         super();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_region);
+        setContentView(R.layout.activity_selected_region);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

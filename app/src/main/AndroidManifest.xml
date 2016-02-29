@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectRegionActivity"
-            android:label="@string/title_activity_select_region_actvity"
+            android:name=".SelectedRegionActivity"
+            android:label="@string/title_selected_region"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

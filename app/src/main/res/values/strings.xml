@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name">nomprenom2</string>
 
-    <string name="action_settings">Settings</string>
+    <!-- Activities-->
+    <string name="title_screen3">Screen 3</string>
+    <string name="title_selected_region">Selected names</string>
 
+    <!-- Menu -->
+    <string name="action_settings">Settings</string> <!-- todo: rename : menu_app_settings -->
+
+    <!-- Inputs-->
     <string name="input_first_name">Father\'s name</string>
     <string name="input_surname">Surname</string>
 
-    <string name="title_activity_select_region_actvity">Select name region</string>
+    <!-- Buttons-->
     <string name="select_region_button">Select name region</string>
     <string name="search_name_button">Search</string>
+
 </resources>

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectRegion(View view) {
-        Intent intent = new Intent(this, SelectRegionActivity.class);
+        Intent intent = new Intent(this, SelectedRegionActivity.class);
         startActivity(intent);
     }
 }
