@@ -33,9 +33,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "io.realm:realm-android:$realm_version"
+
 }
 buildscript {
     ext.kotlin_version = '1.0.0'
+    ext.realm_version = '0.87.5'
+
     repositories {
         jcenter()
     }
