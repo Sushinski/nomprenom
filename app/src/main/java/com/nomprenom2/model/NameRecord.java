@@ -1,15 +1,14 @@
 package com.nomprenom2.model;
 
-public class NameRecord {
-    public NameRecord(){}
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
-    public NameRecord(int _id, String name, int group_id) {
-        this._id = _id;
-        this.name = name;
-        this.group_id = group_id;
-    }
-
-    public int _id;
+@Table(name = "names")
+public class NameRecord extends Model{
+    @Column(name = "name")
     public String name;
-    public int group_id;
+
+    @Column(name = "group") // todo: foreign key for the first time
+    public GroupRecord group;
 }

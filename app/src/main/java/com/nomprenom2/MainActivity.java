@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectScreen3()
     {
-        Intent intent = new Intent(this, Screen3Activity.class);
-        startActivity(intent);
+        // Intent intent = new Intent(this, Screen3Activity.class);
+        // startActivity(intent);
     }
 }

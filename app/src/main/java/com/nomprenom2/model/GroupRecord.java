@@ -1,7 +1,17 @@
 package com.nomprenom2.model;
 
-public class GroupRecord {
-    public GroupRecord(){}
-    public int _id;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+import java.util.List;
+
+@Table(name = "groups")
+public class GroupRecord extends Model {
+    @Column(name = "group_name")
     public String group_name;
+
+    public List<NameRecord> items() {
+        return getMany(NameRecord.class, "group");
+    }
 }
