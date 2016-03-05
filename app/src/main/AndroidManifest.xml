@@ -11,6 +11,9 @@
         android:name="com.activeandroid.app.Application">
         <meta-data android:name="AA_DB_NAME" android:value="nomprenom.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.nomprenom2.model.NameRecord, com.nomprenom2.model.GroupRecord" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -19,15 +22,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".Screen3Activity"
-            android:label="@string/title_screen3"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-            />
         </activity>
 
         <activity

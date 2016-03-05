@@ -6,12 +6,16 @@ import com.activeandroid.annotation.Table;
 
 import java.util.List;
 
-@Table(name = "groups")
+@Table(name = "groups", id = "_id")
 public class GroupRecord extends Model {
-    @Column(name = "group_name")
+    @Column(name = "group_name", unique = true)
     public String group_name;
 
     public List<NameRecord> items() {
-        return getMany(NameRecord.class, "group");
+        return getMany(NameRecord.class, "groups");
+    }
+
+    public GroupRecord(){
+        super();
     }
 }
