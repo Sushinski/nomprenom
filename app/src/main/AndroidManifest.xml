@@ -8,12 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.activeandroid.app.Application">
+        android:name=".NomprenomApp">
         <meta-data android:name="AA_DB_NAME" android:value="nomprenom.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
-        <meta-data
-            android:name="AA_MODELS"
-            android:value="com.nomprenom2.model.NameRecord, com.nomprenom2.model.GroupRecord" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
