@@ -5,10 +5,11 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Table(name = "GroupRecord", id = "_id")
-public class GroupRecord extends Model {
+public class GroupRecord extends Model implements Serializable {
     public static final String LIST_FIELD = "group_name";
     @Column(name = "group_name", unique = true)
     public String group_name;

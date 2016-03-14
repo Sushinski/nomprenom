@@ -1,5 +1,6 @@
 package com.nomprenom2;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +19,13 @@ import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.android_metadata;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public final static String GROUP_ID_MSG = "com.nomprenom2.GROUP_ID";
+    public static final int GROUP_REQUEST = 1;
+    public GroupRecord[] groups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectRegion(View view) {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, GROUP_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
+            if(data.hasExtra("regions")){
+                groups = (GroupRecord[])data.getExtras().getSerializable("regions");
+            }
+        }
     }
 
     private void selectScreen3()
