@@ -25,7 +25,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public final static String GROUP_ID_MSG = "com.nomprenom2.GROUP_ID";
     public static final int GROUP_REQUEST = 1;
-    public GroupRecord[] groups;
+    public ArrayAdapter<String> groups_adapter;
+    public String[] regions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectRegion(View view) {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
+        intent.putExtra("regions", regions);
         startActivityForResult(intent, GROUP_REQUEST);
     }
 
@@ -77,9 +80,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
             if(data.hasExtra("regions")){
-                groups = (GroupRecord[])data.getExtras().getSerializable("regions");
+                regions = data.getStringArrayExtra("regions");
+                setGroupList();
             }
         }
+    }
+
+    private void setGroupList(){
+        groups_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                regions);
+        ListView region_list_view = (ListView) findViewById(R.id.selected_groups_list_view);
+        region_list_view.setAdapter(groups_adapter);
     }
 
     private void selectScreen3()

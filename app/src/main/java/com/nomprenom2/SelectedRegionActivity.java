@@ -14,11 +14,12 @@ import android.widget.ListView;
 import com.nomprenom2.model.GroupRecord;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.nomprenom2.utils.ListUtils.getCheckedPositions;
+//import static com.nomprenom2.utils.ListUtils.getCheckedPositions;
 
 public class SelectedRegionActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CheckedTextView checkedTextView = ((CheckedTextView) view);
-                checkedTextView.setChecked(!checkedTextView.isChecked());
+               // checkedTextView.setChecked(!checkedTextView.isChecked());
                 if(checkedTextView.isChecked()){
                     checked_set.add(position);
                 }else{
@@ -57,6 +58,19 @@ public class SelectedRegionActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_multiple_choice,
                  lst);
         region_list_view.setAdapter(arrayAdapter);
+        region_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        String[] selected_rgns = getIntent().getStringArrayExtra("regions");
+        if( selected_rgns != null) {
+            int pos = 0;
+            List<String> sel_lst = Arrays.asList(selected_rgns);
+            for (GroupRecord rec : lst) {
+                if (sel_lst.contains(rec.group_name)) {
+                    region_list_view.setItemChecked(pos, true);
+                    checked_set.add(pos);
+                }
+                pos++;
+            }
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +83,13 @@ public class SelectedRegionActivity extends AppCompatActivity {
     @Override
     public void finish() {
         Intent data = new Intent();
-        List<GroupRecord> checked = new ArrayList<>();
+        String[] checked = new String[checked_set.size()];
+        int j = 0;
         for (Integer i : checked_set) {
             GroupRecord rec = arrayAdapter.getItem(i);
-            checked.add(rec);
+            checked[j++] = rec.group_name;
         }
-        data.putExtra("regions", checked.toArray());
+        data.putExtra("regions", checked);
         setResult(RESULT_OK, data);
         super.finish();
     }
