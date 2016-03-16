@@ -3,7 +3,7 @@
 
     <!-- Activities-->
     <string name="title_screen3">Screen 3</string>
-    <string name="title_selected_region">Selected names</string>
+    <string name="title_selected_region">Select regions</string>
 
     <!-- Menu -->
     <string name="action_settings">Settings</string> <!-- todo: rename : menu_app_settings -->

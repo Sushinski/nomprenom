@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class Test {
 
-    public static List<NameRecord> test_names = Arrays.asList(
+   /* public static List<NameRecord> test_names = Arrays.asList(
             new NameRecord(1, "Vasya", 1),
             new NameRecord(2, "Petya", 1)
     );
 
-    public static List<NameRecord> names;
+    public static List<NameRecord> names;*/
 }
