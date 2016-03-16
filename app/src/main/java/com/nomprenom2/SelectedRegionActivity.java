@@ -5,21 +5,16 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import com.nomprenom2.model.GroupRecord;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-//import static com.nomprenom2.utils.ListUtils.getCheckedPositions;
 
 public class SelectedRegionActivity extends AppCompatActivity {
 
@@ -45,7 +40,6 @@ public class SelectedRegionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CheckedTextView checkedTextView = ((CheckedTextView) view);
-               // checkedTextView.setChecked(!checkedTextView.isChecked());
                 if(checkedTextView.isChecked()){
                     checked_set.add(position);
                 }else{

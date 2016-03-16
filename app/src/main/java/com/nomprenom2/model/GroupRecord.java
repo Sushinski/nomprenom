@@ -12,10 +12,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Table(name = "GroupRecord", id="_id")
-public class GroupRecord extends Model implements Parcelable {
+public class GroupRecord extends Model{
     public static final String LIST_FIELD = "group_name";
-    @Column(name="id", unique = true)
-    public long id;
 
     @Column(name = "group_name", unique = true)
     public String group_name;
@@ -24,15 +22,9 @@ public class GroupRecord extends Model implements Parcelable {
         super();
     }
 
-    public GroupRecord(String _name, long _id){
+    public GroupRecord(String _name){
         super();
-        id = _id;
         group_name = _name;
-    }
-
-    public GroupRecord(Parcel in){
-        id = in.readLong();
-        group_name = in.readString();
     }
 
     public static List<GroupRecord> getAll() {
@@ -51,27 +43,4 @@ public class GroupRecord extends Model implements Parcelable {
         return group_name;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeString(group_name);
-    }
-
-    public static final Parcelable.Creator<GroupRecord> CREATOR = new Parcelable.Creator<GroupRecord>() {
-
-        @Override
-        public GroupRecord createFromParcel(Parcel source) {
-            return new GroupRecord(source);
-        }
-
-        @Override
-        public GroupRecord[] newArray(int size) {
-            return new GroupRecord[size];
-        }
-    };
 }
