@@ -1,7 +1,6 @@
 package com.nomprenom2;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,15 +11,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Configuration;
-import com.nomprenom2.model.GroupRecord;
-import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.model.android_metadata;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public final static String GROUP_ID_MSG = "com.nomprenom2.GROUP_ID";
