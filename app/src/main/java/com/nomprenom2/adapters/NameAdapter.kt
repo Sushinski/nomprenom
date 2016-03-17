@@ -5,14 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.TextView
-import com.nomprenom2.model.Timestamp
+import com.nomprenom2.model.Name
 import io.realm.RealmBaseAdapter
 import io.realm.RealmResults
 
 /**
  * Created by musachev on 01.03.2016.
  */
-class TimestampAdapter(context : Context, realmResults : RealmResults<Timestamp>, automaticUpdate : Boolean) : RealmBaseAdapter<Timestamp>(context, realmResults, automaticUpdate), ListAdapter
+class NameAdapter(context : Context, realmResults : RealmResults<Name>, automaticUpdate : Boolean) :
+        RealmBaseAdapter<Name>(context, realmResults, automaticUpdate), ListAdapter
 {
     companion object ViewHolder
     {
@@ -23,7 +24,7 @@ class TimestampAdapter(context : Context, realmResults : RealmResults<Timestamp>
     {
         val viewHolder = convertView?.tag as ViewHolder
         val timestamp = realmResults[position]
-        viewHolder?.timestamp?.text = timestamp.timeStamp
+        viewHolder?.timestamp?.text = timestamp.name
 
         return convertView
     }

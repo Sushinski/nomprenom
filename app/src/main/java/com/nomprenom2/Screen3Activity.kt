@@ -4,16 +4,72 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.nomprenom2.model.Name
+import io.realm.Realm
 
 import kotlinx.android.synthetic.main.activity_screen3.*
 
 class Screen3Activity : AppCompatActivity()
 {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_screen3)
+    private lateinit var realm: Realm
 
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_screen3)
         setSupportActionBar(toolbar)
+
+        //val realmConfig = realm.configuration
+        realm = Realm.getInstance(this)
+
+        with (realm) {
+            // These operations are small enough that we can safely run them on the UI thread
+            addTenName(realm)
+        }
+
+        complexAutoCloseQuery(realm)
+
+        // More complex operations can be executed on another thread
+        /*
+        async() {
+            fun realmInstance() = Realm.getInstance(realmConfig)
+            var info = complexReadWrite(realmInstance()) + complexQuery(realmInstance())
+
+            uiThread { act ->
+                act.log(info)
+            }
+        }
+        */
+    }
+
+    private fun complexAutoCloseQuery(realm: Realm) = StringBuilder("\n\nPerforming complex Query operation...").apply {
+        realm.use { realm -> // todo: this one uses autocloseable syntax, so we don't need to close realm in override fun onDestroy() on exit!!!
+            //val results = realm.where(Person::class.java)
+            //.between("age", 7, 9)
+            //.beginsWith("name", "Person")
+            val results = realm.where(Name::class.java).findAll()
+            append("\nSize of result set: ").append(results.size)
+        }
+    }.toString()
+
+    private fun addTenName(realm: Realm) {
+
+        val receiver = StringBuilder()
+        with(receiver)
+        {
+            for (group_id in 0..9) {
+                val new_name = realm.createObject(Name::class.java).apply { // todo: add name function
+                    name = "Name no : $group_id"
+                    nickname = "Kinda duda $name"
+                    group_id
+                    // The field 'tempReference' is annotated with @Ignore.
+                    // This means it is not saved as part of the RealmObject.
+                    tempRef = Name("god object")
+                }
+                append("\nAnd the new name is: ").append(new_name)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu) = checkedInflate { menuInflater.inflate(R.menu.menu_screen3, menu) }
