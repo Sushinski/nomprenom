@@ -10,13 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    public final static String GROUP_ID_MSG = "com.nomprenom2.GROUP_ID";
     public static final int GROUP_REQUEST = 1;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
+    public String[] sex_sel;
 
 
     @Override
@@ -25,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sex_sel = getResources().getStringArray(R.array.sex_sels);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, sex_sel);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = (Spinner) findViewById(R.id.sex_spinner);
+        spinner.setAdapter(adapter);
     }
 
     @Override

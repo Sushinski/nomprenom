@@ -19,5 +19,10 @@
     <!-- Buttons-->
     <string name="select_region_button">Select name region</string>
     <string name="search_name_button">Search</string>
-
+    <string-array
+        name="sex_sels">
+        <item>Select child\'s sex</item>
+        <item>Boy</item>
+        <item>Girl</item>
+    </string-array>
 </resources>
