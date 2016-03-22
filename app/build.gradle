@@ -29,16 +29,21 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    testCompile "junit:junit:$junit_version"
+    compile "com.android.support:appcompat-v7:$appcompat_version"
+    compile "com.android.support:design:$appcompat_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "io.realm:realm-android:$realm_version"
+    compile "org.jetbrains.anko:anko-sdk23:$anko_version"
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 
 }
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.0.1'
     ext.realm_version = '0.87.5'
+    ext.appcompat_version = '23.1.1'
+    ext.junit_version = '4.12'
+    ext.anko_version = '0.8.3'
 
     repositories {
         jcenter()
