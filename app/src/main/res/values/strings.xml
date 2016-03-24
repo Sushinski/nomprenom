@@ -21,8 +21,8 @@
     <string name="search_name_button">Search</string>
     <string-array
         name="sex_sels">
-        <item>Select child\'s sex</item>
         <item>Boy</item>
         <item>Girl</item>
     </string-array>
+    <string name="select_child_sex">Select child\'s sex</string>
 </resources>

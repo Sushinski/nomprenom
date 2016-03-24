@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
+
 import java.util.ArrayList;
 
 
@@ -33,7 +35,12 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, sex_sel);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner = (Spinner) findViewById(R.id.sex_spinner);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapter,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
     }
 
     @Override
