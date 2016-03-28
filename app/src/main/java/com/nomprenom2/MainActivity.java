@@ -12,9 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.nomprenom2.presenter.MainPresenter;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
+    private Spinner spinner;
+    private MainPresenter presenter;
 
 
     @Override
@@ -34,13 +38,15 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, sex_sel);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spinner = (Spinner) findViewById(R.id.sex_spinner);
+        spinner = (Spinner) findViewById(R.id.sex_spinner);
         spinner.setAdapter(
                 new NothingSelectedSpinnerAdapter(
                         adapter,
                         R.layout.contact_spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
+        // inject candidate
+        presenter = new MainPresenter(this);
     }
 
     @Override
@@ -80,6 +86,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
         intent.putExtra("regions", regions);
         startActivityForResult(intent, GROUP_REQUEST);
+    }
+
+    public void searchNames(View view){
+        /*Intent intent = new Intent(this, SearchResultActivity.class);
+        intent.putExtra("regions", regions);
+        intent.putExtra("sex", (String)spinner.getSelectedItem());
+        startActivityForResult(intent, GROUP_REQUEST);*/
+        List<String> sel_names = presenter.getNames(regions, (String)spinner.getSelectedItem());
     }
 
     @Override

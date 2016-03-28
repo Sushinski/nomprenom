@@ -38,6 +38,13 @@ public class GroupRecord extends Model{
         return new Select().from(GroupRecord.class).executeSingle();
     }
 
+    public static List<GroupRecord> groupForNames(String[] group_names){
+        return new Select()
+                .from(GroupRecord.class)
+                .where("name in(?)", group_names)
+                .execute();
+    }
+
     @Override
     public String toString(){
         return group_name;
