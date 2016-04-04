@@ -1,4 +1,4 @@
-package com.nomprenom2;
+package com.nomprenom2.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+
+import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import java.util.Arrays;
 import java.util.HashSet;

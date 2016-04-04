@@ -12,8 +12,7 @@ public class MainPresenter {
     }
 
     public List<String> getNames(String[] groups, String sex ){
-        NameRecord.Sex s_v = NameRecord.Sex.valueOf(sex);
-        List<NameRecord> res = NameRecord.getNames(groups, s_v);
+        List<NameRecord> res = NameRecord.getNames(groups, sex);
         List<String> ret = new ArrayList<>();
         for(NameRecord n : res) {
             ret.add(n.name);

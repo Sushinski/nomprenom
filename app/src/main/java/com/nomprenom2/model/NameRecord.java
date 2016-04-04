@@ -46,14 +46,14 @@ public class NameRecord extends Model{
         this.sex = _sex.getId();
     }
 
-    public static List<NameRecord> getNames(String[] groups, Sex s) {
+    public static List<NameRecord> getNames(String[] groups, String s) {
         return new Select()
                 .from(NameRecord.class)
                 .innerJoin(GroupRecord.class)
                 .on("NameRecord.from_group=GroupRecord._id")
                 .where("GroupRecord.group_name IN (\'" +
                         TextUtils.join("\',\'", groups) +
-                        "\') and NameRecord.sex=?", s.getId())
+                        "\') and NameRecord.sex=?", Sex.valueOf(s).getId())
                 .execute();
     }
 

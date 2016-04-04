@@ -1,4 +1,4 @@
-package com.nomprenom2;
+package com.nomprenom2.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,15 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.nomprenom2.R;
 import com.nomprenom2.presenter.MainPresenter;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
+    public static final int SEARCH_RESULT = 2;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
@@ -89,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchNames(View view){
-        /*Intent intent = new Intent(this, SearchResultActivity.class);
+        List<String> sel_names = presenter.getNames(regions, (String)spinner.getSelectedItem());
+        Intent intent = new Intent(this, SearchResultActivity.class);
         intent.putExtra("regions", regions);
         intent.putExtra("sex", (String)spinner.getSelectedItem());
-        startActivityForResult(intent, GROUP_REQUEST);*/
-        List<String> sel_names = presenter.getNames(regions, (String)spinner.getSelectedItem());
+        startActivity(intent);
     }
 
     @Override

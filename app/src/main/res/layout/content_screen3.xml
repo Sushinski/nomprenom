@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.nomprenom2.Screen3Activity"
+    tools:context=".view.Screen3Activity"
     tools:showIn="@layout/activity_screen3">
 
     <TextView
