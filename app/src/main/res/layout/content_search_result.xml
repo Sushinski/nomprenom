@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save_btn_txt"
         android:id="@+id/ok_button"
+        android:onClick="saveNames"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

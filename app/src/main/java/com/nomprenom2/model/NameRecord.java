@@ -8,6 +8,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
+import com.activeandroid.query.Update;
 import com.nomprenom2.utils.Placeholder;
 
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class NameRecord extends Model{
 
     @Column(name = "sex", notNull = true)
     public int sex;
+
+    @Column(name = "selected", notNull = true)
+    public int selected;
 
     public enum Sex{
         Boy(1), Girl(0);
@@ -61,6 +65,13 @@ public class NameRecord extends Model{
         return new Select().all()
                 .from(NameRecord.class)
                 .orderBy("name ASC")
+                .execute();
+    }
+
+    public static void setSelection(NameRecord[] names, int selection){
+        new Update(NameRecord.class)
+                .set("selected=?",selection)
+                .where("name in=(\'" + TextUtils.join("\',\'", names) +"\')")
                 .execute();
     }
 

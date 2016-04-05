@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.nomprenom2.R;
+import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public String[] regions;
     public String[] sex_sel;
     private Spinner spinner;
-    private MainPresenter presenter;
+    private AbsPresenter presenter;
 
 
     @Override
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchNames(View view){
-        List<String> sel_names = presenter.getNames(regions, (String)spinner.getSelectedItem());
         Intent intent = new Intent(this, SearchResultActivity.class);
         intent.putExtra("regions", regions);
         intent.putExtra("sex", (String)spinner.getSelectedItem());

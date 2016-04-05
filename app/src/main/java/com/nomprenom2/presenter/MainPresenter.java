@@ -6,17 +6,12 @@ import com.nomprenom2.model.NameRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPresenter {
+public class MainPresenter extends AbsPresenter{
     public MainPresenter(Context context){
-
+        super(context);
     }
 
-    public List<String> getNames(String[] groups, String sex ){
-        List<NameRecord> res = NameRecord.getNames(groups, sex);
-        List<String> ret = new ArrayList<>();
-        for(NameRecord n : res) {
-            ret.add(n.name);
-        }
-        return ret;
+    public void onOk(){
+
     }
 }
