@@ -27,14 +27,22 @@ public class NameRecord extends Model{
     public int selected;
 
     public enum Sex{
-        Boy(1), Girl(0);
+        Boy( 1 ), Girl( 0 );
         private final int sex_id;
-        Sex(int id){ this.sex_id = id; }
+        Sex( int id ){ this.sex_id = id; }
         public final int getId(){
             return sex_id;
         }
     }
 
+    public enum Check{
+        Checked( 1 ), Unchecked( 0 );
+        private final int check_id;
+        Check( int id ){ this.check_id = id; }
+        public final int getId(){
+            return check_id;
+        }
+    }
     @Column(name = "from_group", onUpdate = Column.ForeignKeyAction.CASCADE,
             onDelete = Column.ForeignKeyAction.CASCADE)
     public GroupRecord from_group;
@@ -72,6 +80,14 @@ public class NameRecord extends Model{
         new Update(NameRecord.class)
                 .set("selected = " + String.valueOf(selection))
                 .where("name in(\'" + TextUtils.join("\',\'", names) + "\')")
+                .execute();
+    }
+
+    public static List<NameRecord> getSelected(int selected){
+        return new Select()
+                .from(NameRecord.class)
+                .where("selected=?", selected)
+                .orderBy("name ASC")
                 .execute();
     }
 

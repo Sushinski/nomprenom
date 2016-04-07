@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Set;
 
 public class SearchResultActivity extends AppCompatActivity {
-    public static final int CHECKED = 1;
-    public static final int UNCHECKED = 0;
     private AbsPresenter presenter;
     private ArrayAdapter<String> arrayAdapter;
     private ListView result_list_view;
@@ -75,7 +73,7 @@ public class SearchResultActivity extends AppCompatActivity {
         for (Integer i : checked_set) {
             checked[j++] = arrayAdapter.getItem(i);
         }
-        NameRecord.setSelection(checked, CHECKED);
+        NameRecord.setSelection(checked, NameRecord.Check.Checked.getId());
     }
 
 }
