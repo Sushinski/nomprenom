@@ -26,22 +26,17 @@ public class SelectedNamesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selected_names);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        result_list_view = (ListView)findViewById(R.id.selected_names_list_view);
 
         // todo inject candidate
         presenter = new SelectedNamesPresenter(this);
         names = presenter.getNames(NameRecord.Check.Checked.getId());
+        // todo add custom adapter
         arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_multiple_choice,
+                android.R.layout.simple_list_item_activated_2,
                 names);
+        result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);
     }
 
