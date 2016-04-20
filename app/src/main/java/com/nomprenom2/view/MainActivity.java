@@ -92,8 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.putExtra("regions", regions);
-        intent.putExtra("sex", (String)spinner.getSelectedItem());
+        if( regions != null )
+            intent.putExtra("regions", regions);
+        String sex = (String)spinner.getSelectedItem();
+        if(sex != null)
+            intent.putExtra("sex", sex);
         startActivity(intent);
     }
 

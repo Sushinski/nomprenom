@@ -59,13 +59,18 @@ public class NameRecord extends Model{
     }
 
     public static List<NameRecord> getNames(String[] groups, String s) {
+        String _where = "", add = "";
+        if( groups != null) {
+            _where = "GroupRecord.group_name IN (\'" + TextUtils.join("\',\'", groups) + "\')";
+            add = " and ";
+        }
+        if( s != null )
+            _where += add + "NameRecord.sex=?" + Sex.valueOf(s).getId();
         return new Select()
                 .from(NameRecord.class)
                 .innerJoin(GroupRecord.class)
                 .on("NameRecord.from_group=GroupRecord._id")
-                .where("GroupRecord.group_name IN (\'" +
-                        TextUtils.join("\',\'", groups) +
-                        "\') and NameRecord.sex=?", Sex.valueOf(s).getId())
+                .where(_where)
                 .execute();
     }
 

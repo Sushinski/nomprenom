@@ -34,7 +34,7 @@ public class SelectedNamesActivity extends AppCompatActivity {
         names = presenter.getNames(NameRecord.Check.Checked.getId());
         // todo add custom adapter
         arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_activated_2,
+                android.R.layout.simple_list_item_multiple_choice,
                 names);
         result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);

@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.Screen3Activity"
+            android:name=".view.SelectedNamesActivity"
             android:label="@string/title_screen3"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -46,16 +46,11 @@
         <activity
             android:name=".view.SearchResultActivity"
             android:label="@string/title_activity_search_result"
-            android:parentActivityName=".view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nomprenom2.view.MainActivity" />
         </activity>
-        <activity
-            android:name=".view.SelectedNamesActivity"
-            android:label="@string/title_activity_selected_names"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
