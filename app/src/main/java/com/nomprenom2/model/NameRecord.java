@@ -65,7 +65,7 @@ public class NameRecord extends Model{
             add = " and ";
         }
         if( s != null )
-            _where += add + "NameRecord.sex=?" + Sex.valueOf(s).getId();
+            _where += add + "NameRecord.sex=" + Sex.valueOf(s).getId();
         return new Select()
                 .from(NameRecord.class)
                 .innerJoin(GroupRecord.class)

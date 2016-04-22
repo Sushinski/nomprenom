@@ -23,6 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
+    private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        empty_arr_item =
+                new String[]{getResources().getString(R.string.not_selected_region)};
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         this));
         // inject candidate
         presenter = new MainPresenter(this);
+        setGroupList();
     }
 
     @Override
@@ -105,15 +109,19 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
             if(data.hasExtra("regions")){
                 regions = data.getStringArrayExtra("regions");
-                setGroupList();
+            }else{
+                regions = null;
             }
+            setGroupList();
         }
     }
 
     private void setGroupList(){
         groups_adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                regions);
+                R.layout.rowlayout, R.id.label,
+                (regions == null) ?
+                        empty_arr_item :
+                        regions);
         ListView region_list_view = (ListView) findViewById(R.id.selected_groups_list_view);
         region_list_view.setAdapter(groups_adapter);
     }

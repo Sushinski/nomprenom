@@ -14,8 +14,8 @@
     <string name="menu_choose_name">Подобрать имя</string>
 
     <!-- Inputs-->
-    <string name="input_first_name">Father\'s name</string>
-    <string name="input_surname">Surname</string>
+    <string name="input_first_name">Child\'s patronymic</string>
+    <string name="input_surname">Child\'s surname</string>
 
     <!-- Buttons-->
     <string name="select_region_button">Select name region</string>
@@ -28,4 +28,7 @@
     <string name="title_activity_search_result">Search Result</string>
     <string name="save_btn_txt">Save</string>
     <string name="title_activity_selected_names">SelectedNamesActivity</string>
+    <string name="mainActivityTitle">Fill some info</string>
+    <string name="not_selected_region">Not selected</string>
+    <string name="title_activity_name_detail">NameDetailActivity</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,7 +66,19 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
-    public void saveNames(View view){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                saveNames();
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void saveNames(){
         // // TODO: 06.04.16 get checked name & update 'selected' field
         //presenter.onOk();
         int j = 0;

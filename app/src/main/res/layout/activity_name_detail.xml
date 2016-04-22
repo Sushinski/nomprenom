@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".view.SelectedRegionActivity">
+    tools:context="com.nomprenom2.view.NameDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_selected_region" />
+    <include layout="@layout/content_name_detail" />
+
 
 </android.support.design.widget.CoordinatorLayout>

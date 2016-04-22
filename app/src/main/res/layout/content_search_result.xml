@@ -12,24 +12,11 @@
     tools:context="com.nomprenom2.view.SearchResultActivity"
     tools:showIn="@layout/activity_search_result">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_btn_txt"
-        android:id="@+id/ok_button"
-        android:onClick="saveNames"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/ok_button"
         android:id="@+id/names_result_list_view" />
 </RelativeLayout>
