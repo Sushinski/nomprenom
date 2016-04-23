@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -38,6 +39,13 @@ public class SelectedNamesActivity extends AppCompatActivity {
                 names);
         result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_selected_names, menu);
+        return true;
     }
 
 }

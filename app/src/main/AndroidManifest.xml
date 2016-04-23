@@ -59,7 +59,6 @@
         <activity
             android:name=".view.NameDetailActivity"
             android:label="@string/title_activity_name_detail"
-            android:parentActivityName=".view.SelectedNamesActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

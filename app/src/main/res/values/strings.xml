@@ -30,5 +30,6 @@
     <string name="title_activity_selected_names">SelectedNamesActivity</string>
     <string name="mainActivityTitle">Fill some info</string>
     <string name="not_selected_region">Not selected</string>
-    <string name="title_activity_name_detail">NameDetailActivity</string>
+    <string name="title_activity_name_detail">Name Detail</string>
+    <string name="menu_delete_item">Delete</string>
 </resources>
