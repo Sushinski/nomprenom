@@ -15,8 +15,8 @@ public class SelectedNamesPresenter extends AbsPresenter{
     public void onOk(){
     }
 
-    public List<String> getNames(int selected){
-        List<String> res = new ArrayList<>();
+    public ArrayList<String> getNames(int selected){
+        ArrayList<String> res = new ArrayList<>();
         for(NameRecord n : NameRecord.getSelected(selected)){
             res.add(n.toString());
         }

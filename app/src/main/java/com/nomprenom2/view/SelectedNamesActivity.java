@@ -1,8 +1,7 @@
 package com.nomprenom2.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,20 +13,22 @@ import android.widget.CheckedTextView;
 import android.widget.ListView;
 
 import com.nomprenom2.R;
-import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.SelectedName;
 import com.nomprenom2.presenter.SelectedNamesPresenter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class SelectedNamesActivity extends AppCompatActivity {
-    private List<String> names;
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<String> names;
+    private SelectedNameAdapter arrayAdapter;
     private ListView result_list_view;
     private SelectedNamesPresenter presenter;
-    public Set<Integer> checked_set;
+    public Set<String> checked_set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +43,19 @@ public class SelectedNamesActivity extends AppCompatActivity {
         presenter = new SelectedNamesPresenter(this);
         names = presenter.getNames(NameRecord.Check.Checked.getId());
         // todo add custom adapter
-        arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_multiple_choice,
+        arrayAdapter = new SelectedNameAdapter(this,
+                R.layout.name_list_item,
                 names);
         result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);
 
         checked_set = new HashSet<>();
         result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if (checkedTextView.isChecked()) {
-                    checked_set.add(position);
-                } else {
-                    checked_set.remove(position);
-                }
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // When clicked, show a toast with the TextView text
+                Intent in = new Intent(view.getContext(), NameDetailActivity.class);
+                startActivity(in);
             }
         });
     }
@@ -78,8 +76,8 @@ public class SelectedNamesActivity extends AppCompatActivity {
                 return true;
             case R.id.action_delete:
                 presenter.deselectNames(getSelectedNames());
-                for (Integer i : checked_set) {
-                    names.remove(i.intValue());
+                for (String s : checked_set) {
+                    names.remove(s);
                 }
                 checked_set.clear();
                 result_list_view.clearChoices();
@@ -96,8 +94,8 @@ public class SelectedNamesActivity extends AppCompatActivity {
         if(checked_set.size() != 0) {
             String[] checked = new String[checked_set.size()];
             int j = 0;
-            for (Integer i : checked_set) {
-                checked[j++] = arrayAdapter.getItem(i);
+            for (String s : checked_set) {
+                checked[j++] = s;
             }
             return checked;
         }
