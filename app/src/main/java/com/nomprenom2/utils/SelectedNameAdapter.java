@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
+import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.model.SelectedName;
 
 import java.util.ArrayList;
@@ -34,10 +35,9 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
-
+        ViewHolder holder;
         if (convertView == null) {
             LayoutInflater li = (LayoutInflater)context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
@@ -52,7 +52,12 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
                 public void onClick(View v) {
                     CheckBox cb = (CheckBox) v;
                     SelectedName nm = (SelectedName) cb.getTag();
-                    nm.setSelected(cb.isChecked());
+                    SelectedNameAdapter.this.remove(nm.getName());
+                    SelectedNameAdapter.this.name_list.remove(nm);
+                    SelectedNameAdapter.this.notifyDataSetChanged();
+                    IListItemDeleter deleter = (IListItemDeleter)getContext();
+                    if( deleter != null)
+                        deleter.onDeleteListItem(nm.getName());
                 }
             });
         }
@@ -64,8 +69,6 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
         holder.name.setText(sn.getName());
         holder.selector.setChecked(sn.isSelected());
         holder.selector.setTag(sn);
-
         return convertView;
-
     }
 }
