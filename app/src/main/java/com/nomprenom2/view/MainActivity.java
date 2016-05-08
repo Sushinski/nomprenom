@@ -1,4 +1,4 @@
-package com.nomprenom2;
+package com.nomprenom2.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,25 +12,30 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.nomprenom2.R;
+import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
+    public static final int SEARCH_RESULT = 2;
+    private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
     private Spinner spinner;
-    private MainPresenter presenter;
+    private AbsPresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        empty_arr_item =
+                new String[]{getResources().getString(R.string.not_selected_region)};
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         this));
         // inject candidate
         presenter = new MainPresenter(this);
+        setGroupList();
     }
 
     @Override
@@ -89,11 +95,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchNames(View view){
-        /*Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.putExtra("regions", regions);
-        intent.putExtra("sex", (String)spinner.getSelectedItem());
-        startActivityForResult(intent, GROUP_REQUEST);*/
-        List<String> sel_names = presenter.getNames(regions, (String)spinner.getSelectedItem());
+        Intent intent = new Intent(this, SearchResultActivity.class);
+        if( regions != null )
+            intent.putExtra("regions", regions);
+        String sex = (String)spinner.getSelectedItem();
+        if(sex != null)
+            intent.putExtra("sex", sex);
+        startActivity(intent);
     }
 
     @Override
@@ -101,22 +109,26 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
             if(data.hasExtra("regions")){
                 regions = data.getStringArrayExtra("regions");
-                setGroupList();
+            }else{
+                regions = null;
             }
+            setGroupList();
         }
     }
 
     private void setGroupList(){
         groups_adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                regions);
+                R.layout.rowlayout, R.id.label,
+                (regions == null) ?
+                        empty_arr_item :
+                        regions);
         ListView region_list_view = (ListView) findViewById(R.id.selected_groups_list_view);
         region_list_view.setAdapter(groups_adapter);
     }
 
     private void selectScreen3()
     {
-         Intent intent = new Intent(this, Screen3Activity.class);
+         Intent intent = new Intent(this, SelectedNamesActivity.class);
          startActivity(intent);
     }
 }

@@ -3,41 +3,66 @@
     package="com.nomprenom2">
 
     <application
+        android:name=".NomprenomApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".NomprenomApp">
-        <meta-data android:name="AA_DB_NAME" android:value="nomprenom.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="nomprenom.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".Screen3Activity"
+            android:name=".view.SelectedNamesActivity"
             android:label="@string/title_screen3"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".view.MainActivity" />
             />
         </activity>
-
         <activity
-            android:name=".SelectedRegionActivity"
+            android:name=".view.SelectedRegionActivity"
             android:label="@string/title_selected_region"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.SearchResultActivity"
+            android:label="@string/title_activity_search_result"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nomprenom2.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.NameDetailActivity"
+            android:label="@string/title_activity_name_detail"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nomprenom2.view.SelectedNamesActivity" />
         </activity>
     </application>
 

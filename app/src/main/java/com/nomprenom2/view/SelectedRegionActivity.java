@@ -1,15 +1,19 @@
-package com.nomprenom2;
+package com.nomprenom2.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+
+import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -32,6 +36,8 @@ public class SelectedRegionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selected_region);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
         // set clicks handler
@@ -65,26 +71,31 @@ public class SelectedRegionActivity extends AppCompatActivity {
                 pos++;
             }
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
+
     @Override
-    public void finish() {
-        Intent data = new Intent();
-        String[] checked = new String[checked_set.size()];
-        int j = 0;
-        for (Integer i : checked_set) {
-            GroupRecord rec = arrayAdapter.getItem(i);
-            checked[j++] = rec.group_name;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                setResult();
+                finish();
+                return true;
         }
-        data.putExtra("regions", checked);
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setResult(){
+        Intent data = new Intent();
+        if(checked_set.size() != 0) {
+            String[] checked = new String[checked_set.size()];
+            int j = 0;
+            for (Integer i : checked_set) {
+                GroupRecord rec = arrayAdapter.getItem(i);
+                checked[j++] = rec.group_name;
+            }
+            data.putExtra("regions", checked);
+        }
         setResult(RESULT_OK, data);
-        super.finish();
     }
 }

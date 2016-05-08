@@ -1,10 +1,12 @@
-package com.nomprenom2
+package com.nomprenom2.view
+
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
+import com.nomprenom2.R
+import com.nomprenom2.utils.checkedInflate
 import kotlinx.android.synthetic.main.activity_screen3.*
 
 class Screen3Activity : AppCompatActivity()
@@ -12,7 +14,6 @@ class Screen3Activity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screen3)
-
         setSupportActionBar(toolbar)
     }
 

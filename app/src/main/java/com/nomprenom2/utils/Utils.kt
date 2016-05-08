@@ -1,4 +1,4 @@
-package com.nomprenom2
+package com.nomprenom2.utils
 
 import android.view.InflateException
 
