@@ -41,7 +41,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         // todo add custom adapter
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
-                names);
+                names, getIntent().getStringExtra("patronymic"));
         //result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);
 

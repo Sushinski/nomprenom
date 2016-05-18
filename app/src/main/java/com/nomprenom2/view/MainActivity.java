@@ -9,8 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.nomprenom2.R;
 import com.nomprenom2.presenter.AbsPresenter;
@@ -23,12 +25,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
+    public static String PATRONYMIC = "patronymic";
     private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
     private Spinner spinner;
     private AbsPresenter presenter;
+    EditText patr_tw;
 
 
     @Override
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{getResources().getString(R.string.not_selected_region)};
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        patr_tw = (EditText) findViewById(R.id.input_first_name);
         setSupportActionBar(toolbar);
         sex_sel = getResources().getStringArray(R.array.sex_sels);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -128,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectScreen3()
     {
-         Intent intent = new Intent(this, SelectedNamesActivity.class);
-         startActivity(intent);
+        Intent intent = new Intent(this, SelectedNamesActivity.class);
+        intent.putExtra(PATRONYMIC,patr_tw.getText());
+        startActivity(intent);
     }
 }

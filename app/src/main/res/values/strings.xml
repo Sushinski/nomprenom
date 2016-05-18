@@ -32,4 +32,6 @@
     <string name="not_selected_region">Not selected</string>
     <string name="title_activity_name_detail">Name Detail</string>
     <string name="menu_delete_item">Delete</string>
+    <string name="vowels">уеыаоэёяию</string>
+    <string name="consonants">йцкнгшщзхъфвпрлджчсмтьб</string>
 </resources>

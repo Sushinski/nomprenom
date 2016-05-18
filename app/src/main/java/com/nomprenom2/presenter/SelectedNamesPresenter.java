@@ -3,9 +3,8 @@ package com.nomprenom2.presenter;
 import android.content.Context;
 
 import com.nomprenom2.model.NameRecord;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class SelectedNamesPresenter extends AbsPresenter{
     public SelectedNamesPresenter(Context c){

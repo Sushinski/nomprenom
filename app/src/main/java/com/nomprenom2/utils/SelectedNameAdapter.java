@@ -17,20 +17,23 @@ import java.util.ArrayList;
 public class SelectedNameAdapter extends ArrayAdapter<String> {
     private ArrayList<SelectedName> name_list;
     private Context context;
+    private String patronymic;
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
-                           ArrayList<String> nameList) {
+                           ArrayList<String> nameList, String patronymic) {
         super(context, textViewResourceId, nameList);
         this.name_list = new ArrayList<>();
         for (String s : nameList) {
             name_list.add(new SelectedName(s,false));
         }
         this.context = context;
+        this.patronymic = patronymic;
     }
 
 
     private class ViewHolder{
         TextView name;
+        TextView patronymic;
         CheckBox selector;
     }
 
@@ -45,6 +48,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
 
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.patronymic = (TextView) convertView.findViewById(R.id.patronymic);
             holder.selector = (CheckBox) convertView.findViewById(R.id.checkBox1);
             convertView.setTag(holder);
 
@@ -67,6 +71,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
 
         SelectedName sn = name_list.get(position);
         holder.name.setText(sn.getName());
+        holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
         holder.selector.setTag(sn);
         return convertView;
