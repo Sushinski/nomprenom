@@ -56,13 +56,25 @@
         android:layout_alignParentEnd="true"
         android:spinnerMode="dropdown"/>
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/zodiac_spinner"
+        android:layout_below="@+id/sex_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"/>
+
     <Button
         android:text="@string/select_region_button"
         android:id="@+id/select_region_button"
         android:onClick="selectRegion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sex_spinner"
+        android:layout_below="@+id/zodiac_spinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/sex_spinner"

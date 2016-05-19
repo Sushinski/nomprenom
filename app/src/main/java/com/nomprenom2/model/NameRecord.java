@@ -9,9 +9,6 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
-import com.nomprenom2.utils.Placeholder;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "NameRecord", id = "_id")
@@ -47,6 +44,7 @@ public class NameRecord extends Model{
             onDelete = Column.ForeignKeyAction.CASCADE)
     public GroupRecord from_group;
 
+
     public NameRecord(){
         super();
     }
@@ -58,20 +56,26 @@ public class NameRecord extends Model{
         this.sex = _sex.getId();
     }
 
-    public static List<NameRecord> getNames(String[] groups, String s) {
+    public static List<NameRecord> getNames(String[] groups, String s, String z) {
         String _where = "", add = "";
         if( groups != null) {
             _where = "GroupRecord.group_name IN (\'" + TextUtils.join("\',\'", groups) + "\')";
             add = " and ";
         }
-        if( s != null )
+        if( s != null ) {
             _where += add + "NameRecord.sex=" + Sex.valueOf(s).getId();
-        return new Select()
+            add = " and ";
+        }
+        From sel = new Select()
                 .from(NameRecord.class)
                 .innerJoin(GroupRecord.class)
-                .on("NameRecord.from_group=GroupRecord._id")
-                .where(_where)
-                .execute();
+                .on("NameRecord.from_group=GroupRecord._id");
+        if( z != null ) {
+            sel.innerJoin(ZodiacRecord.class).on("NameRecord.id=ZodiacRecord.name_id");
+            _where += add + "ZodiacRecord.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId();
+        }
+        return sel.where(_where).execute();
+
     }
 
     public static List<NameRecord> getAll() {

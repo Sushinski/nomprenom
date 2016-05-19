@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
-    private Spinner spinner;
+    private Spinner sex_spinner;
+    private Spinner zod_spinner;
     private AbsPresenter presenter;
     EditText patr_tw;
 
@@ -48,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, sex_sel);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner = (Spinner) findViewById(R.id.sex_spinner);
-        spinner.setAdapter(
+        sex_spinner = (Spinner) findViewById(R.id.sex_spinner);
+        sex_spinner.setAdapter(
                 new NothingSelectedSpinnerAdapter(
                         adapter,
                         R.layout.contact_spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
+        zod_spinner = (Spinner) findViewById(R.id.zodiac_spinner);
         // inject candidate
         presenter = new MainPresenter(this);
         setGroupList();
