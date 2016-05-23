@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
     public String[] sex_sel;
+    public String[] zod_sel;
     private Spinner sex_spinner;
     private Spinner zod_spinner;
     private AbsPresenter presenter;
@@ -56,7 +57,17 @@ public class MainActivity extends AppCompatActivity {
                         R.layout.contact_spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
+        // zodiac spinner
+        zod_sel = getResources().getStringArray(R.array.zod_sels);
+        ArrayAdapter<String> zod_adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, zod_sel);
+        zod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         zod_spinner = (Spinner) findViewById(R.id.zodiac_spinner);
+        zod_spinner.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        zod_adapter,
+                        R.layout.zodiac_spinner_row_nothing_selected,
+                        this));
         // inject candidate
         presenter = new MainPresenter(this);
         setGroupList();
@@ -105,9 +116,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchResultActivity.class);
         if( regions != null )
             intent.putExtra("regions", regions);
-        String sex = (String)spinner.getSelectedItem();
+        String sex = (String)sex_spinner.getSelectedItem();
         if(sex != null)
             intent.putExtra("sex", sex);
+        String zod = (String)zod_spinner.getSelectedItem();
+        if(zod != null)
+            intent.putExtra("zod", zod);
         startActivity(intent);
     }
 

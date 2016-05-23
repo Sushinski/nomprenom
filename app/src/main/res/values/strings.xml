@@ -24,7 +24,23 @@
         <item>Boy</item>
         <item>Girl</item>
     </string-array>
+    <string-array name="zod_sels">
+        <item>Aries</item>
+        <item>Taurus</item>
+        <item>Gemini</item>
+        <item>Cancer</item>
+        <item>Leo</item>
+        <item>Virgo</item>
+        <item>Libra</item>
+        <item>Scorpio</item>
+        <item>Sagittarius</item>
+        <item>Capricorn</item>
+        <item>Aquarius</item>
+        <item>Pisces</item>
+    </string-array>
+
     <string name="select_child_sex">Select child\'s sex</string>
+    <string name="select_child_zod">Select child\'s zodiac</string>
     <string name="title_activity_search_result">Search Result</string>
     <string name="save_btn_txt">Save</string>
     <string name="title_activity_selected_names">SelectedNamesActivity</string>

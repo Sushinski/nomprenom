@@ -26,6 +26,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private ListView result_list_view;
     private String[] regions;
     private String sex;
+    private String zod;
     private List<String> names;
     public Set<Integer> checked_set;
 
@@ -57,8 +58,10 @@ public class SearchResultActivity extends AppCompatActivity {
             regions = data.getStringArrayExtra("regions");
         if(data.hasExtra("sex"))
             sex = data.getStringExtra("sex");
+        if(data.hasExtra("zod"))
+            zod = data.getStringExtra("zod");
 
-        names =  presenter.getNames(regions, sex);
+        names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice,
                 names);
