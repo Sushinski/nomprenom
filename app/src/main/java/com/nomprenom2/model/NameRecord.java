@@ -1,8 +1,10 @@
 package com.nomprenom2.model;
 
 import android.app.DownloadManager;
+import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -58,8 +60,12 @@ public class NameRecord extends Model{
 
     public static List<NameRecord> getNames(String[] groups, String s, String z) {
         String _where = "", add = "";
+
         if( groups != null) {
-            _where = "GroupRecord.group_name IN (\'" + TextUtils.join("\',\'", groups) + "\')";
+            _where = "NameRecord.from_group IN ";
+            List<Long> group_id_list = GroupRecord.groupIdForNames(groups);
+            String str  = "(" + TextUtils.join(",", group_id_list) + ")";
+            _where += str;
             add = " and ";
         }
         if( s != null ) {
@@ -67,14 +73,14 @@ public class NameRecord extends Model{
             add = " and ";
         }
         From sel = new Select()
-                .from(NameRecord.class)
-                .innerJoin(GroupRecord.class)
-                .on("NameRecord.from_group=GroupRecord._id");
+                .from(NameRecord.class);
         if( z != null ) {
-            sel.innerJoin(ZodiacRecord.class).on("NameRecord.id=ZodiacRecord.name_id");
+            sel.innerJoin(ZodiacRecord.class).on("NameRecord._id=ZodiacRecord.name_id");
             _where += add + "ZodiacRecord.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId();
         }
-        return sel.where(_where).execute();
+        sel.where(_where);
+        String sel_str = sel.toSql();
+        return sel.execute();
 
     }
 

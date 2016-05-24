@@ -27,7 +27,7 @@ public class ZodiacRecord extends Model {
         December(12);
         private final int month_id;
         ZodMonth( int id ){ this.month_id = id; }
-        public int getId(){ return month_id; }
+        public final int getId(){ return month_id; }
     }
 
 }

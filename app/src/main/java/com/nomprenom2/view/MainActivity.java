@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
         // zodiac spinner
-        zod_sel = getResources().getStringArray(R.array.zod_sels);
+        zod_sel = getResources().getStringArray(R.array.zod_months);
         ArrayAdapter<String> zod_adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, zod_sel);
         zod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
