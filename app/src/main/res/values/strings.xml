@@ -64,4 +64,6 @@
     <string name="menu_delete_item">Delete</string>
     <string name="vowels">уеыаоэёяию</string>
     <string name="consonants">йцкнгшщзхъфвпрлджчсмтьб</string>
+    <string name="to_fill_sex">Set child\'s sex!</string>
+    <string name="to_fill_patr">Set child\'s patronymic!</string>
 </resources>

@@ -11,6 +11,8 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "NameRecord", id = "_id")
@@ -80,7 +82,11 @@ public class NameRecord extends Model{
         }
         sel.where(_where);
         String sel_str = sel.toSql();
-        return sel.execute();
+        try {
+            return sel.execute();
+        }catch (Exception e){
+            return new ArrayList<NameRecord>();
+        }
 
     }
 

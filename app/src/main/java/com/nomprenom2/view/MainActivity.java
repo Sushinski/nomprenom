@@ -1,6 +1,7 @@
 package com.nomprenom2.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nomprenom2.R;
 import com.nomprenom2.presenter.AbsPresenter;
@@ -25,7 +27,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
-    public static String PATRONYMIC = "patronymic";
+    public static final String PATRONYMIC = "patronymic";
+    public static final String SEX = "sex";
     private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
@@ -117,11 +120,19 @@ public class MainActivity extends AppCompatActivity {
         if( regions != null )
             intent.putExtra("regions", regions);
         String sex = (String)sex_spinner.getSelectedItem();
-        if(sex != null)
+        if(sex != null) {
             intent.putExtra("sex", sex);
+        }else{
+            showToast(getResources().getString(R.string.to_fill_sex));
+            return;
+        }
         String zod = (String)zod_spinner.getSelectedItem();
         if(zod != null)
             intent.putExtra("zod", zod);
+        if(patr_tw.getText().length() == 0){
+            showToast(getResources().getString(R.string.to_fill_patr));
+            return;
+        }
         startActivity(intent);
     }
 
@@ -150,7 +161,15 @@ public class MainActivity extends AppCompatActivity {
     private void selectScreen3()
     {
         Intent intent = new Intent(this, SelectedNamesActivity.class);
-        intent.putExtra(PATRONYMIC,patr_tw.getText());
+
+        intent.putExtra(SEX, (String)sex_spinner.getSelectedItem());
+        intent.putExtra(PATRONYMIC, patr_tw.getText());
         startActivity(intent);
+    }
+
+    private void showToast(String str){
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

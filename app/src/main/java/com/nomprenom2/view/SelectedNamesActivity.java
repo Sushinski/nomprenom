@@ -39,9 +39,11 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         presenter = new SelectedNamesPresenter(this);
         names = presenter.getNames(NameRecord.Check.Checked.getId());
         // todo add custom adapter
+        String patr = getIntent().getStringExtra(MainActivity.PATRONYMIC);
+        boolean isMale = true;
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
-                names, getIntent().getStringExtra("patronymic"));
+                names, patr, isMale);
         //result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);
 

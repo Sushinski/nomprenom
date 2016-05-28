@@ -29,7 +29,7 @@
         android:gravity="center" />
 
     <EditText
-        android:inputType="textPersonName"
+        android:inputType="text|textCapWords"
         android:id="@+id/input_first_name"
         android:ems="10"
         android:layout_width="match_parent"

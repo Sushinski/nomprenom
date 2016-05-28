@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="99%"
-        android:id="@+id/textView"
+        android:id="@+id/compl"
         android:layout_alignBottom="@+id/patronymic"
         android:layout_toLeftOf="@+id/checkBox1"
         android:layout_gravity="center"

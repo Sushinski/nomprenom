@@ -18,9 +18,11 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
     private ArrayList<SelectedName> name_list;
     private Context context;
     private String patronymic;
+    private boolean is_male;
+    private NamePatrComp comp;
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
-                           ArrayList<String> nameList, String patronymic) {
+                           ArrayList<String> nameList, String patronymic, boolean isMale) {
         super(context, textViewResourceId, nameList);
         this.name_list = new ArrayList<>();
         for (String s : nameList) {
@@ -28,12 +30,15 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
         }
         this.context = context;
         this.patronymic = patronymic;
+        this.comp = new NamePatrComp(context);
+        this.is_male = isMale;
     }
 
 
     private class ViewHolder{
         TextView name;
         TextView patronymic;
+        TextView compl;
         CheckBox selector;
     }
 
@@ -50,6 +55,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.patronymic = (TextView) convertView.findViewById(R.id.patronymic);
             holder.selector = (CheckBox) convertView.findViewById(R.id.checkBox1);
+            holder.compl = (TextView) convertView.findViewById(R.id.compl);
             convertView.setTag(holder);
 
             holder.selector.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +79,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
         holder.name.setText(sn.getName());
         holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
+        holder.compl.setText(comp.compare(sn.getName(), this.patronymic, this.is_male));
         holder.selector.setTag(sn);
         return convertView;
     }
