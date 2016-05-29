@@ -38,13 +38,16 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         // todo inject candidate
         presenter = new SelectedNamesPresenter(this);
         names = presenter.getNames(NameRecord.Check.Checked.getId());
-        // todo add custom adapter
-        String patr = getIntent().getStringExtra(MainActivity.PATRONYMIC);
+        Intent intent = getIntent();
+        String patr = null;
+        if(intent.hasExtra(MainActivity.PATRONYMIC))
+            patr = intent.getStringExtra(MainActivity.PATRONYMIC);
         boolean isMale = true;
+        if(intent.hasExtra(MainActivity.SEX))
+            isMale = intent.getBooleanExtra(MainActivity.SEX, true);
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
                 names, patr, isMale);
-        //result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         result_list_view.setAdapter(arrayAdapter);
 
         checked_set = new HashSet<>();
@@ -67,14 +70,12 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         return true;
     }
 
-
     public void onDeleteListItem(Object obj){
         String name = (String)obj;
         names.remove(name);
         checked_set.add(name);
         // arrayAdapter.notifyDataSetChanged();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

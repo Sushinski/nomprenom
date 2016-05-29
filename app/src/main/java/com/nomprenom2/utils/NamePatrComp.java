@@ -44,8 +44,8 @@ public class NamePatrComp {
         int entire_len = name.length()+patronymic.length();
         HashMap<Character, Integer> ch_freq = new HashMap<>(entire_len, 1);
         for (int i = 0; i < name.length(); ++i) {
-            Character ch = (Character)name.charAt(i);
-            if(isConsonant(ch)) {
+            Character ch = name.charAt(i);
+            if(isConsonant(Character.toLowerCase(ch))) {
                 Integer fr = ch_freq.get(ch);
                 if (fr != null)
                     fr += 1;
@@ -54,6 +54,7 @@ public class NamePatrComp {
                 ch_freq.put(ch, fr);
             }
         }
+        // todo подсчет
         int incr = 100-res/entire_len;
         for (Map.Entry<Character, Integer> e : ch_freq.entrySet() ) {
             if(e.getValue() > 1)

@@ -56,8 +56,8 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent data  = getIntent();
         if(data.hasExtra("regions"))
             regions = data.getStringArrayExtra("regions");
-        if(data.hasExtra("sex"))
-            sex = data.getStringExtra("sex");
+        if(data.hasExtra(MainActivity.SEX))
+            sex = data.getStringExtra(MainActivity.SEX);
         if(data.hasExtra("zod"))
             zod = data.getStringExtra("zod");
 

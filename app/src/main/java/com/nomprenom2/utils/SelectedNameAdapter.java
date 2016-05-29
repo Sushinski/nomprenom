@@ -79,7 +79,8 @@ public class SelectedNameAdapter extends ArrayAdapter<String> {
         holder.name.setText(sn.getName());
         holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
-        holder.compl.setText(comp.compare(sn.getName(), this.patronymic, this.is_male));
+        String c = Integer.toString(comp.compare(sn.getName(), this.patronymic, this.is_male));
+        holder.compl.setText(c);
         holder.selector.setTag(sn);
         return convertView;
     }

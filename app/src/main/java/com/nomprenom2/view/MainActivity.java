@@ -27,8 +27,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
-    public static final String PATRONYMIC = "patronymic";
-    public static final String SEX = "sex";
+    public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";
+    public static final String SEX = "com.nomprenom2.view.sex";
     private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("regions", regions);
         String sex = (String)sex_spinner.getSelectedItem();
         if(sex != null) {
-            intent.putExtra("sex", sex);
+            intent.putExtra(SEX, sex);
         }else{
             showToast(getResources().getString(R.string.to_fill_sex));
             return;
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SelectedNamesActivity.class);
 
         intent.putExtra(SEX, (String)sex_spinner.getSelectedItem());
-        intent.putExtra(PATRONYMIC, patr_tw.getText());
+        intent.putExtra(PATRONYMIC, patr_tw.getText().toString());
         startActivity(intent);
     }
 

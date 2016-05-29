@@ -12,7 +12,7 @@ public class SelectedName {
     }
 
     public String getName(){
-        return name;
+        return this.name;
     }
 
     public void setName(String name){
@@ -20,7 +20,7 @@ public class SelectedName {
     }
 
     public boolean isSelected(){
-        return selected;
+        return this.selected;
     }
 
     public void setSelected(boolean selected){
