@@ -18,6 +18,4 @@ public class SearchRecord extends Model {
         this.patronymic = _patronymic;
         this.sex = _sex.getId();
     }
-    public void saveSearch(SearchRecord rec){
-    }
 }

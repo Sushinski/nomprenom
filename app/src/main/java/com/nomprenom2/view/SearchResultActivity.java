@@ -15,6 +15,8 @@ import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
+import com.nomprenom2.utils.SearchedNamesAdapter;
+import com.nomprenom2.utils.SelectedNameAdapter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +29,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private String[] regions;
     private String sex;
     private String zod;
+    private String patronymic;
     private List<String> names;
     public Set<Integer> checked_set;
 
@@ -60,8 +63,14 @@ public class SearchResultActivity extends AppCompatActivity {
             sex = data.getStringExtra(MainActivity.SEX);
         if(data.hasExtra("zod"))
             zod = data.getStringExtra("zod");
+        if(data.hasExtra(MainActivity.PATRONYMIC))
+            patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
 
         names =  presenter.getNames(regions, sex, zod);
+        arrayAdapter = new SearchedNamesAdapter(this,
+                R.layout.name_list_item_checked,
+                names, patronymic, NameRecord.Sex.valueOf(sex).getId() == 1);
+        result_list_view.setAdapter(arrayAdapter);
         arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice,
                 names);
@@ -90,6 +99,7 @@ public class SearchResultActivity extends AppCompatActivity {
             checked[j++] = arrayAdapter.getItem(i);
         }
         NameRecord.setSelection(checked, NameRecord.Check.Checked.getId());
+
     }
 
 }

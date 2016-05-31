@@ -97,10 +97,10 @@ public class NameRecord extends Model{
                 .execute();
     }
 
-    public static void setSelection(String[] names, int selection){
+    public static void setSelection(String name, int selection){
         new Update(NameRecord.class)
                 .set("selected = " + String.valueOf(selection))
-                .where("name in(\'" + TextUtils.join("\',\'", names) + "\')")
+                .where("name=\'?\'", name )
                 .execute();
     }
 
