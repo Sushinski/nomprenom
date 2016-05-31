@@ -17,31 +17,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NamePatrComp {
-    public final String wovels;
+    public final String vowels;
+    public final String consonants;
 
     public NamePatrComp(Context context){
-        wovels = context.getResources().getString(R.string.vowels);
+        this.vowels = context.getResources().getString(R.string.vowels);
+        this.consonants = context.getResources().getString(R.string.consonants);
     }
 
     public boolean isWowel(char ch){
-        return wovels.indexOf(ch) >= 0;
+        return vowels.indexOf(ch) >= 0;
     }
 
-    public boolean isConsonant(char ch){
-        return !isWowel(ch);
-    }
+    public boolean isConsonant(char ch){ return consonants.indexOf(ch) >= 0; }
+
     public int compare(String name, String patronymic, boolean isMale){
+        if( !isConsonant(patronymic.charAt(0)) && !isWowel(patronymic.charAt(0)))
+            return 0; // not our language
         // 1
-        int res = 0; // compability percentage
-        char name_last = name.charAt(name.length()-1);
-        char patr_first = patronymic.charAt(0);
-        boolean is_name_end_vowel = isWowel(name_last);
-        boolean is_surname_start_vowel = isWowel(patr_first);
-        if((is_name_end_vowel != is_surname_start_vowel) ||
-               !isMale )
-            res += 30;
-        // 3
-        int entire_len = name.length()+patronymic.length();
+        boolean is_vow = false;
+        int res = 100; // compability percentage
+        int len = name.length() > 2 ? 3 : name.length();
+        for (int i = 0; i < len; ++i) {
+            char name_last = name.charAt(name.length()-i-1);
+            char patr_first = patronymic.charAt(i);
+            if( isWowel(name_last) == isWowel(patr_first) )
+                res -= 10;
+        }
+
+        // count equal consonants
+        int entire_len = name.length() + patronymic.length();
         HashMap<Character, Integer> ch_freq = new HashMap<>(entire_len, 1);
         for (int i = 0; i < name.length(); ++i) {
             Character ch = name.charAt(i);
@@ -54,12 +59,16 @@ public class NamePatrComp {
                 ch_freq.put(ch, fr);
             }
         }
-        // todo подсчет
-        int incr = 100-res/entire_len;
-        for (Map.Entry<Character, Integer> e : ch_freq.entrySet() ) {
-            if(e.getValue() > 1)
-                res += incr * e.getValue();
+
+        for (int i = 0; i < patronymic.length(); ++i) {
+            Character ch = patronymic.charAt(i);
+            if(isConsonant(Character.toLowerCase(ch))) {
+                Integer fr = ch_freq.get(ch);
+                if (fr != null && fr > 2 )
+                    res -= 10;
+            }
         }
+
         return res;
     }
 
