@@ -23,6 +23,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
     private boolean is_male;
     private int zod;
     private NamePatrComp comp;
+    int tw_id;
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
                            List<String> nameList, String patronymic, boolean isMale, int zod) {
@@ -31,6 +32,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
         for (String s : nameList) {
             name_list.add(new SelectedName(s,false));
         }
+        this.tw_id = textViewResourceId;
         this.context = context;
         this.patronymic = patronymic;
         this.comp = new NamePatrComp(context);
@@ -51,14 +53,14 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
         if (convertView == null) {
             LayoutInflater li = (LayoutInflater)context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            convertView = li.inflate(R.layout.name_list_item, parent, false);
+            convertView = li.inflate(this.tw_id, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.patronymic = (TextView) convertView.findViewById(R.id.patronymic);
             holder.selector = (CheckBox) convertView.findViewById(R.id.checkBox1);
             holder.compl = (TextView) convertView.findViewById(R.id.compl);
             convertView.setTag(holder);
-            holder.selector.setOnClickListener(SelectedNameAdapter.this);
+            holder.selector.setOnClickListener(this);
         }
         else {
             holder = (ViewHolder) convertView.getTag();

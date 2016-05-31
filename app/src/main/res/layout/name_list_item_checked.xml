@@ -36,13 +36,13 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal|center_vertical"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/checkBox"
-        android:layout_toStartOf="@+id/checkBox" />
+        android:layout_toLeftOf="@+id/checkBox1"
+        android:layout_toStartOf="@+id/checkBox1" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBox1"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

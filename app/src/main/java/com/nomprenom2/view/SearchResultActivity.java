@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.ZodiacRecord;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
 import com.nomprenom2.utils.SearchedNamesAdapter;
@@ -48,32 +49,26 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if(checkedTextView.isChecked()){
-                    checked_set.add(position);
-                }else{
-                    checked_set.remove(position);
-                }
+                NameRecord.setSelection(arrayAdapter.getItem(position),
+                            checkedTextView.isChecked() ? 1:0);
             }
         });
 
         Intent data  = getIntent();
-        if(data.hasExtra("regions"))
-            regions = data.getStringArrayExtra("regions");
+        if(data.hasExtra(MainActivity.REGIONS))
+            regions = data.getStringArrayExtra(MainActivity.REGIONS);
         if(data.hasExtra(MainActivity.SEX))
             sex = data.getStringExtra(MainActivity.SEX);
-        if(data.hasExtra("zod"))
-            zod = data.getStringExtra("zod");
+        if(data.hasExtra(MainActivity.ZODIAC))
+            zod = data.getStringExtra(MainActivity.ZODIAC);
         if(data.hasExtra(MainActivity.PATRONYMIC))
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
 
         names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
-                names, patronymic, NameRecord.Sex.valueOf(sex).getId() == 1);
-        result_list_view.setAdapter(arrayAdapter);
-        arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_multiple_choice,
-                names);
+                names, patronymic, NameRecord.Sex.valueOf(sex).getId() == 1,
+                ZodiacRecord.ZodMonth.valueOf(zod).getId());
         result_list_view.setAdapter(arrayAdapter);
         result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
@@ -82,24 +77,11 @@ public class SearchResultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                saveNames();
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void saveNames(){
-        // // TODO: 06.04.16 get checked name & update 'selected' field
-        //presenter.onOk();
-        int j = 0;
-        String[] checked = new String[checked_set.size()];
-        for (Integer i : checked_set) {
-            checked[j++] = arrayAdapter.getItem(i);
-        }
-        NameRecord.setSelection(checked, NameRecord.Check.Checked.getId());
-
-    }
 
 }

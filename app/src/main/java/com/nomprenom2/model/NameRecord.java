@@ -99,8 +99,8 @@ public class NameRecord extends Model{
 
     public static void setSelection(String name, int selection){
         new Update(NameRecord.class)
-                .set("selected = " + String.valueOf(selection))
-                .where("name=\'?\'", name )
+                .set("selected = ?",  String.valueOf(selection))
+                .where("name = ?", name )
                 .execute();
     }
 

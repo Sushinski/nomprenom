@@ -24,7 +24,9 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     private SelectedNameAdapter arrayAdapter;
     private ListView result_list_view;
     private SelectedNamesPresenter presenter;
-    public Set<String> checked_set;
+    private String patr;
+    private boolean isMale;
+    private int zod;
 
 
     @Override
@@ -39,18 +41,17 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         presenter = new SelectedNamesPresenter(this);
         names = presenter.getNames(NameRecord.Check.Checked.getId());
         Intent intent = getIntent();
-        String patr = null;
         if(intent.hasExtra(MainActivity.PATRONYMIC))
             patr = intent.getStringExtra(MainActivity.PATRONYMIC);
-        boolean isMale = true;
         if(intent.hasExtra(MainActivity.SEX))
             isMale = intent.getBooleanExtra(MainActivity.SEX, true);
+        if(intent.hasExtra(MainActivity.ZODIAC))
+            zod = intent.getIntExtra(MainActivity.ZODIAC, 0);
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
-                names, patr, isMale);
+                names, patr, isMale, zod);
         result_list_view.setAdapter(arrayAdapter);
 
-        checked_set = new HashSet<>();
         result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -73,7 +74,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     public void onDeleteListItem(Object obj){
         String name = (String)obj;
         names.remove(name);
-        checked_set.add(name);
+        NameRecord.setSelection(name, 0);
         // arrayAdapter.notifyDataSetChanged();
     }
 
@@ -84,19 +85,28 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle){
+        bundle.putString(MainActivity.PATRONYMIC, patr);
+        bundle.putBoolean(MainActivity.SEX, isMale);
+        bundle.putInt(MainActivity.ZODIAC, zod);
+        super.onSaveInstanceState(bundle);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstance){
+        super.onRestoreInstanceState(savedInstance);
+        patr = savedInstance.getString(MainActivity.PATRONYMIC);
+        isMale = savedInstance.getBoolean(MainActivity.SEX);
+        zod = savedInstance.getInt(MainActivity.ZODIAC);
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        if( checked_set.size() != 0) {
-            String[] dels = new String[checked_set.size()];
-            checked_set.toArray(dels);
-            presenter.deselectNames(dels);
-            checked_set.clear();
-        }
     }
 
 }

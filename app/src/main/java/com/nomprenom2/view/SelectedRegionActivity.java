@@ -59,7 +59,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
                  lst);
         region_list_view.setAdapter(arrayAdapter);
         region_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        String[] selected_rgns = getIntent().getStringArrayExtra("regions");
+        String[] selected_rgns = getIntent().getStringArrayExtra(MainActivity.REGIONS);
         if( selected_rgns != null) {
             int pos = 0;
             List<String> sel_lst = Arrays.asList(selected_rgns);
@@ -94,7 +94,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
                 GroupRecord rec = arrayAdapter.getItem(i);
                 checked[j++] = rec.group_name;
             }
-            data.putExtra("regions", checked);
+            data.putExtra(MainActivity.REGIONS, checked);
         }
         setResult(RESULT_OK, data);
     }

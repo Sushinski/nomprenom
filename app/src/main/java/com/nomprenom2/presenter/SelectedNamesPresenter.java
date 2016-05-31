@@ -23,7 +23,8 @@ public class SelectedNamesPresenter extends AbsPresenter{
     }
 
     public void deselectNames( String[] names ){
-        if( names != null )
-            NameRecord.setSelection(names, 0);
+        for (String s : names ) {
+            NameRecord.setSelection(s, 0);
+        }
     }
 }

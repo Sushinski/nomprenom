@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int SEARCH_RESULT = 2;
     public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";
     public static final String SEX = "com.nomprenom2.view.sex";
+    public static final String ZODIAC = "com.nomprenom2.view.zodiac";
+    public static final String REGIONS = "com.nomprenom2.view.regions";
     private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
     public String[] regions;
@@ -94,31 +96,28 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.title_screen3) {
             selectScreen3();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void selectRegion(View view) {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
-        intent.putExtra("regions", regions);
+        intent.putExtra(REGIONS, regions);
         startActivityForResult(intent, GROUP_REQUEST);
     }
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
         if( regions != null )
-            intent.putExtra("regions", regions);
+            intent.putExtra(REGIONS, regions);
         String sex = (String)sex_spinner.getSelectedItem();
         if(sex != null) {
             intent.putExtra(SEX, sex);
@@ -127,20 +126,24 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         String zod = (String)zod_spinner.getSelectedItem();
-        if(zod != null)
-            intent.putExtra("zod", zod);
-        if(patr_tw.getText().length() == 0){
+        if(zod != null )
+            intent.putExtra(ZODIAC, zod);
+        String patr = patr_tw.getText().toString();
+        if(patr == null){
             showToast(getResources().getString(R.string.to_fill_patr));
             return;
         }
+        else
+            intent.putExtra(PATRONYMIC, patr);
+        // todo save search param-s to base
         startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
-            if(data.hasExtra("regions")){
-                regions = data.getStringArrayExtra("regions");
+            if(data.hasExtra(REGIONS)){
+                regions = data.getStringArrayExtra(REGIONS);
             }else{
                 regions = null;
             }
