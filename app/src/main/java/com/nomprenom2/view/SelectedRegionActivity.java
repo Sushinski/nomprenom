@@ -59,8 +59,9 @@ public class SelectedRegionActivity extends AppCompatActivity {
                  lst);
         region_list_view.setAdapter(arrayAdapter);
         region_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        String[] selected_rgns = getIntent().getStringArrayExtra(MainActivity.REGIONS);
-        if( selected_rgns != null) {
+        Intent intent = getIntent();
+        if(intent.hasExtra(MainActivity.REGIONS)){
+            String[] selected_rgns = intent.getStringArrayExtra(MainActivity.REGIONS);
             int pos = 0;
             List<String> sel_lst = Arrays.asList(selected_rgns);
             for (GroupRecord rec : lst) {

@@ -1,6 +1,9 @@
 package com.nomprenom2.view;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +24,11 @@ import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
 
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -33,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String REGIONS = "com.nomprenom2.view.regions";
     private static String[] empty_arr_item;
     public ArrayAdapter<String> groups_adapter;
-    public String[] regions;
+    public HashSet<String> regions;
     public String[] sex_sel;
     public String[] zod_sel;
     private Spinner sex_spinner;
     private Spinner zod_spinner;
     private AbsPresenter presenter;
-    EditText patr_tw;
+    private EditText patr_tw;
+    private List<WeakReference<Fragment>> frag_list;
 
 
     @Override
@@ -75,7 +84,16 @@ public class MainActivity extends AppCompatActivity {
                         this));
         // inject candidate
         presenter = new MainPresenter(this);
-        setGroupList();
+        regions=  new HashSet<String>();
+        frag_list = new ArrayList<WeakReference<Fragment>>();
+        if(savedInstanceState!=null)
+            setGroupList();
+    }
+
+
+    @Override
+    public void onAttachFragment(Fragment fragment){
+        frag_list.add(new WeakReference<Fragment>(fragment));
     }
 
     @Override
@@ -110,14 +128,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectRegion(View view) {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
-        intent.putExtra(REGIONS, regions);
+        if(!regions.isEmpty())
+            intent.putExtra(REGIONS, regions.toArray());
         startActivityForResult(intent, GROUP_REQUEST);
     }
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        if( regions != null )
-            intent.putExtra(REGIONS, regions);
+        if( !regions.isEmpty() )
+            intent.putExtra(REGIONS, regions.toArray());
         String sex = (String)sex_spinner.getSelectedItem();
         if(sex != null) {
             intent.putExtra(SEX, sex);
@@ -142,23 +161,47 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
-            if(data.hasExtra(REGIONS)){
-                regions = data.getStringArrayExtra(REGIONS);
+            if(data.hasExtra(REGIONS)) {
+                regions.addAll(Arrays.asList(data.getStringArrayExtra(REGIONS)));
             }else{
-                regions = null;
+                regions.clear();
             }
             setGroupList();
         }
     }
 
     private void setGroupList(){
-        groups_adapter = new ArrayAdapter<>(this,
+        if (findViewById(R.id.fragment_container) != null) {
+            FragmentManager mngr = getFragmentManager();
+            FragmentTransaction tr = mngr.beginTransaction();
+            Fragment fr;
+            for (String s: regions){
+                fr = mngr.findFragmentByTag(s);
+                if(fr == null)
+                {
+                    fr = FragmentItem.newInstance(s, "");
+                    tr.add(R.id.fragment_container, fr, s);
+                }
+            }
+            for(WeakReference<Fragment> f: frag_list){
+                fr = f.get();
+                if( fr != null ){
+                    String tg = fr.getTag();
+                    if(!regions.contains(tg))
+                        tr.remove(fr);
+                }else{
+                    frag_list.remove(f);
+                }
+            }
+             tr.commit();
+        }
+        /*groups_adapter = new ArrayAdapter<>(this,
                 R.layout.rowlayout, R.id.label,
                 (regions == null) ?
                         empty_arr_item :
                         regions);
         ListView region_list_view = (ListView) findViewById(R.id.selected_groups_list_view);
-        region_list_view.setAdapter(groups_adapter);
+        region_list_view.setAdapter(groups_adapter);*/
     }
 
     private void selectScreen3()
