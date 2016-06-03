@@ -3,7 +3,20 @@
     android:layout_height="wrap_content" tools:context="com.nomprenom2.view.FragmentItem">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+    <TextView
+        android:layout_width="336dp"
+        android:layout_height="match_parent"
+        android:id="@+id/frag_text"
+        android:textSize="16sp"
+        android:layout_margin="6dp"
+        android:layout_gravity="center_vertical" />
+
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/del_btn"
+        android:layout_gravity="end|center_vertical"
+        android:background="@drawable/btn_cross"/>
 
 </FrameLayout>

@@ -51,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_alignBottom="@+id/checkBox"
-        android:layout_alignTop="@+id/checkBox"
+        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_alignTop="@+id/checkBox1"
         android:layout_toStartOf="@+id/compl"
         android:layout_toLeftOf="@+id/compl" />
 

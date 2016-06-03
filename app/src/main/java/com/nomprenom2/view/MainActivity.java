@@ -32,7 +32,8 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        FragmentItem.OnFragmentInteractionListener{
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
     public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onAttachFragment(Fragment fragment){
+    public void onAttachFragment(Fragment fragment) {
         frag_list.add(new WeakReference<Fragment>(fragment));
     }
 
@@ -128,8 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectRegion(View view) {
         Intent intent = new Intent(this, SelectedRegionActivity.class);
-        if(!regions.isEmpty())
-            intent.putExtra(REGIONS, regions.toArray());
+        if(!regions.isEmpty()) {
+            String[] sa = new String[regions.size()];
+            regions.toArray(sa);
+            intent.putExtra(REGIONS, sa);
+        }
         startActivityForResult(intent, GROUP_REQUEST);
     }
 
@@ -161,10 +165,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == GROUP_REQUEST) {
+            regions.clear();
             if(data.hasExtra(REGIONS)) {
                 regions.addAll(Arrays.asList(data.getStringArrayExtra(REGIONS)));
-            }else{
-                regions.clear();
             }
             setGroupList();
         }
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 fr = mngr.findFragmentByTag(s);
                 if(fr == null)
                 {
-                    fr = FragmentItem.newInstance(s, "");
+                    fr = FragmentItem.newInstance(s);
                     tr.add(R.id.fragment_container, fr, s);
                 }
             }
@@ -195,19 +198,11 @@ public class MainActivity extends AppCompatActivity {
             }
              tr.commit();
         }
-        /*groups_adapter = new ArrayAdapter<>(this,
-                R.layout.rowlayout, R.id.label,
-                (regions == null) ?
-                        empty_arr_item :
-                        regions);
-        ListView region_list_view = (ListView) findViewById(R.id.selected_groups_list_view);
-        region_list_view.setAdapter(groups_adapter);*/
     }
 
     private void selectScreen3()
     {
         Intent intent = new Intent(this, SelectedNamesActivity.class);
-
         intent.putExtra(SEX, (String)sex_spinner.getSelectedItem());
         intent.putExtra(PATRONYMIC, patr_tw.getText().toString());
         startActivity(intent);
@@ -217,5 +212,16 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void onFragmentInteraction(String frag_name){
+        FragmentManager mngr = getFragmentManager();
+        FragmentTransaction tr = mngr.beginTransaction();
+        Fragment fr = mngr.findFragmentByTag(frag_name);
+        if( fr != null ) {
+            tr.remove(fr);
+            regions.remove(frag_name);
+        }
+        tr.commit();
     }
 }
