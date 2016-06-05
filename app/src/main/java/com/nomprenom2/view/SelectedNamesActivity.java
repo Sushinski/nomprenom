@@ -25,8 +25,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     private ListView result_list_view;
     private SelectedNamesPresenter presenter;
     private String patr;
-    private boolean isMale;
-    private int zod;
+    private String sex;
+    private String zod;
 
 
     @Override
@@ -44,12 +44,12 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         if(intent.hasExtra(MainActivity.PATRONYMIC))
             patr = intent.getStringExtra(MainActivity.PATRONYMIC);
         if(intent.hasExtra(MainActivity.SEX))
-            isMale = intent.getBooleanExtra(MainActivity.SEX, true);
+            sex = intent.getStringExtra(MainActivity.SEX);
         if(intent.hasExtra(MainActivity.ZODIAC))
-            zod = intent.getIntExtra(MainActivity.ZODIAC, 0);
+            zod = intent.getStringExtra(MainActivity.ZODIAC);
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
-                names, patr, isMale, zod);
+                names, patr, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
 
         result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,7 +61,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
                 startActivity(in);
             }
         });
-
+        result_list_view.setFastScrollEnabled(true);
+        result_list_view.setFastScrollAlwaysVisible(true);
     }
 
     @Override
@@ -91,8 +92,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     @Override
     protected void onSaveInstanceState(Bundle bundle){
         bundle.putString(MainActivity.PATRONYMIC, patr);
-        bundle.putBoolean(MainActivity.SEX, isMale);
-        bundle.putInt(MainActivity.ZODIAC, zod);
+        bundle.putString(MainActivity.SEX, sex);
+        bundle.putString(MainActivity.ZODIAC, zod);
         super.onSaveInstanceState(bundle);
     }
 
@@ -100,8 +101,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     protected void onRestoreInstanceState(Bundle savedInstance){
         super.onRestoreInstanceState(savedInstance);
         patr = savedInstance.getString(MainActivity.PATRONYMIC);
-        isMale = savedInstance.getBoolean(MainActivity.SEX);
-        zod = savedInstance.getInt(MainActivity.ZODIAC);
+        sex = savedInstance.getString(MainActivity.SEX);
+        zod = savedInstance.getString(MainActivity.ZODIAC);
     }
 
     @Override

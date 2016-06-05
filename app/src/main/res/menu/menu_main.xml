@@ -9,9 +9,13 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
+        android:id="@+id/search_names"
+        android:orderInCategory="300"
+        android:title="@string/mainActivityTitle"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/title_screen3"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         android:title="@string/title_screen3"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 </menu>

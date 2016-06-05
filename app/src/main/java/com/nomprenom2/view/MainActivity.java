@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAttachFragment(Fragment fragment) {
-        frag_list.add(new WeakReference<Fragment>(fragment));
+        frag_list.add(new WeakReference<>(fragment));
     }
 
     @Override
@@ -139,8 +139,11 @@ public class MainActivity extends AppCompatActivity implements
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        if( !regions.isEmpty() )
-            intent.putExtra(REGIONS, regions.toArray());
+        if( !regions.isEmpty() ){
+            String[] sa = new String[regions.size()];
+            regions.toArray(sa);
+            intent.putExtra(REGIONS, sa);
+        }
         String sex = (String)sex_spinner.getSelectedItem();
         if(sex != null) {
             intent.putExtra(SEX, sex);
@@ -149,10 +152,10 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
         String zod = (String)zod_spinner.getSelectedItem();
-        if(zod != null )
+        if(!zod.equals(""))
             intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();
-        if(patr == null){
+        if(patr.equals("")){
             showToast(getResources().getString(R.string.to_fill_patr));
             return;
         }

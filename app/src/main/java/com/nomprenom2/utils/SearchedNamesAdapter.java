@@ -12,14 +12,15 @@ import java.util.List;
 
 public class SearchedNamesAdapter extends SelectedNameAdapter {
     public SearchedNamesAdapter(Context context, int textViewResourceId,
-                               List<String> nameList, String patronymic, boolean isMale, int zod) {
-        super(context, textViewResourceId, nameList, patronymic, isMale, zod);
+                               List<String> nameList, String patronymic, String sex, String zod) {
+        super(context, textViewResourceId, nameList, patronymic, sex, zod);
     }
 
     @Override
     public void onClick(View v) {
         CheckBox cb = (CheckBox) v;
         SelectedName nm = (SelectedName) cb.getTag();
+        nm.setSelected(cb.isChecked());
         NameRecord.setSelection(nm.getName(), cb.isChecked() ? 1 : 0 );
     }
 }

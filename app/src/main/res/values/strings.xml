@@ -53,12 +53,14 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+    <string name="zodiac_view">zodiac</string>
     <string name="select_child_sex">Select child\'s sex</string>
     <string name="select_child_zod">Select birth month</string>
-    <string name="title_activity_search_result">Search Result</string>
+    <string name="title_activity_search_result">Names</string>
+    <string name="title_all_names">All names</string>
     <string name="save_btn_txt">Save</string>
     <string name="title_activity_selected_names">SelectedNamesActivity</string>
-    <string name="mainActivityTitle">Fill some info</string>
+    <string name="mainActivityTitle">Search</string>
     <string name="not_selected_region">Not selected</string>
     <string name="title_activity_name_detail">Name Detail</string>
     <string name="menu_delete_item">Delete</string>
@@ -67,6 +69,7 @@
     <string name="to_fill_sex">Set child\'s sex!</string>
     <string name="to_fill_patr">Set child\'s patronymic!</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

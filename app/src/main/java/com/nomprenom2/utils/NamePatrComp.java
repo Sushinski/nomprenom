@@ -12,6 +12,7 @@ package com.nomprenom2.utils;
  */
 import android.content.Context;
 import com.nomprenom2.R;
+import com.nomprenom2.model.NameRecord;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +32,17 @@ public class NamePatrComp {
 
     public boolean isConsonant(char ch){ return consonants.indexOf(ch) >= 0; }
 
-    public int compare(String name, String patronymic, boolean isMale){
+    public int compare(String name, String patronymic, NameRecord.Sex sex ){
         if( !isConsonant(patronymic.charAt(0)) && !isWowel(patronymic.charAt(0)))
             return 0; // not our language
         // 1
         boolean is_vow = false;
         int res = 100; // compability percentage
-        int len = name.length() > 2 ? 3 : name.length();
-        for (int i = 0; i < len; ++i) {
+        int start = 1; // don't check last letter for girls
+        if( sex == null || sex == NameRecord.Sex.Boy)
+          start = 0;
+        int len = name.length() > 3 ? 3 : 1; // limit letters to check for short names
+        for (int i = start; i < len; ++i) {
             char name_last = name.charAt(name.length()-i-1);
             char patr_first = patronymic.charAt(i);
             if( isWowel(name_last) == isWowel(patr_first) )

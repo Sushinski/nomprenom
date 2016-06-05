@@ -7,16 +7,17 @@
         android:layout_width="336dp"
         android:layout_height="match_parent"
         android:id="@+id/frag_text"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_margin="6dp"
         android:layout_gravity="center_vertical" />
 
     <Button
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="42dp"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/del_btn"
         android:layout_gravity="end|center_vertical"
-        android:background="@drawable/btn_cross"/>
+        android:background="@drawable/btn_cross"
+        android:layout_margin="6dp"/>
 
 </FrameLayout>

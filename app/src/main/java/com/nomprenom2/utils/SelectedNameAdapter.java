@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
 import com.nomprenom2.interfaces.IListItemDeleter;
+import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.SelectedName;
+import com.nomprenom2.model.ZodiacRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +23,13 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
     private List<SelectedName> name_list;
     private Context context;
     private String patronymic;
-    private boolean is_male;
-    private int zod;
+    private NameRecord.Sex sex;
+    private ZodiacRecord.ZodMonth zod;
     private NamePatrComp comp;
     int tw_id;
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
-                           List<String> nameList, String patronymic, boolean isMale, int zod) {
+                           List<String> nameList, String patronymic, String sex, String zod) {
         super(context, textViewResourceId, nameList);
         this.name_list = new ArrayList<>();
         for (String s : nameList) {
@@ -34,9 +37,10 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
         }
         this.tw_id = textViewResourceId;
         this.context = context;
-        this.patronymic = patronymic;
+        this.patronymic = patronymic != null ? patronymic : "";
         this.comp = new NamePatrComp(context);
-        this.is_male = isMale;
+        this.sex = sex != null ? NameRecord.Sex.valueOf(sex) : null;
+        this.zod = zod != null ? ZodiacRecord.ZodMonth.valueOf(zod) : null;
     }
 
     private class ViewHolder{
@@ -44,6 +48,7 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
         TextView patronymic;
         TextView compl;
         CheckBox selector;
+        ImageView zodiac_pic;
     }
 
     @Override
@@ -59,6 +64,9 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
             holder.patronymic = (TextView) convertView.findViewById(R.id.patronymic);
             holder.selector = (CheckBox) convertView.findViewById(R.id.checkBox1);
             holder.compl = (TextView) convertView.findViewById(R.id.compl);
+            if( this.patronymic.isEmpty() || this.sex == null )
+                holder.compl.setVisibility(View.GONE);
+            holder.zodiac_pic = (ImageView) convertView.findViewById(R.id.zodiac_pic);
             convertView.setTag(holder);
             holder.selector.setOnClickListener(this);
         }
@@ -70,8 +78,11 @@ public class SelectedNameAdapter extends ArrayAdapter<String> implements View.On
         holder.name.setText(sn.getName());
         holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
-        String c = Integer.toString(comp.compare(sn.getName(), this.patronymic, this.is_male));
-        holder.compl.setText(c);
+        if( this.sex != null ) {
+            String c = Integer.toString(comp.compare(sn.getName(), this.patronymic, this.sex));
+            holder.compl.setText(c);
+        }
+        holder.zodiac_pic.setImageResource(ZodiacRecord.getPicIdByMonth(this.zod));
         holder.selector.setTag(sn);
         return convertView;
     }

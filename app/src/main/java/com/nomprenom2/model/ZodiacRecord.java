@@ -1,7 +1,10 @@
 package com.nomprenom2.model;
 
+import android.support.annotation.Nullable;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.nomprenom2.R;
 
 
 public class ZodiacRecord extends Model {
@@ -12,7 +15,8 @@ public class ZodiacRecord extends Model {
             onDelete = Column.ForeignKeyAction.CASCADE)
     public NameRecord name_id;
 
-    public enum ZodMonth{
+
+    public enum  ZodMonth{
         January(1),
         February(2),
         March(3),
@@ -30,4 +34,10 @@ public class ZodiacRecord extends Model {
         public final int getId(){ return month_id; }
     }
 
+    public static int getPicIdByMonth(@Nullable ZodMonth month){
+        return R.drawable.virgo30;
+        // todo get real pic
+        // todo cast to month
+
+    }
 }
