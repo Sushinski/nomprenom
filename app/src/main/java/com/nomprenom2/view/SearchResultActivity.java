@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,8 +30,9 @@ import java.util.Set;
 
 public class SearchResultActivity extends AppCompatActivity {
     private AbsPresenter presenter;
-    private ArrayAdapter<String> arrayAdapter;
-    private ListView result_list_view;
+    private SelectedNameAdapter arrayAdapter;
+    private RecyclerView result_list_view;
+    private RecyclerView.LayoutManager mLayoutManager;
     private String[] regions;
     private String sex;
     private String zod;
@@ -47,7 +50,9 @@ public class SearchResultActivity extends AppCompatActivity {
         // // TODO: 06.04.16  inject candidate
         presenter = new SearchResultPresenter(this);
         checked_set = new HashSet<>();
-        result_list_view = (ListView) findViewById(R.id.names_result_list_view);
+        result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        result_list_view.setLayoutManager(mLayoutManager);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
