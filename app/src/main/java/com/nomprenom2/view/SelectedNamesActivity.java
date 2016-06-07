@@ -3,6 +3,8 @@ package com.nomprenom2.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +24,8 @@ import com.nomprenom2.utils.SelectedNameAdapter;
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
     private ArrayList<String> names;
     private SelectedNameAdapter arrayAdapter;
-    private ListView result_list_view;
+    private RecyclerView result_list_view;
+    private RecyclerView.LayoutManager mLayoutManager;
     private SelectedNamesPresenter presenter;
     private String patr;
     private String sex;
@@ -36,7 +39,9 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        result_list_view = (ListView)findViewById(R.id.selected_names_list_view);
+        result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        result_list_view.setLayoutManager(mLayoutManager);
         // todo inject candidate
         presenter = new SelectedNamesPresenter(this);
         names = presenter.getNames(NameRecord.Check.Checked.getId());
@@ -52,7 +57,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
                 names, patr, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
 
-        result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -62,7 +67,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
             }
         });
         result_list_view.setFastScrollEnabled(true);
-        result_list_view.setFastScrollAlwaysVisible(true);
+        result_list_view.setFastScrollAlwaysVisible(true);*/
     }
 
     @Override

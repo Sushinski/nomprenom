@@ -104,7 +104,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     public void onClick(View v) {
         CheckBox cb = (CheckBox) v;
         SelectedName nm = (SelectedName) cb.getTag();
-        int pos = name_list.indexOf(nm.getName());
+        int pos = name_list.indexOf(nm);
         if(pos >= 0) {
             this.name_list.remove(nm);
             notifyItemRemoved(pos);

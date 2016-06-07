@@ -30,7 +30,7 @@ import java.util.Set;
 
 public class SearchResultActivity extends AppCompatActivity {
     private AbsPresenter presenter;
-    private SelectedNameAdapter arrayAdapter;
+    private SearchedNamesAdapter arrayAdapter;
     private RecyclerView result_list_view;
     private RecyclerView.LayoutManager mLayoutManager;
     private String[] regions;
@@ -82,9 +82,9 @@ public class SearchResultActivity extends AppCompatActivity {
                 R.layout.name_list_item_checked,
                 names, patronymic, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
-        result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        result_list_view.setFastScrollEnabled(true);
-        result_list_view.setFastScrollAlwaysVisible(true);
+        //result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        //result_list_view.setFastScrollEnabled(true);
+        //result_list_view.setFastScrollAlwaysVisible(true);
     }
 
     @Override
