@@ -9,9 +9,9 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
-        android:id="@+id/names_list"
+        android:id="@+id/search_names"
         android:orderInCategory="300"
-        android:title="@string/title_all_names"
+        android:title="@string/mainActivityTitle"
         app:showAsAction="never" />
     <item
         android:id="@+id/title_screen3"

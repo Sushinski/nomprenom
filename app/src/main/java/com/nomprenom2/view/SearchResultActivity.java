@@ -39,6 +39,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private String patronymic;
     private List<String> names;
     public Set<Integer> checked_set;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +54,19 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(SearchResultActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
+    }
 
+    @Override
+    public void onResume(){
         Intent data  = getIntent();
         if(data.hasExtra(MainActivity.REGIONS))
             regions = data.getStringArrayExtra(MainActivity.REGIONS);
@@ -71,25 +76,25 @@ public class SearchResultActivity extends AppCompatActivity {
             zod = data.getStringExtra(MainActivity.ZODIAC);
         if(data.hasExtra(MainActivity.PATRONYMIC))
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
-        if(regions != null ||
-                sex != null ||
-                zod != null ||
-                patronymic != null)
+        if(regions != null || sex != null || zod != null ||patronymic != null)
             fab.setVisibility(View.GONE);
-
         names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
                 names, patronymic, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
-        //result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        //result_list_view.setFastScrollEnabled(true);
-        //result_list_view.setFastScrollAlwaysVisible(true);
+        super.onResume();
+    }
+
+    @Override
+    public void onNewIntent(Intent intent){
+        setIntent(intent);
+        super.onNewIntent(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_results, menu);
         return true;
     }
 

@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements
                 new String[]{getResources().getString(R.string.not_selected_region)};
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
         setSupportActionBar(toolbar);
         sex_sel = getResources().getStringArray(R.array.sex_sels);
@@ -119,8 +121,11 @@ public class MainActivity extends AppCompatActivity implements
         if (id == R.id.action_settings) {
             return true;
         }
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.title_screen3) {
+        else if (id == R.id.names_list) {
+            showNameListScreen();
+            return true;
+        }
+        else if (id == R.id.title_screen3) {
             selectScreen3();
             return true;
         }
@@ -203,8 +208,13 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void selectScreen3()
-    {
+    private void showNameListScreen(){
+        Intent intent = new Intent(this, SearchResultActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void selectScreen3(){
         Intent intent = new Intent(this, SelectedNamesActivity.class);
         intent.putExtra(SEX, (String)sex_spinner.getSelectedItem());
         intent.putExtra(PATRONYMIC, patr_tw.getText().toString());
