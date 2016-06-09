@@ -40,6 +40,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<String> names;
     public Set<Integer> checked_set;
     FloatingActionButton fab;
+    FloatingActionButton fab_add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class SearchResultActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab_add = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,10 +65,15 @@ public class SearchResultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchResultActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
-    @Override
-    public void onResume(){
         Intent data  = getIntent();
         if(data.hasExtra(MainActivity.REGIONS))
             regions = data.getStringArrayExtra(MainActivity.REGIONS);
@@ -83,6 +90,11 @@ public class SearchResultActivity extends AppCompatActivity {
                 R.layout.name_list_item_checked,
                 names, patronymic, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void onResume(){
+
         super.onResume();
     }
 

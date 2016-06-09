@@ -89,6 +89,17 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
+            case R.id.search_names: {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.names_list: {
+                Intent intent = new Intent(this, SearchResultActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -1,6 +1,7 @@
 package com.nomprenom2.utils;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.SelectedName;
 import com.nomprenom2.model.ZodiacRecord;
+import com.nomprenom2.view.NameDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +76,13 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
             holder.compl.setVisibility(View.GONE);
         //convertView.setTag(holder);
         holder.selector.setOnClickListener(this);
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(v.getContext(), NameDetailActivity.class);
+                v.getContext().startActivity(in);
+            }
+        });
         return holder;
     }
 
