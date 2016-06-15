@@ -65,7 +65,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SearchResultActivity.this, MainActivity.class);

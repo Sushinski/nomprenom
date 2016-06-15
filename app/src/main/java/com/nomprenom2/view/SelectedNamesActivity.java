@@ -2,10 +2,12 @@ package com.nomprenom2.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +32,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     private String patr;
     private String sex;
     private String zod;
+    FloatingActionButton fab;
 
 
     @Override
@@ -57,17 +60,28 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
                 names, patr, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
 
-        /*result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent in = new Intent(view.getContext(), NameDetailActivity.class);
-                startActivity(in);
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_SUBJECT,
+                        getResources().getString(R.string.send_names_title));
+                intent.putExtra(Intent.EXTRA_TEXT, getNamesString());
+                String title = getResources().getString(R.string.chooser_title);
+                Intent chooser = Intent.createChooser(intent, title);
+                if(intent.resolveActivity(getPackageManager()) != null)
+                    startActivity(chooser);
             }
         });
-        result_list_view.setFastScrollEnabled(true);
-        result_list_view.setFastScrollAlwaysVisible(true);*/
+    }
+
+    private String getNamesString(){
+        String res = getResources().getString(R.string.names_string_prefix);
+        res += TextUtils.join(",", names) + ".";
+        res +=  getResources().getString(R.string.names_string_postfix);
+        return res;
     }
 
     @Override

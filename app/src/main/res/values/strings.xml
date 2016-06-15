@@ -68,7 +68,10 @@
     <string name="consonants">йцкнгшщзхъфвпрлджчсмтьб</string>
     <string name="to_fill_sex">Set child\'s sex!</string>
     <string name="to_fill_patr">Set child\'s patronymic!</string>
-
+    <string name="chooser_title">Send by:</string>
+    <string name="names_string_prefix">Look what names i`ve found in @string/app_name! It`s </string>
+    <string name="names_string_postfix">Maybe you will find some nice among them :)</string>
+    <string name="send_names_title">Names found in @string/app_name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>

@@ -34,7 +34,6 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
                            List<String> nameList, String patronymic, String sex, String zod) {
-        //super(context, textViewResourceId, nameList);
         this.context = context;
         this.name_list = new ArrayList<>();
         for (String s : nameList) {
