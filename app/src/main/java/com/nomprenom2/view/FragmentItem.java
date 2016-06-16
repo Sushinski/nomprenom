@@ -40,11 +40,12 @@ public class FragmentItem extends Fragment {
      * @return A new instance of fragment FragmentItem.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentItem newInstance(String param1) {
+    public static FragmentItem newInstance(String param1, OnFragmentInteractionListener lstnr ) {
         FragmentItem fragment = new FragmentItem();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
+        fragment.mCallback = lstnr;
         return fragment;
     }
 

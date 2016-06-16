@@ -68,8 +68,7 @@ public class SearchResultActivity extends AppCompatActivity {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchResultActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(SearchResultActivity.this, AddNameActivity.class);
                 startActivity(intent);
             }
         });
