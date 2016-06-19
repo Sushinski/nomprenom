@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -44,29 +45,20 @@ public class NameRecord extends Model{
             return check_id;
         }
     }
-    @Column(name = "from_group", onUpdate = Column.ForeignKeyAction.CASCADE,
-            onDelete = Column.ForeignKeyAction.CASCADE)
-    public GroupRecord from_group;
 
 
     public NameRecord(){
         super();
     }
 
-    public NameRecord( String _name,  GroupRecord _group, Sex _sex ){
-        super();
-        this.name = _name;
-        this.from_group = _group;
-        this.sex = _sex.getId();
-    }
 
     public static List<NameRecord> getNames(String[] groups, String s, String z) {
         String _where = "", add = "";
 
         if( groups != null) {
-            _where = "NameRecord.from_group IN ";
+            _where = "NameRecord._id IN (select name_id from NameGroupRecord where group_id in ";
             List<Long> group_id_list = GroupRecord.groupIdForNames(groups);
-            String str  = "(" + TextUtils.join(",", group_id_list) + ")";
+            String str  = "(" + TextUtils.join(",", group_id_list) + "))";
             _where += str;
             add = " and ";
         }
@@ -77,8 +69,9 @@ public class NameRecord extends Model{
         From sel = new Select()
                 .from(NameRecord.class);
         if( z != null ) {
-            sel.innerJoin(ZodiacRecord.class).on("NameRecord._id=ZodiacRecord.name_id");
-            _where += add + "ZodiacRecord.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId();
+            _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
+                    " ZodiacRecord b on a.zodiac_id = b._id where" +
+                    " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId();
         }
         sel.where(_where);
         String sel_str = sel.toSql();
@@ -111,6 +104,36 @@ public class NameRecord extends Model{
                 .orderBy("name ASC")
                 .execute();
     }
+
+
+    public static void saveName(String name, Sex sex,
+                                List<ZodiacRecord> zodiacs, List<GroupRecord> groups ){
+        NameRecord rec = new NameRecord();
+        rec.name = name;
+        rec.sex = sex.getId();
+        rec.save();
+        ActiveAndroid.beginTransaction();
+        try {
+            for (ZodiacRecord z : zodiacs) {
+                NameZodiacRecord nzr = new NameZodiacRecord();
+                nzr.name_id = rec.getId();
+                nzr.zodiac_id = z.getId();
+                nzr.save();
+            }
+
+            for (GroupRecord g : groups) {
+                NameGroupRecord ngr = new NameGroupRecord();
+                ngr.name_id = rec.getId();
+                ngr.group_id = g.getId();
+                ngr.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        }finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
+
+
 
     @Override
     public String toString(){

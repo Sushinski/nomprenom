@@ -9,20 +9,29 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.nomprenom2.R;
+import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.ZodiacRecord;
+
+import java.util.ArrayList;
 
 public class AddNameActivity extends MainActivity {
-    public String[] sex_sel;
-    public String[] zod_sel;
-    private Spinner sex_spinner;
-    private Spinner zod_spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.patr_tw.setHint(getResources().getString(R.string.add_name));
+        search_btn.setText(getResources().getString(R.string.add_name));
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddNameActivity.this.addName(v);
+            }
+        });
+
     }
 
     @Override
@@ -40,4 +49,13 @@ public class AddNameActivity extends MainActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void addName(View v){
+        // todo get zodiac list
+        ArrayList<ZodiacRecord>
+        NameRecord.saveName(patr_tw.getText().toString(),
+                NameRecord.Sex.valueOf(param_frag.sex_spinner.getSelectedItem().toString()),
+                param_frag.zod_spinner.getSelectedItem().toString());
+    }
+
 }

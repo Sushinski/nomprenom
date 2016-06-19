@@ -55,7 +55,6 @@
     <Button
         android:text="@string/search_name_button"
         android:id="@+id/search_name_button"
-        android:onClick="searchNames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

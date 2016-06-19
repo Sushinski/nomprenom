@@ -15,6 +15,11 @@ public class ZodiacRecord extends Model {
             onDelete = Column.ForeignKeyAction.CASCADE)
     public NameRecord name_id;
 
+    public ZodiacRecord(){ super(); }
+
+    public ZodiacRecord( ZodMonth month ){
+
+    }
 
     public enum  ZodMonth{
         January(1),

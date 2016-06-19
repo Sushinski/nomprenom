@@ -1,23 +1,19 @@
 package com.nomprenom2.view;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
 import com.nomprenom2.R;
-import com.nomprenom2.presenter.MainPresenter;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,11 +107,6 @@ public class NameParamsFragment extends Fragment implements
         }
     }
 
-
-   /* @Override
-    public void onAttachFragment(Fragment fragment) {
-        frag_list.add(new WeakReference<>(fragment));
-    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

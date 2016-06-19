@@ -1,9 +1,5 @@
 package com.nomprenom2.view;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,24 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.nomprenom2.R;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
-import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
-
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -42,7 +26,8 @@ public class MainActivity extends AppCompatActivity{
 
     private AbsPresenter presenter;
     protected EditText patr_tw;
-
+    protected Button search_btn;
+    protected NameParamsFragment param_frag;
 
 
     @Override
@@ -53,12 +38,20 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
+        search_btn = (Button) findViewById(R.id.search_name_button);
         setSupportActionBar(toolbar);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.searchNames(v);
+            }
+        });
+        param_frag =
+                (NameParamsFragment) getSupportFragmentManager().
+                        findFragmentById(R.id.name_params_fragment);
         // inject candidate
         presenter = new MainPresenter(this);
     }
-
-
 
 
     @Override
@@ -75,7 +68,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -91,24 +83,24 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-       /* if( !regions.isEmpty() ){
-            String[] sa = new String[regions.size()];
-            regions.toArray(sa);
+
+        if( !param_frag.regions.isEmpty() ){
+            String[] sa = new String[param_frag.regions.size()];
+            param_frag.regions.toArray(sa);
             intent.putExtra(REGIONS, sa);
         }
-        String sex = (String)sex_spinner.getSelectedItem();
+        String sex = (String)param_frag.sex_spinner.getSelectedItem();
         if(sex != null) {
             intent.putExtra(SEX, sex);
         }else{
             showToast(getResources().getString(R.string.to_fill_sex));
             return;
         }
-        String zod = (String)zod_spinner.getSelectedItem();
+        String zod = (String)param_frag.zod_spinner.getSelectedItem();
         if(!zod.equals(""))
-            intent.putExtra(ZODIAC, zod);*/
+            intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();
         if(patr.equals("")){
             showToast(getResources().getString(R.string.to_fill_patr));
@@ -116,7 +108,6 @@ public class MainActivity extends AppCompatActivity{
         }
         else
             intent.putExtra(PATRONYMIC, patr);
-        // todo save search param-s to base
         startActivity(intent);
     }
 
@@ -129,7 +120,6 @@ public class MainActivity extends AppCompatActivity{
 
     private void selectScreen3(){
         Intent intent = new Intent(this, SelectedNamesActivity.class);
-        //intent.putExtra(SEX, (String)sex_spinner.getSelectedItem());
         intent.putExtra(PATRONYMIC, patr_tw.getText().toString());
         startActivity(intent);
     }

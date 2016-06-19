@@ -85,7 +85,6 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         return holder;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -102,7 +101,6 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return name_list.size();
