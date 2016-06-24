@@ -56,7 +56,7 @@ public class NameRecord extends Model{
         String _where = "", add = "";
 
         if( groups != null) {
-            _where = "NameRecord._id IN (select name_id from NameGroupRecord where group_id in ";
+            _where = "NameRecord._id in (select name_id from NameGroupRecord where group_id in ";
             List<Long> group_id_list = GroupRecord.groupIdForNames(groups);
             String str  = "(" + TextUtils.join(",", group_id_list) + "))";
             _where += str;
@@ -71,14 +71,13 @@ public class NameRecord extends Model{
         if( z != null ) {
             _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
-                    " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId();
+                    " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId() + ")";
         }
         sel.where(_where);
-        String sel_str = sel.toSql();
         try {
             return sel.execute();
         }catch (Exception e){
-            return new ArrayList<NameRecord>();
+            return new ArrayList<>();
         }
 
     }
@@ -106,25 +105,26 @@ public class NameRecord extends Model{
     }
 
 
-    public static void saveName(String name, Sex sex,
-                                List<ZodiacRecord> zodiacs, List<GroupRecord> groups ){
+    public static void saveName(String name, String sex,
+                                List<String> zodiacs, List<String> groups ){
         NameRecord rec = new NameRecord();
         rec.name = name;
-        rec.sex = sex.getId();
+        rec.sex = Sex.valueOf(sex).getId();
         rec.save();
         ActiveAndroid.beginTransaction();
         try {
-            for (ZodiacRecord z : zodiacs) {
+            for (String z : zodiacs) {
                 NameZodiacRecord nzr = new NameZodiacRecord();
                 nzr.name_id = rec.getId();
-                nzr.zodiac_id = z.getId();
+                ZodiacRecord.ZodMonth m = ZodiacRecord.ZodMonth.valueOf(z);
+                nzr.zodiac_id = ZodiacRecord.getZodiacRec(m).getId();
                 nzr.save();
             }
 
-            for (GroupRecord g : groups) {
+            for (String g : groups) {
                 NameGroupRecord ngr = new NameGroupRecord();
                 ngr.name_id = rec.getId();
-                ngr.group_id = g.getId();
+                ngr.group_id = GroupRecord.getGroup(g).getId();
                 ngr.save();
             }
             ActiveAndroid.setTransactionSuccessful();

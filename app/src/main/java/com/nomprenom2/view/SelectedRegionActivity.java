@@ -36,7 +36,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selected_region);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
@@ -98,5 +98,11 @@ public class SelectedRegionActivity extends AppCompatActivity {
             data.putExtra(MainActivity.REGIONS, checked);
         }
         setResult(RESULT_OK, data);
+    }
+
+    @Override
+    public void onBackPressed(){
+        setResult();
+        super.onBackPressed();
     }
 }

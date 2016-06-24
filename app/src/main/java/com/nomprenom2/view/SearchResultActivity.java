@@ -1,5 +1,6 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import com.nomprenom2.R;
+import com.nomprenom2.interfaces.ActivityListener;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.ZodiacRecord;
@@ -24,11 +26,15 @@ import com.nomprenom2.presenter.SearchResultPresenter;
 import com.nomprenom2.utils.SearchedNamesAdapter;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class SearchResultActivity extends AppCompatActivity {
+    public static final int SELECTED_NAMES_ID=1;
+    public static final int SEARCH_NAMES_ID=2;
+    public static final int ADD_NAME_ID=3;
     private AbsPresenter presenter;
     private SearchedNamesAdapter arrayAdapter;
     private RecyclerView result_list_view;
@@ -60,16 +66,13 @@ public class SearchResultActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchResultActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                searchNames();
             }
         });
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchResultActivity.this, AddNameActivity.class);
-                startActivity(intent);
+                addName();
             }
         });
 
@@ -93,7 +96,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
     @Override
     public void onResume(){
-
         super.onResume();
     }
 
@@ -115,17 +117,37 @@ public class SearchResultActivity extends AppCompatActivity {
             case R.id.action_settings:
                 return true;
             case R.id.title_screen3: {
-                Intent intent = new Intent(this, SelectedNamesActivity.class);
-                startActivity(intent);
+                showSelectedNames();
                 return true;
             }
             case R.id.search_names: {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                searchNames();
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
     }
 
+    protected void showSelectedNames(){
+        Intent intent = new Intent(this, SelectedNamesActivity.class);
+        startActivity(intent);
+    }
+
+    protected void searchNames(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    protected void addName(){
+        Intent intent = new Intent(this, AddNameActivity.class);
+        startActivityForResult(intent, ADD_NAME_ID);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == ADD_NAME_ID) {
+            names =  presenter.getNames(regions, sex, zod);
+            arrayAdapter.notifyDataSetChanged();
+        }
+    }
 }

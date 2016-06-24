@@ -37,8 +37,11 @@ public class GroupRecord extends Model{
                 .execute();
     }
 
-    public static GroupRecord getOne(){
-        return new Select().from(GroupRecord.class).executeSingle();
+    public static GroupRecord getGroup(String group_name){
+        return new Select().
+                from(GroupRecord.class).
+                where("group_name = ?", group_name).
+                executeSingle();
     }
 
     public static List<Long> groupIdForNames(String[] group_names){

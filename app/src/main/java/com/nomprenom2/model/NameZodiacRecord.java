@@ -4,7 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "NameGroupRecord", id = "_id")
+@Table(name = "NameZodiacRecord", id = "_id")
 public class NameZodiacRecord extends Model {
 
     @Column(name = "zodiac_id", notNull = true)

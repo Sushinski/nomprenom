@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.nomprenom2.R;
 import com.nomprenom2.presenter.AbsPresenter;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity{
 
     private AbsPresenter presenter;
     protected EditText patr_tw;
+    protected TextView title_txt;
     protected Button search_btn;
     protected NameParamsFragment param_frag;
 
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        title_txt = (TextView) findViewById(R.id.title_text);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
         search_btn = (Button) findViewById(R.id.search_name_button);
         setSupportActionBar(toolbar);
@@ -63,6 +66,12 @@ public class MainActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onNewIntent(Intent intent){
+        setIntent(intent);
+        super.onNewIntent(intent);
     }
 
     @Override
@@ -114,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void showNameListScreen(){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

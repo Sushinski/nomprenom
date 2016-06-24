@@ -1,5 +1,6 @@
 package com.nomprenom2.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,25 +14,21 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.nomprenom2.R;
+import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.ZodiacRecord;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddNameActivity extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.title_txt.setText(getResources().getString(R.string.add_name));
         this.patr_tw.setHint(getResources().getString(R.string.add_name));
-        search_btn.setText(getResources().getString(R.string.add_name));
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddNameActivity.this.addName(v);
-            }
-        });
-
+        search_btn.setVisibility(View.GONE);
     }
 
     @Override
@@ -45,17 +42,27 @@ public class AddNameActivity extends MainActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.add_name) {
+            addName();
+            Intent data = new Intent();
+            setResult(RESULT_OK, data);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void addName(View v){
+    private void addName(){
         // todo get zodiac list
-        ArrayList<ZodiacRecord>
+        List<String> zod_list = new ArrayList<>();
+        String z = (String)param_frag.zod_spinner.getSelectedItem();
+        zod_list.add(z);
+        List<String> gr_list = new ArrayList<>();
+        for (String s : param_frag.regions ) {
+            gr_list.add(s);
+        }
         NameRecord.saveName(patr_tw.getText().toString(),
-                NameRecord.Sex.valueOf(param_frag.sex_spinner.getSelectedItem().toString()),
-                param_frag.zod_spinner.getSelectedItem().toString());
+                param_frag.sex_spinner.getSelectedItem().toString(),
+                zod_list, gr_list);
     }
 
 }

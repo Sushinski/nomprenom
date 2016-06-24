@@ -4,21 +4,27 @@ import android.support.annotation.Nullable;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.From;
+import com.activeandroid.query.Select;
 import com.nomprenom2.R;
 
-
+@Table(name = "ZodiacRecord", id = "_id")
 public class ZodiacRecord extends Model {
     @Column(name="zod_month", unique = true)
     public int zod_month;
 
-    @Column(name="name_id", onUpdate = Column.ForeignKeyAction.CASCADE,
-            onDelete = Column.ForeignKeyAction.CASCADE)
-    public NameRecord name_id;
+    @Column(name="zod_sign", notNull = true)
+    public String zod_sign;
 
     public ZodiacRecord(){ super(); }
 
-    public ZodiacRecord( ZodMonth month ){
-
+    public static ZodiacRecord getZodiacRec(ZodMonth month){
+        int mon_id = month.getId();
+        ZodiacRecord z = new Select().
+                from(ZodiacRecord.class).
+                where("zod_month=?", mon_id).executeSingle();
+        return z;
     }
 
     public enum  ZodMonth{
