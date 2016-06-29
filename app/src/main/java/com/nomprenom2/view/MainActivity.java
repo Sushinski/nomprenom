@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if( !param_frag.regions.isEmpty() ){
             String[] sa = new String[param_frag.regions.size()];
             param_frag.regions.toArray(sa);
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
         String zod = (String)param_frag.zod_spinner.getSelectedItem();
-        if(!zod.equals(""))
+        if(zod != null)
             intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();
         if(patr.equals("")){
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void showNameListScreen(){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

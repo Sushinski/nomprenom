@@ -44,7 +44,6 @@ public class SearchResultActivity extends AppCompatActivity {
     private String zod;
     private String patronymic;
     private List<String> names;
-    public Set<Integer> checked_set;
     FloatingActionButton fab;
     FloatingActionButton fab_add;
 
@@ -57,7 +56,6 @@ public class SearchResultActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // // TODO: 06.04.16  inject candidate
         presenter = new SearchResultPresenter(this);
-        checked_set = new HashSet<>();
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
@@ -75,7 +73,10 @@ public class SearchResultActivity extends AppCompatActivity {
                 addName();
             }
         });
+    }
 
+    @Override
+    public void onResume(){
         Intent data  = getIntent();
         if(data.hasExtra(MainActivity.REGIONS))
             regions = data.getStringArrayExtra(MainActivity.REGIONS);
@@ -85,17 +86,15 @@ public class SearchResultActivity extends AppCompatActivity {
             zod = data.getStringExtra(MainActivity.ZODIAC);
         if(data.hasExtra(MainActivity.PATRONYMIC))
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
-        if(regions != null || sex != null || zod != null ||patronymic != null)
+        if(regions != null || sex != null || zod != null ||patronymic != null) {
             fab.setVisibility(View.GONE);
+            fab_add.setVisibility(View.GONE);
+        }
         names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
                 names, patronymic, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
-    }
-
-    @Override
-    public void onResume(){
         super.onResume();
     }
 

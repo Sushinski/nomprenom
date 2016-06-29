@@ -77,6 +77,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         });
     }
 
+
     private String getNamesString(){
         String res = getResources().getString(R.string.names_string_prefix);
         res += TextUtils.join(",", names) + ".";
