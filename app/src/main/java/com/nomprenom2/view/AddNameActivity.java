@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.nomprenom2.R;
@@ -21,14 +22,17 @@ import com.nomprenom2.model.ZodiacRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNameActivity extends MainActivity {
+public class AddNameActivity extends AppCompatActivity {
+    protected NameParamsFragment param_frag;
+    protected EditText name_et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.title_txt.setText(getResources().getString(R.string.add_name));
-        this.patr_tw.setHint(getResources().getString(R.string.add_name));
-        search_btn.setVisibility(View.GONE);
+        setContentView(R.layout.activity_add_name);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        name_et = (EditText)findViewById(R.id.name_tw);
     }
 
     @Override
@@ -60,7 +64,7 @@ public class AddNameActivity extends MainActivity {
         for (String s : param_frag.regions ) {
             gr_list.add(s);
         }
-        NameRecord.saveName(patr_tw.getText().toString(),
+        NameRecord.saveName(name_et.getText().toString(),
                 param_frag.sex_spinner.getSelectedItem().toString(),
                 zod_list, gr_list);
     }

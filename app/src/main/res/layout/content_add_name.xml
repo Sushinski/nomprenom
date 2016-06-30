@@ -1,7 +1,62 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/fragment"
-    android:name="com.nomprenom2.view.AddNameActivityFragment" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:layout="@layout/fragment_add_name" />
+    tools:context=".view.MainActivity"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:id="@+id/main_content">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="Enter name"
+        android:id="@+id/name_tw"
+        android:layout_alignParentTop="true"/>
+
+    <fragment
+        android:name="com.nomprenom2.view.NameParamsFragment"
+        android:id="@+id/name_params_fragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/name_tw"
+        tools:layout="@layout/fragment_name_params" />
+
+        <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:hint="Enter character description"
+        android:id="@+id/character_tw"
+            android:lines="3"
+            android:layout_below="@+id/name_params_fragment"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:longClickable="true" />
+
+        <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:hint="Enter famous persons with who has\had this name"
+        android:id="@+id/fam_tw"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+            android:lines="2"
+        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
+            android:layout_marginBottom="6dp"
+        android:layout_alignRight="@+id/character_tw"
+        android:layout_alignEnd="@+id/character_tw"
+            android:layout_below="@+id/character_tw" />
+    />
+</RelativeLayout>
