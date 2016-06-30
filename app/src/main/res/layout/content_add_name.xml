@@ -31,32 +31,16 @@
         android:layout_below="@+id/name_tw"
         tools:layout="@layout/fragment_name_params" />
 
-        <EditText
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:hint="Enter character description"
-        android:id="@+id/character_tw"
-            android:lines="3"
-            android:layout_below="@+id/name_params_fragment"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:longClickable="true" />
-
-        <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:hint="Enter famous persons with who has\had this name"
-        android:id="@+id/fam_tw"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_add_descr"
+        android:id="@+id/add_descr"
+        android:layout_below="@+id/name_params_fragment"
+        android:layout_marginTop="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-            android:lines="2"
-        android:layout_marginLeft="6dp"
-        android:layout_marginStart="6dp"
-            android:layout_marginBottom="6dp"
-        android:layout_alignRight="@+id/character_tw"
-        android:layout_alignEnd="@+id/character_tw"
-            android:layout_below="@+id/character_tw" />
-    />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

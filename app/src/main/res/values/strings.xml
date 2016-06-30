@@ -78,4 +78,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_add_name">AddNameActivity</string>
+    <string name="btn_add_descr">Name description</string>
+    <string name="en_name_descr">Enter name description</string>
+    <string name="descr_hdr">Name description</string>
+    <string name="descr_save">Save</string>
+    <string name="descr_cancel">Cancel</string>
+
 </resources>
