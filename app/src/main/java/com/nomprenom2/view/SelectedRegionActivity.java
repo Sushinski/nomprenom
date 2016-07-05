@@ -42,17 +42,6 @@ public class SelectedRegionActivity extends AppCompatActivity {
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
         // set clicks handler
         checked_set = new HashSet<>();
-        region_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if(checkedTextView.isChecked()){
-                    checked_set.add(position);
-                }else{
-                    checked_set.remove(position);
-                }
-            }
-        });
         List<GroupRecord> lst =  GroupRecord.getAll();
         arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice,
@@ -72,6 +61,12 @@ public class SelectedRegionActivity extends AppCompatActivity {
                 pos++;
             }
         }
+        if(intent.hasExtra(MainActivity.SINGLE_REGION)){
+            if(intent.getBooleanExtra(MainActivity.SINGLE_REGION, false)){
+                region_list_view.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            }
+
+        }
     }
 
 
@@ -88,11 +83,12 @@ public class SelectedRegionActivity extends AppCompatActivity {
 
     private void setResult(){
         Intent data = new Intent();
-        if(checked_set.size() != 0) {
-            String[] checked = new String[checked_set.size()];
+        long[] ch_ids = region_list_view.getCheckedItemIds();
+        if(ch_ids.length != 0) {
+            String[] checked = new String[ch_ids.length];
             int j = 0;
-            for (Integer i : checked_set) {
-                GroupRecord rec = arrayAdapter.getItem(i);
+            for (Long i : ch_ids) {
+                GroupRecord rec = arrayAdapter.getItem((int)i);
                 checked[j++] = rec.group_name;
             }
             data.putExtra(MainActivity.REGIONS, checked);

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String SEX = "com.nomprenom2.view.sex";
     public static final String ZODIAC = "com.nomprenom2.view.zodiac";
     public static final String REGIONS = "com.nomprenom2.view.regions";
+    public static final String SINGLE_REGION = "com.nomprenom2.view.single_region";
 
     private AbsPresenter presenter;
     protected EditText patr_tw;
@@ -100,14 +101,14 @@ public class MainActivity extends AppCompatActivity{
             param_frag.regions.toArray(sa);
             intent.putExtra(REGIONS, sa);
         }
-        String sex = (String)param_frag.sex_spinner.getSelectedItem();
+        String sex = param_frag.getSelectedSex();
         if(sex != null) {
             intent.putExtra(SEX, sex);
         }else{
             showToast(getResources().getString(R.string.to_fill_sex));
             return;
         }
-        String zod = (String)param_frag.zod_spinner.getSelectedItem();
+        String zod = param_frag.getSelectedZod();
         if(zod != null)
             intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();

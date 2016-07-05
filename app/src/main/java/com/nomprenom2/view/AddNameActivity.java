@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddNameActivity extends AppCompatActivity {
-    protected NameParamsFragment param_frag;
+    private NameParamsFragment param_frag;
     protected EditText name_et;
     protected Button descr_btn;
 
@@ -36,6 +36,9 @@ public class AddNameActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         name_et = (EditText)findViewById(R.id.name_tw);
         descr_btn = (Button)findViewById(R.id.add_descr);
+        param_frag = (NameParamsFragment) getSupportFragmentManager().
+                        findFragmentById(R.id.name_params_fragment);
+        param_frag.setSingleSel(true);
         descr_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,14 +72,14 @@ public class AddNameActivity extends AppCompatActivity {
     private void addName(){
         // todo get zodiac list
         List<String> zod_list = new ArrayList<>();
-        String z = (String)param_frag.zod_spinner.getSelectedItem();
+        String z = param_frag.getSelectedZod();
         zod_list.add(z);
         List<String> gr_list = new ArrayList<>();
         for (String s : param_frag.regions ) {
             gr_list.add(s);
         }
         NameRecord.saveName(name_et.getText().toString(),
-                param_frag.sex_spinner.getSelectedItem().toString(),
+                param_frag.getSelectedSex(),
                 zod_list, gr_list);
     }
 

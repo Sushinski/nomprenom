@@ -26,8 +26,9 @@ public class NameParamsFragment extends Fragment implements
     public HashSet<String> regions;
     public String[] sex_sel;
     public String[] zod_sel;
-    protected Spinner sex_spinner;
-    protected Spinner zod_spinner;
+    private boolean single_sel = false;
+    private Spinner sex_spinner;
+    private Spinner zod_spinner;
     private List<WeakReference<Fragment>> frag_list;
 
     public static NameParamsFragment newInstance() {
@@ -36,13 +37,24 @@ public class NameParamsFragment extends Fragment implements
     }
 
     public NameParamsFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    public String getSelectedSex(){
+        return (String)sex_spinner.getSelectedItem();
+    }
+
+    public String getSelectedZod(){
+        return (String)zod_spinner.getSelectedItem();
+    }
+
+    public void setSingleSel(boolean bsingle){
+        single_sel = bsingle;
     }
 
     @Override
@@ -120,13 +132,14 @@ public class NameParamsFragment extends Fragment implements
     }
 
     public void selectRegion() {
-        Intent intent = new Intent(getActivity(), SelectedRegionActivity.class);
-        if(!regions.isEmpty()) {
+        Intent intent = new Intent( getActivity(), SelectedRegionActivity.class );
+        if( !regions.isEmpty() ) {
             String[] sa = new String[regions.size()];
-            regions.toArray(sa);
-            intent.putExtra(MainActivity.REGIONS, sa);
+            regions.toArray( sa );
+            intent.putExtra( MainActivity.REGIONS, sa );
         }
-        startActivityForResult(intent, MainActivity.GROUP_REQUEST);
+        intent.putExtra( MainActivity.SINGLE_REGION, single_sel );
+        startActivityForResult( intent, MainActivity.GROUP_REQUEST );
     }
 
 
