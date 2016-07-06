@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -83,13 +84,16 @@ public class SelectedRegionActivity extends AppCompatActivity {
 
     private void setResult(){
         Intent data = new Intent();
-        long[] ch_ids = region_list_view.getCheckedItemIds();
-        if(ch_ids.length != 0) {
-            String[] checked = new String[ch_ids.length];
-            int j = 0;
-            for (Long i : ch_ids) {
-                GroupRecord rec = arrayAdapter.getItem((int)i);
-                checked[j++] = rec.group_name;
+        SparseBooleanArray checkedItemPositions = region_list_view.getCheckedItemPositions();
+        final int checkedItemCount = checkedItemPositions.size();
+        if( checkedItemCount > 0 ) {
+            String[] checked = new String[checkedItemCount];
+            for (int i = 0; i < checkedItemCount; i++) {
+                int key = checkedItemPositions.keyAt(i);
+                if (checkedItemPositions.get(key)) {
+                    GroupRecord rec = arrayAdapter.getItem(key);
+                    checked[i] = rec.group_name;
+                }
             }
             data.putExtra(MainActivity.REGIONS, checked);
         }
