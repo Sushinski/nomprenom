@@ -31,16 +31,22 @@
         android:layout_below="@+id/name_tw"
         tools:layout="@layout/fragment_name_params" />
 
-    <Button
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_add_descr"
-        android:id="@+id/add_descr"
+        android:id="@+id/name_descr"
         android:layout_below="@+id/name_params_fragment"
-        android:layout_marginTop="10dp"
+        android:layout_alignRight="@+id/name_params_fragment"
+        android:layout_alignEnd="@+id/name_params_fragment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:editable="true"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="Enter name description"
+        android:inputType="text|textMultiLine"
+        android:lines="5"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_margin="6dp" />
 
 </RelativeLayout>

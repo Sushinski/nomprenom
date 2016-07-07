@@ -26,7 +26,7 @@ import java.util.List;
 public class AddNameActivity extends AppCompatActivity {
     private NameParamsFragment param_frag;
     protected EditText name_et;
-    protected Button descr_btn;
+    protected EditText descr_et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +35,10 @@ public class AddNameActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         name_et = (EditText)findViewById(R.id.name_tw);
-        descr_btn = (Button)findViewById(R.id.add_descr);
+        descr_et = (EditText)findViewById(R.id.name_descr);
         param_frag = (NameParamsFragment) getSupportFragmentManager().
                         findFragmentById(R.id.name_params_fragment);
         param_frag.setSingleSel(true);
-        descr_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dlg = new DescriptionDialog();
-                dlg.show(getFragmentManager(), getResources().getString(R.string.descr_hdr));
-            }
-        });
 
     }
 
@@ -80,7 +73,7 @@ public class AddNameActivity extends AppCompatActivity {
         }
         NameRecord.saveName(name_et.getText().toString(),
                 param_frag.getSelectedSex(),
-                zod_list, gr_list);
+                zod_list, gr_list, name_et.getText().toString());
     }
 
 }

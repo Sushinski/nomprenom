@@ -28,6 +28,9 @@ public class NameRecord extends Model{
     @Column(name = "selected", notNull = true)
     public int selected;
 
+    @Column(name = "description")
+    public String description;
+
     public enum Sex{
         Boy( 1 ), Girl( 0 );
         private final int sex_id;
@@ -106,10 +109,11 @@ public class NameRecord extends Model{
 
 
     public static void saveName(String name, String sex,
-                                List<String> zodiacs, List<String> groups ){
+                                List<String> zodiacs, List<String> groups, String descr ){
         NameRecord rec = new NameRecord();
         rec.name = name;
         rec.sex = Sex.valueOf(sex).getId();
+        rec.description = descr;
         rec.save();
         ActiveAndroid.beginTransaction();
         try {
