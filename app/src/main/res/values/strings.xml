@@ -83,5 +83,7 @@
     <string name="descr_hdr">Name description</string>
     <string name="descr_save">Save</string>
     <string name="descr_cancel">Cancel</string>
+    <string name="empty_name_descr">This name doesn`t have description</string>
+    <string name="empty_name">Empty name</string>
 
 </resources>

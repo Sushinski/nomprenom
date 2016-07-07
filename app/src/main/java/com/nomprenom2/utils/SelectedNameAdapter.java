@@ -24,6 +24,8 @@ import java.util.List;
 
 public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapter.ViewHolder>
         implements View.OnClickListener{
+    public final static String NAME = "com.nomprenom2.utils.name";
+    public final static String NAME_DESCR = "com.nomprenom2.utils.name_descr";
     private List<SelectedName> name_list;
     private Context context;
     private String patronymic;
@@ -73,12 +75,17 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         holder = new ViewHolder(v);
         if( this.patronymic.isEmpty() || this.sex == null )
             holder.compl.setVisibility(View.GONE);
-        //convertView.setTag(holder);
         holder.selector.setOnClickListener(this);
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(v.getContext(), NameDetailActivity.class);
+                TextView tw = (TextView) v;
+                String n = tw.getText().toString();
+                String d = NameRecord.getNameDescr(n);
+                in.putExtra(NAME, n);
+                if( d != null )
+                    in.putExtra(NAME_DESCR, d);
                 v.getContext().startActivity(in);
             }
         });

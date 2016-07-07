@@ -69,7 +69,7 @@ public class NameRecord extends Model{
             _where += add + "NameRecord.sex=" + Sex.valueOf(s).getId();
             add = " and ";
         }
-        From sel = new Select()
+        From sel = new Select("_id, name, sex, selected")
                 .from(NameRecord.class);
         if( z != null ) {
             _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
@@ -138,6 +138,14 @@ public class NameRecord extends Model{
     }
 
 
+    public static String getNameDescr(String name){
+        NameRecord nr =  new Select()
+                .from(NameRecord.class)
+                .where("name=?", name)
+                .orderBy("name ASC")
+                .executeSingle();
+        return nr.description;
+    }
 
     @Override
     public String toString(){
