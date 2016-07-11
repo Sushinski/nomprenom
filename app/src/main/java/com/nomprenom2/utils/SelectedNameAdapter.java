@@ -49,7 +49,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         this.comp = new NamePatrComp(context);
         this.sex = sex != null ? NameRecord.Sex.valueOf(sex) : null;
         this.zod = zod != null ? ZodiacRecord.ZodMonth.valueOf(zod) : null;
-        setInfoPrefx(context.getResources().getText(R.string.compabl).toString());
+        setInfoPrefx(context.getResources().getText(R.string.compabl_pref).toString());
     }
 
 
@@ -79,8 +79,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 .inflate(this.tw_id, parent, false);
         holder = new ViewHolder(v);
 
-        //if( this.patronymic.isEmpty() || this.sex == null )
-        //    holder.compl.setVisibility(View.GONE);
+        //if( this.patronymic.isEmpty() && this.sex == null && this.zod == null )
+        //    holder.info.setVisibility(View.GONE);
         holder.selector.setOnClickListener(this);
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +106,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
         if( this.sex != null ) {
-            String c = Integer.toString(comp.compare(sn.getName(), this.patronymic, this.sex));
-            holder.info.setText(this.info_prefx + c);
+            String c = this.info_prefx + Integer.toString(comp.compare(sn.getName(), this.patronymic, this.sex));
+            holder.info.setText(c);
         }
         holder.selector.setTag(sn);
 

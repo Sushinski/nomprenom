@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.SelectedName;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
     public SearchedNamesAdapter(Context context, int textViewResourceId,
                                List<String> nameList, String patronymic, String sex, String zod) {
         super(context, textViewResourceId, nameList, patronymic, sex, zod);
+        setInfoPrefx(context.getResources().getText(R.string.zod_pref).toString());
     }
 
     @Override

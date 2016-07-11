@@ -85,7 +85,12 @@
     <string name="descr_cancel">Cancel</string>
     <string name="empty_name_descr">This name doesn`t have description</string>
     <string name="empty_name">Empty name</string>
-    <string name="compabl">Compatibility: </string>
+    <string name="compabl_pref">Compatibility: </string>
+    <string name="zod_pref">Zodiacs: </string>
     <string name="results_for">Search results for: </string>
+    <string name="descr_regions">Regions: </string>
+    <string name="descr_patr">Patronymic: </string>
+    <string name="descr_zod">Zodiac: </string>
+    <string name="descr_sex">Sex: </string>
 
 </resources>

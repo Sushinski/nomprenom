@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.nomprenom2.R;
 import com.nomprenom2.interfaces.ActivityListener;
 import com.nomprenom2.model.GroupRecord;
@@ -46,6 +49,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private String zod;
     private String patronymic;
     private List<String> names;
+    private TextView search_result_descr_tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class SearchResultActivity extends AppCompatActivity {
         // // TODO: 06.04.16  inject candidate
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
+        search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
     }
@@ -64,18 +69,32 @@ public class SearchResultActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         Intent data  = getIntent();
-        if(data.hasExtra(MainActivity.REGIONS))
+        String search_descr = "";
+        if(data.hasExtra(MainActivity.REGIONS)) {
             regions = data.getStringArrayExtra(MainActivity.REGIONS);
-        if(data.hasExtra(MainActivity.SEX))
+            search_descr = getResources().getString(R.string.descr_regions) +
+                    TextUtils.join(",", regions ) + "\n";
+        }
+        if(data.hasExtra(MainActivity.SEX)) {
             sex = data.getStringExtra(MainActivity.SEX);
-        if(data.hasExtra(MainActivity.ZODIAC))
+            search_descr += getResources().getString(R.string.descr_sex) +
+                    sex + "\n";
+        }
+        if(data.hasExtra(MainActivity.ZODIAC)) {
             zod = data.getStringExtra(MainActivity.ZODIAC);
-        if(data.hasExtra(MainActivity.PATRONYMIC))
+            search_descr += getResources().getString(R.string.descr_zod) +
+                    zod + "\n";
+        }
+        if(data.hasExtra(MainActivity.PATRONYMIC)) {
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
+            search_descr +=getResources().getString(R.string.descr_patr) +
+                    patronymic;
+        }
         if(regions != null || sex != null || zod != null ||patronymic != null) {
             // fab.setVisibility(View.GONE);
             // fab_add.setVisibility(View.GONE);
         }
+        search_result_descr_tw.setText(search_descr);
         names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
