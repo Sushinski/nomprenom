@@ -33,7 +33,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     private NameRecord.Sex sex;
     private ZodiacRecord.ZodMonth zod;
     private NamePatrComp comp;
-    int tw_id;
+    private int tw_id;
+    private String info_prefx;
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
                            List<String> nameList, String patronymic, String sex, String zod) {
@@ -48,23 +49,26 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         this.comp = new NamePatrComp(context);
         this.sex = sex != null ? NameRecord.Sex.valueOf(sex) : null;
         this.zod = zod != null ? ZodiacRecord.ZodMonth.valueOf(zod) : null;
+        setInfoPrefx(context.getResources().getText(R.string.compabl).toString());
     }
 
+
+    public void setInfoPrefx( String str ){
+        info_prefx = str;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView patronymic;
-        public TextView compl;
+        public TextView info;
         public CheckBox selector;
-        public ImageView zodiac_pic;
 
         public ViewHolder(View v){
             super(v);
             name = (TextView) v.findViewById(R.id.name);
             patronymic = (TextView) v.findViewById(R.id.patronymic);
             selector = (CheckBox) v.findViewById(R.id.checkBox1);
-            compl = (TextView) v.findViewById(R.id.compl);
-            zodiac_pic = (ImageView) v.findViewById(R.id.zodiac_pic);
+            info = (TextView) v.findViewById(R.id.compl);
         }
     }
 
@@ -74,8 +78,9 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(this.tw_id, parent, false);
         holder = new ViewHolder(v);
-        if( this.patronymic.isEmpty() || this.sex == null )
-            holder.compl.setVisibility(View.GONE);
+
+        //if( this.patronymic.isEmpty() || this.sex == null )
+        //    holder.compl.setVisibility(View.GONE);
         holder.selector.setOnClickListener(this);
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +107,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         holder.selector.setChecked(sn.isSelected());
         if( this.sex != null ) {
             String c = Integer.toString(comp.compare(sn.getName(), this.patronymic, this.sex));
-            holder.compl.setText(c);
+            holder.info.setText(this.info_prefx + c);
         }
-        holder.zodiac_pic.setImageResource(ZodiacRecord.getPicIdByMonth(this.zod));
         holder.selector.setTag(sn);
 
     }

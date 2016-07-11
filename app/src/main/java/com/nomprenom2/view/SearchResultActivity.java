@@ -9,9 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
@@ -44,8 +46,6 @@ public class SearchResultActivity extends AppCompatActivity {
     private String zod;
     private String patronymic;
     private List<String> names;
-    FloatingActionButton fab;
-    FloatingActionButton fab_add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,20 +59,6 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab_add = (FloatingActionButton) findViewById(R.id.fab_add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchNames();
-            }
-        });
-        fab_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addName();
-            }
-        });
     }
 
     @Override
@@ -87,8 +73,8 @@ public class SearchResultActivity extends AppCompatActivity {
         if(data.hasExtra(MainActivity.PATRONYMIC))
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
         if(regions != null || sex != null || zod != null ||patronymic != null) {
-            fab.setVisibility(View.GONE);
-            fab_add.setVisibility(View.GONE);
+            // fab.setVisibility(View.GONE);
+            // fab_add.setVisibility(View.GONE);
         }
         names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new SearchedNamesAdapter(this,
@@ -114,6 +100,9 @@ public class SearchResultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings:
+                return true;
+            case R.id.add_name:
+                addName();
                 return true;
             case R.id.title_screen3: {
                 showSelectedNames();
