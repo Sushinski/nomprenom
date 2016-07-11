@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title_txt = (TextView) findViewById(R.id.title_text);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
         search_btn = (Button) findViewById(R.id.search_name_button);
@@ -75,22 +75,17 @@ public class MainActivity extends AppCompatActivity{
         super.onNewIntent(intent);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if (id == R.id.names_list) {
-            showNameListScreen();
-            return true;
-        }
-        else if (id == R.id.title_screen3) {
-            selectScreen3();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
     public void searchNames(View view){
