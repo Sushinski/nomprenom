@@ -23,6 +23,15 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
         CheckBox cb = (CheckBox) v;
         SelectedName nm = (SelectedName) cb.getTag();
         nm.setSelected(cb.isChecked());
-        NameRecord.setSelection(nm.getName(), cb.isChecked() ? 1 : 0 );
+        NameRecord.setSelection(nm.getName(), cb.isChecked() ? 1 : 0);
+    }
+
+    @Override
+    public String getInfoText(String name){
+        String c = "";
+        if( this.sex != null ) {
+            c = this.info_prefx + Integer.toString(comp.compare(name, this.patronymic, this.sex));
+        }
+        return c;
     }
 }

@@ -57,6 +57,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         info_prefx = str;
     }
 
+    public String getInfoPrefix(){ return info_prefx; }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView patronymic;
@@ -105,12 +107,16 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         holder.name.setText(sn.getName());
         holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
-        if( this.sex != null ) {
-            String c = this.info_prefx + Integer.toString(comp.compare(sn.getName(), this.patronymic, this.sex));
-            holder.info.setText(c);
-        }
+        holder.info.setText(getInfoText(sn.getName()));
         holder.selector.setTag(sn);
+    }
 
+    public String getInfoText(String name){
+        String c = "";
+        if( this.sex != null ) {
+            c = this.info_prefx + Integer.toString(comp.compare(name, this.patronymic, this.sex));
+        }
+        return c;
     }
 
     @Override
