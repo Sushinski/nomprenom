@@ -51,6 +51,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<String> names;
     private TextView search_result_descr_tw;
     private TextView title_tw;
+    private TextView empty_tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class SearchResultActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
+        empty_tw = (TextView)findViewById(R.id.empty_list);
     }
 
     @Override
@@ -100,6 +102,11 @@ public class SearchResultActivity extends AppCompatActivity {
 
         search_result_descr_tw.setText(search_descr);
         names =  presenter.getNames(regions, sex, zod);
+        if( names.isEmpty() )
+            empty_tw.setVisibility(View.VISIBLE);
+        else
+            empty_tw.setVisibility(View.GONE);
+
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
                 names, patronymic, sex, zod);

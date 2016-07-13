@@ -93,5 +93,6 @@
     <string name="descr_zod">Zodiac: </string>
     <string name="descr_sex">Sex: </string>
     <string name="names_list">Names list</string>
-    <string name="search_results_for">Search results for:</string>
+    <string name="search_results_for">Search results for: </string>
+    <string name="empty_list">List is empty</string>
 </resources>

@@ -36,6 +36,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     private int tw_id;
     private String info_prefx;
 
+
     public SelectedNameAdapter(Context context, int textViewResourceId,
                            List<String> nameList, String patronymic, String sex, String zod) {
         this.context = context;
@@ -56,30 +57,28 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         info_prefx = str;
     }
 
+
     public String getInfoPrefix(){ return info_prefx; }
+
 
     public String getCompatibility(String name){
         return Integer.toString(comp.compare(name, this.patronymic, this.sex));
     }
 
-    public void setTitle(String title){
-
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
-        public TextView patronymic;
-        public TextView info;
+        public TextView name_info;
         public CheckBox selector;
 
         public ViewHolder(View v){
             super(v);
             name = (TextView) v.findViewById(R.id.name);
-            patronymic = (TextView) v.findViewById(R.id.patronymic);
+            name_info = (TextView) v.findViewById(R.id.name_info);
             selector = (CheckBox) v.findViewById(R.id.checkBox1);
-            info = (TextView) v.findViewById(R.id.compl);
         }
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -87,9 +86,6 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(this.tw_id, parent, false);
         holder = new ViewHolder(v);
-
-        //if( this.patronymic.isEmpty() && this.sex == null && this.zod == null )
-        //    holder.info.setVisibility(View.GONE);
         holder.selector.setOnClickListener(this);
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,25 +103,29 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         return holder;
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         SelectedName sn = name_list.get(position);
         holder.name.setText(sn.getName());
-        holder.patronymic.setText(this.patronymic);
         holder.selector.setChecked(sn.isSelected());
-        holder.info.setText(getInfoText(sn.getName()));
+        holder.name_info.setText(getInfoText(sn.getName()));
         holder.selector.setTag(sn);
+        holder.selector.setChecked(sn.isSelected());
     }
+
 
     public String getInfoText(String name){
         return "";
     }
 
+
     @Override
     public int getItemCount() {
         return name_list.size();
     }
+
 
     @Override
     public void onClick(View v) {
@@ -140,4 +140,6 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 deleter.onDeleteListItem(nm.getName());
         }
     }
+
+
 }

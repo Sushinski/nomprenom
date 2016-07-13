@@ -25,7 +25,6 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
             bsearched = false;
             setInfoPrefx(context.getResources().getText(R.string.zod_pref).toString());
         }
-
     }
 
     @Override

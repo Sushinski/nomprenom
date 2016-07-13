@@ -32,6 +32,14 @@
             android:id="@+id/search_result_descr"
             android:layout_margin="6dp" />
 
+        <TextView
+            android:id="@+id/empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_list"
+            android:gravity="center_horizontal"
+            android:layout_margin="6dp"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
