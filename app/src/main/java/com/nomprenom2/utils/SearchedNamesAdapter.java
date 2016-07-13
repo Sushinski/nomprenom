@@ -7,15 +7,25 @@ import android.widget.CheckBox;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.SelectedName;
+import com.nomprenom2.model.ZodiacRecord;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class SearchedNamesAdapter extends SelectedNameAdapter {
+    private boolean bsearched;
     public SearchedNamesAdapter(Context context, int textViewResourceId,
                                List<String> nameList, String patronymic, String sex, String zod) {
         super(context, textViewResourceId, nameList, patronymic, sex, zod);
-        setInfoPrefx(context.getResources().getText(R.string.zod_pref).toString());
+        if( patronymic != null || sex != null || zod != null ) {
+            bsearched = true;
+            setInfoPrefx(context.getResources().getText(R.string.compabl_pref).toString());
+        }else{
+            bsearched = false;
+            setInfoPrefx(context.getResources().getText(R.string.zod_pref).toString());
+        }
+
     }
 
     @Override
@@ -28,9 +38,11 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
 
     @Override
     public String getInfoText(String name){
-        String c = "";
-        if( this.sex != null ) {
-            c = this.info_prefx + Integer.toString(comp.compare(name, this.patronymic, this.sex));
+        String c = getInfoPrefix();
+        if(bsearched){
+            c += getCompatibility(name);
+        }else {
+            c += ZodiacRecord.getMonthsForName(name);
         }
         return c;
     }

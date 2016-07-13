@@ -49,7 +49,6 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         this.comp = new NamePatrComp(context);
         this.sex = sex != null ? NameRecord.Sex.valueOf(sex) : null;
         this.zod = zod != null ? ZodiacRecord.ZodMonth.valueOf(zod) : null;
-        setInfoPrefx(context.getResources().getText(R.string.compabl_pref).toString());
     }
 
 
@@ -58,6 +57,14 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     }
 
     public String getInfoPrefix(){ return info_prefx; }
+
+    public String getCompatibility(String name){
+        return Integer.toString(comp.compare(name, this.patronymic, this.sex));
+    }
+
+    public void setTitle(String title){
+
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -112,11 +119,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     }
 
     public String getInfoText(String name){
-        String c = "";
-        if( this.sex != null ) {
-            c = this.info_prefx + Integer.toString(comp.compare(name, this.patronymic, this.sex));
-        }
-        return c;
+        return "";
     }
 
     @Override

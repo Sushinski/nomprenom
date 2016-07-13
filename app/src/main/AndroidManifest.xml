@@ -37,6 +37,7 @@
         </activity>
         <activity
             android:name=".view.SearchResultActivity"
+            android:launchMode="singleTask"
             android:label="@string/title_activity_search_result"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

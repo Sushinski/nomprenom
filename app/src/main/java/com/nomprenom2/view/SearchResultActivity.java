@@ -50,6 +50,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private String patronymic;
     private List<String> names;
     private TextView search_result_descr_tw;
+    private TextView title_tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class SearchResultActivity extends AppCompatActivity {
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
+        title_tw = (TextView)findViewById(R.id.search_result_title);
     }
 
     @Override
@@ -87,13 +89,15 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         if(data.hasExtra(MainActivity.PATRONYMIC)) {
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
-            search_descr +=getResources().getString(R.string.descr_patr) +
+            search_descr += getResources().getString(R.string.descr_patr) +
                     patronymic;
         }
         if(regions != null || sex != null || zod != null ||patronymic != null) {
-            // fab.setVisibility(View.GONE);
-            // fab_add.setVisibility(View.GONE);
+            title_tw.setText(getResources().getText(R.string.search_results_for));
+        }else{
+            title_tw.setText(getResources().getText(R.string.names_list));
         }
+
         search_result_descr_tw.setText(search_descr);
         names =  presenter.getNames(regions, sex, zod);
         arrayAdapter = new SearchedNamesAdapter(this,

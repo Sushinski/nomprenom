@@ -63,11 +63,6 @@ public class MainActivity extends AppCompatActivity{
         super.onPostCreate(savedInstanceState);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public void onNewIntent(Intent intent){
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if( !param_frag.regions.isEmpty() ){
             String[] sa = new String[param_frag.regions.size()];
             param_frag.regions.toArray(sa);
