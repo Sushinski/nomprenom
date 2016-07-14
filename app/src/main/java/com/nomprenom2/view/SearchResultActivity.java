@@ -98,6 +98,7 @@ public class SearchResultActivity extends AppCompatActivity {
             title_tw.setText(getResources().getText(R.string.search_results_for));
         }else{
             title_tw.setText(getResources().getText(R.string.names_list));
+            search_descr = getResources().getString(R.string.empty_filter);
         }
 
         search_result_descr_tw.setText(search_descr);

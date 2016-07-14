@@ -69,7 +69,7 @@ public class NameParamsFragment extends Fragment implements
         sex_spinner.setAdapter(new NothingSelectedSpinnerAdapter(adapter,
                         R.layout.contact_spinner_row_nothing_selected, getActivity()));
         // zodiac spinner
-        zod_sel = getResources().getStringArray(R.array.zod_months);
+        zod_sel = getResources().getStringArray(R.array.zod_sels);
         ArrayAdapter<String> zod_adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, zod_sel);
         zod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

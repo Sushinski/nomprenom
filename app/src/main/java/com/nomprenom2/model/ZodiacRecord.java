@@ -49,18 +49,18 @@ public class ZodiacRecord extends Model {
     }
 
     public enum  ZodMonth{
-        January(1),
-        February(2),
-        March(3),
-        April(4),
-        May(5),
-        June(6),
-        July(7),
-        August(8),
-        September(9),
-        October(10),
-        November(11),
-        December(12);
+        Aries(1),
+        Taurus(2),
+        Gemini(3),
+        Cancer(4),
+        Leo(5),
+        Virgo(6),
+        Libra(7),
+        Scorpio(8),
+        Sagittarius(9),
+        Capricorn(10),
+        Aquarius(11),
+        Pisces(12);
         private final int month_id;
         static final ZodMonth[] vals = ZodMonth.values();
         ZodMonth( int id ){ this.month_id = id; }
