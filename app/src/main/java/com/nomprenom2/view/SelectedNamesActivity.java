@@ -66,8 +66,11 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String txt = String.format(getResources().getString(R.string.send_names_title),
+                        getResources().getString(R.string.app_name));
                 intent.putExtra(Intent.EXTRA_SUBJECT,
-                        getResources().getString(R.string.send_names_title));
+                        txt);
                 intent.putExtra(Intent.EXTRA_TEXT, getNamesString());
                 String title = getResources().getString(R.string.chooser_title);
                 Intent chooser = Intent.createChooser(intent, title);
@@ -79,7 +82,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
 
 
     private String getNamesString(){
-        String res = getResources().getString(R.string.names_string_prefix);
+        String res = String.format(getResources().getString(R.string.names_string_prefix),
+                getResources().getString(R.string.app_name));
         res += TextUtils.join(",", names) + ".";
         res +=  getResources().getString(R.string.names_string_postfix);
         return res;

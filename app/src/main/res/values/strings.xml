@@ -69,9 +69,9 @@
     <string name="to_fill_sex">Set child\'s sex!</string>
     <string name="to_fill_patr">Set child\'s patronymic!</string>
     <string name="chooser_title">Send by:</string>
-    <string name="names_string_prefix">Look what names i`ve found in @string/app_name! It`s </string>
+    <string name="names_string_prefix">Look what names i`ve found in %1%! It`s </string>
     <string name="names_string_postfix">Maybe you will find some nice among them :)</string>
-    <string name="send_names_title">Names found in @string/app_name</string>
+    <string name="send_names_title">Names found in %1% : </string>
     <string name="add_name">Add name</string>
     <string name="enter_name">Enter name</string>
     <!-- TODO: Remove or change this placeholder text -->
