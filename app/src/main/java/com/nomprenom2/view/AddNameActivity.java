@@ -73,7 +73,7 @@ public class AddNameActivity extends AppCompatActivity {
         }
         NameRecord.saveName(name_et.getText().toString(),
                 param_frag.getSelectedSex(),
-                zod_list, gr_list, name_et.getText().toString());
+                zod_list, gr_list, descr_et.getText().toString());
     }
 
 }
