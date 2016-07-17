@@ -14,7 +14,7 @@ public abstract class AbsPresenter{
         context = c;
     }
 
-    public List<String> getNames(String[] groups, String sex, String zod ){
+    public List<String> getNamesStr(String[] groups, String sex, String zod ){
         List<NameRecord> res = NameRecord.getNames(groups, sex, zod);
         List<String> ret = new ArrayList<>();
         for(NameRecord n : res) {
@@ -22,6 +22,8 @@ public abstract class AbsPresenter{
         }
         return ret;
     }
+
+
 
     public abstract void onOk();
 }

@@ -37,7 +37,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selected_region);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
@@ -76,7 +76,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 setResult();
-                finish();
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);

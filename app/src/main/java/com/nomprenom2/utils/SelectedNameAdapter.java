@@ -1,24 +1,18 @@
 package com.nomprenom2.utils;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.nomprenom2.R;
 import com.nomprenom2.interfaces.IListItemDeleter;
+import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.model.SelectedName;
 import com.nomprenom2.model.ZodiacRecord;
 import com.nomprenom2.view.NameDetailActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +21,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         implements View.OnClickListener{
     public final static String NAME = "com.nomprenom2.utils.name";
     public final static String NAME_DESCR = "com.nomprenom2.utils.name_descr";
-    private List<SelectedName> name_list;
+    private List<NameRecord> name_list;
     private Context context;
     private String patronymic;
     private NameRecord.Sex sex;
@@ -37,13 +31,15 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     private String info_prefx;
 
 
+    public Context getContext(){
+        return this.context;
+    }
+
     public SelectedNameAdapter(Context context, int textViewResourceId,
-                           List<String> nameList, String patronymic, String sex, String zod) {
+                           List<NameRecord> nameList, String patronymic, String sex, String zod) {
         this.context = context;
         this.name_list = new ArrayList<>();
-        for (String s : nameList) {
-            name_list.add(new SelectedName(s,false));
-        }
+        name_list = nameList;
         this.tw_id = textViewResourceId;
         this.context = context;
         this.patronymic = patronymic != null ? patronymic : "";
@@ -92,11 +88,21 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
             public void onClick(View v) {
                 Intent in = new Intent(v.getContext(), NameDetailActivity.class);
                 TextView tw = (TextView) v;
+                NameRecord nr = (NameRecord)tw.getTag();
                 String n = tw.getText().toString();
-                String d = NameRecord.getNameDescr(n);
+                String d = getContext().getResources().getText(R.string.descr_sex) +
+                        NameRecord.Sex.fromInt(nr.sex);
+                String str = ZodiacRecord.getMonthsForName(nr.name);
+                GroupRecord gr = GroupRecord.getGroupForName(nr);
+                d += "  Region: " +
+                        ( gr== null ? getContext().getResources().getText(R.string.unknown) : gr);
+                d += "\n" + getInfoPrefix() +
+                        (str.equals("") ? getContext().getResources().getText(R.string.unknown) : str);
+                d += "\n\n" + (nr.description == null ?
+                        getContext().getResources().getString(R.string.empty_name_descr) :
+                        nr.description);
                 in.putExtra(NAME, n);
-                if( d != null )
-                    in.putExtra(NAME_DESCR, d);
+                in.putExtra(NAME_DESCR, d);
                 v.getContext().startActivity(in);
             }
         });
@@ -107,16 +113,16 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        SelectedName sn = name_list.get(position);
-        holder.name.setText(sn.getName());
-        holder.selector.setChecked(sn.isSelected());
-        holder.name_info.setText(getInfoText(sn.getName()));
-        holder.selector.setTag(sn);
-        holder.selector.setChecked(sn.isSelected());
+        NameRecord n = name_list.get(position);
+        holder.name.setText(n.name);
+        holder.selector.setChecked(n.selected == 1);
+        holder.name_info.setText(getInfoText(n));
+        holder.selector.setTag(n);
+        holder.name.setTag(n);
     }
 
 
-    public String getInfoText(String name){
+    public String getInfoText(NameRecord name){
         return "";
     }
 
@@ -130,14 +136,14 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     @Override
     public void onClick(View v) {
         CheckBox cb = (CheckBox) v;
-        SelectedName nm = (SelectedName) cb.getTag();
+        NameRecord nm = (NameRecord) cb.getTag();
         int pos = name_list.indexOf(nm);
         if(pos >= 0) {
             this.name_list.remove(nm);
             notifyItemRemoved(pos);
             IListItemDeleter deleter = (IListItemDeleter) this.context;
             if (deleter != null)
-                deleter.onDeleteListItem(nm.getName());
+                deleter.onDeleteListItem(nm);
         }
     }
 

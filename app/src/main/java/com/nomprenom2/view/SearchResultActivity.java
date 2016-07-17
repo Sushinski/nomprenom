@@ -48,7 +48,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private String sex;
     private String zod;
     private String patronymic;
-    private List<String> names;
+    private List<NameRecord> names;
     private TextView search_result_descr_tw;
     private TextView title_tw;
     private TextView empty_tw;
@@ -68,10 +68,11 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
+        init();
     }
 
-    @Override
-    public void onResume(){
+
+    private void init(){
         Intent data  = getIntent();
         String search_descr = "";
         if(data.hasExtra(MainActivity.REGIONS)) {
@@ -102,7 +103,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         search_result_descr_tw.setText(search_descr);
-        names =  presenter.getNames(regions, sex, zod);
+        names =  NameRecord.getNames(regions, sex, zod);
         if( names.isEmpty() )
             empty_tw.setVisibility(View.VISIBLE);
         else
@@ -112,6 +113,11 @@ public class SearchResultActivity extends AppCompatActivity {
                 R.layout.name_list_item_checked,
                 names, patronymic, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
+    }
+
+
+    @Override
+    public void onResume(){
         super.onResume();
     }
 
@@ -165,7 +171,7 @@ public class SearchResultActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == ADD_NAME_ID) {
-            names =  presenter.getNames(regions, sex, zod);
+            names =  NameRecord.getNames(regions, sex, zod);
             arrayAdapter.notifyDataSetChanged();
         }
     }

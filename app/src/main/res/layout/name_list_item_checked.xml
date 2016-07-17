@@ -29,7 +29,8 @@
         android:layout_alignLeft="@+id/name"
         android:layout_alignStart="@+id/name"
         android:layout_toLeftOf="@+id/checkBox1"
-        android:layout_toStartOf="@+id/checkBox1" />
+        android:layout_toStartOf="@+id/checkBox1"
+        android:lines="2" />
 
 
     <CheckBox

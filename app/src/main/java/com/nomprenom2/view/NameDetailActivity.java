@@ -37,8 +37,6 @@ public class NameDetailActivity extends AppCompatActivity {
         }
         if( intent.hasExtra(SelectedNameAdapter.NAME_DESCR)){
             name_descr = intent.getStringExtra(SelectedNameAdapter.NAME_DESCR);
-        }else{
-            name_descr = getResources().getString(R.string.empty_name_descr);
         }
         name_tw.setText(name);
         name_descr_tw.setText(name_descr);

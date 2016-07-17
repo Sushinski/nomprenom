@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void searchNames(View view){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         if( !param_frag.regions.isEmpty() ){
             String[] sa = new String[param_frag.regions.size()];
             param_frag.regions.toArray(sa);

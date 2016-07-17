@@ -18,13 +18,14 @@ import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.SelectedNamesPresenter;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
-    private ArrayList<String> names;
+    private List<NameRecord> names;
     private SelectedNameAdapter arrayAdapter;
     private RecyclerView result_list_view;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -41,13 +42,13 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         setContentView(R.layout.activity_selected_names);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
         // todo inject candidate
         presenter = new SelectedNamesPresenter(this);
-        names = presenter.getNames(NameRecord.Check.Checked.getId());
+        names = NameRecord.getSelected(NameRecord.Check.Checked.getId());
         Intent intent = getIntent();
         if(intent.hasExtra(MainActivity.PATRONYMIC))
             patr = intent.getStringExtra(MainActivity.PATRONYMIC);
@@ -91,37 +92,25 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selected_names, menu);
+        //getMenuInflater().inflate(R.menu.menu_selected_names, menu);
         return true;
     }
 
     public void onDeleteListItem(Object obj){
-        String name = (String)obj;
-        names.remove(name);
-        NameRecord.setSelection(name, 0);
+        NameRecord nr = (NameRecord)obj;
+        names.remove(nr);
+        NameRecord.setSelection(nr.name, 0);
         // arrayAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case android.R.id.home:
+                onBackPressed();
                 return true;
-            case R.id.search_names: {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return true;
-            }
-            case R.id.names_list: {
-                Intent intent = new Intent(this, SearchResultActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

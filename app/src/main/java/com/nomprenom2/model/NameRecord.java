@@ -38,6 +38,8 @@ public class NameRecord extends Model{
         public final int getId(){
             return sex_id;
         }
+        static final Sex[] vals = Sex.values();
+        public static String fromInt(int val){ return vals[val].toString(); }
     }
 
     public enum Check{
@@ -76,7 +78,7 @@ public class NameRecord extends Model{
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
                     " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId() + ")";
         }
-        sel.where(_where);
+        sel.orderBy("NameRecord.name ASC").where(_where);
         try {
             return sel.execute();
         }catch (Exception e){
