@@ -1,11 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.MainActivity">
-    <item android:id="@+id/add_name" android:title="@string/add_name"
-        android:icon="@android:drawable/ic_menu_add" app:showAsAction="ifRoom" />
-    <item android:id="@+id/search_names" android:title="@string/search_name_button"
-        android:icon="@android:drawable/ic_menu_search" app:showAsAction="ifRoom" />
+    tools:context=".view.SearchResultActivity">
+    <item
+        android:id="@+id/add_name"
+        android:title="@string/add_name"
+        android:icon="@android:drawable/ic_menu_add"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/search_names"
+        android:title="@string/search_name_button"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/title_screen3"
         android:orderInCategory="300"

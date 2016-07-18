@@ -26,10 +26,8 @@ public class MainActivity extends AppCompatActivity{
     public static final String REGIONS = "com.nomprenom2.view.regions";
     public static final String SINGLE_REGION = "com.nomprenom2.view.single_region";
 
-    private AbsPresenter presenter;
     protected EditText patr_tw;
     protected TextView title_txt;
-    protected Button search_btn;
     protected NameParamsFragment param_frag;
 
 
@@ -38,23 +36,14 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title_txt = (TextView) findViewById(R.id.title_text);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
-        search_btn = (Button) findViewById(R.id.search_name_button);
         setSupportActionBar(toolbar);
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.this.searchNames(v);
-            }
-        });
         param_frag =
                 (NameParamsFragment) getSupportFragmentManager().
                         findFragmentById(R.id.name_params_fragment);
-        // inject candidate
-        presenter = new MainPresenter(this);
     }
 
 
@@ -72,10 +61,19 @@ public class MainActivity extends AppCompatActivity{
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.menu_search:
+                searchNames();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -83,9 +81,8 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    public void searchNames(View view){
+    public void searchNames(){
         Intent intent = new Intent(this, SearchResultActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         if( !param_frag.regions.isEmpty() ){
             String[] sa = new String[param_frag.regions.size()];
             param_frag.regions.toArray(sa);
@@ -112,17 +109,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    private void showNameListScreen(){
-        Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
-    private void selectScreen3(){
-        Intent intent = new Intent(this, SelectedNamesActivity.class);
-        intent.putExtra(PATRONYMIC, patr_tw.getText().toString());
-        startActivity(intent);
-    }
 
     private void showToast(String str){
         Context context = getApplicationContext();

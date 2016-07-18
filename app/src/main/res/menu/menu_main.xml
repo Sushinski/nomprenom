@@ -4,18 +4,9 @@
     tools:context=".view.MainActivity">
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/names_list"
-        android:orderInCategory="300"
-        android:title="@string/title_all_names"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/title_screen3"
-        android:orderInCategory="300"
-        android:title="@string/title_screen3"
-        app:showAsAction="never" />
+        android:id="@+id/menu_search"
+        android:title="@string/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
+
 </menu>

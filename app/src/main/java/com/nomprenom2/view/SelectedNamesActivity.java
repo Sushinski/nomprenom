@@ -41,7 +41,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_names);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
         mLayoutManager = new LinearLayoutManager(this);
@@ -84,8 +84,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
 
     private String getNamesString(){
         String res = String.format(getResources().getString(R.string.names_string_prefix),
-                getResources().getString(R.string.app_name));
-        res += TextUtils.join(",", names) + ".";
+                getResources().getString(R.string.app_name)) + "\n";
+        res += TextUtils.join(", ", names) + ". ";
         res +=  getResources().getString(R.string.names_string_postfix);
         return res;
     }
