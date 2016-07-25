@@ -41,7 +41,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_names);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
         mLayoutManager = new LinearLayoutManager(this);
