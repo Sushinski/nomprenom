@@ -78,7 +78,7 @@ public class NameRecord extends Model{
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
                     " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId() + ")";
         }
-        sel.orderBy("NameRecord.name ASC").where(_where);
+        sel.where(_where).orderBy("NameRecord.name ASC");
         try {
             return sel.execute();
         }catch (Exception e){

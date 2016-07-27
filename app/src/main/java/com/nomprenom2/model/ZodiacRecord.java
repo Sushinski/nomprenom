@@ -32,20 +32,24 @@ public class ZodiacRecord extends Model {
 
     public static String getMonthsForName(String name){
         List<String> str_res = new ArrayList<>();
+        List<ZodiacRecord> res = getMonthsListForName(name);
+        for ( ZodiacRecord z : res ) {
+            str_res.add(ZodMonth.fromInt(z.zod_month - 1)); // ordinal, not value
+        }
+        return TextUtils.join(",", str_res);
+    }
+
+    public static List<ZodiacRecord> getMonthsListForName(String name){
         try {
             From sel = new Select().
                     from(ZodiacRecord.class).
                     where("ZodiacRecord._id in (select a.zodiac_id from NameZodiacRecord a " +
                             "inner join NameRecord b on a.name_id = b._id where b.name =\'" +
                             name + "\');");
-            List<ZodiacRecord> res =  sel.execute();
-            for ( ZodiacRecord z : res ) {
-                str_res.add(ZodMonth.fromInt(z.zod_month - 1)); // ordinal, not value
-            }
+            return  sel.execute();
         }catch (Exception e){
-            return "";
+            return new ArrayList<>();
         }
-        return TextUtils.join(",", str_res);
     }
 
     public enum  ZodMonth{

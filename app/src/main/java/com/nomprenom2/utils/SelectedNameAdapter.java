@@ -57,8 +57,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     public String getInfoPrefix(){ return info_prefx; }
 
 
-    public String getCompatibility(String name){
-        return Integer.toString(comp.compare(name, this.patronymic, this.sex));
+    public String getCompatibility(NameRecord name){
+        return Integer.toString(comp.compare(name, this.patronymic, this.sex, this.zod));
     }
 
 

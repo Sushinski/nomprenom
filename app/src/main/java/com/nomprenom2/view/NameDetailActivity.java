@@ -26,7 +26,7 @@ public class NameDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         name_tw = (TextView)findViewById(R.id.text_fullname);
         name_descr_tw = (TextView)findViewById(R.id.text_name_descr);
@@ -47,7 +47,6 @@ public class NameDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // NavUtils.navigateUpFromSameTask(this);
                 onBackPressed();
                 return true;
         }

@@ -41,7 +41,7 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
         String c;
         if(bsearched){
              c = getContext().getResources().getText(R.string.compabl_pref) +
-                     getCompatibility(nr.name);
+                     getCompatibility(nr);
         }else {
             c = getContext().getResources().getText(R.string.descr_sex) +
                     NameRecord.Sex.fromInt(nr.sex);
