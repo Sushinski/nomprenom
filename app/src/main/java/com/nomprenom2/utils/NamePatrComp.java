@@ -37,6 +37,8 @@ public class NamePatrComp {
     public int compare(NameRecord nr,
                        String patronymic, NameRecord.Sex sex, ZodiacRecord.ZodMonth zod){
         String name = nr.name;
+        if( patronymic.equals(""))
+            return 0;
         if( !isConsonant(patronymic.charAt(0)) && !isWowel(patronymic.charAt(0)))
             return 0; // not our language
         // 1

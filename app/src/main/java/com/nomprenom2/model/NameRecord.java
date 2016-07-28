@@ -57,9 +57,8 @@ public class NameRecord extends Model{
     }
 
 
-    public static List<NameRecord> getNames(String[] groups, String s, String z) {
+    public static List<NameRecord> getNames(String[] groups, String sex, String zod) {
         String _where = "", add = "";
-
         if( groups != null) {
             _where = "NameRecord._id in (select name_id from NameGroupRecord where group_id in ";
             List<Long> group_id_list = GroupRecord.groupIdForNames(groups);
@@ -67,16 +66,16 @@ public class NameRecord extends Model{
             _where += str;
             add = " and ";
         }
-        if( s != null ) {
-            _where += add + "NameRecord.sex=" + Sex.valueOf(s).getId();
+        if( sex != null ) {
+            _where += add + "NameRecord.sex=" + Sex.valueOf(sex).getId();
             add = " and ";
         }
-        From sel = new Select("_id, name, sex, selected")
+        From sel = new Select()
                 .from(NameRecord.class);
-        if( z != null ) {
+        if( zod != null ) {
             _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
-                    " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(z).getId() + ")";
+                    " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(zod).getId() + ")";
         }
         sel.where(_where).orderBy("NameRecord.name ASC");
         try {
@@ -84,7 +83,6 @@ public class NameRecord extends Model{
         }catch (Exception e){
             return new ArrayList<>();
         }
-
     }
 
     public static List<NameRecord> getAll() {

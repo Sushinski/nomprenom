@@ -90,20 +90,18 @@ public class MainActivity extends AppCompatActivity{
         String sex = param_frag.getSelectedSex();
         if(sex != null) {
             intent.putExtra(SEX, sex);
-        }else{
-            showToast(getResources().getString(R.string.to_fill_sex));
-            return;
         }
         String zod = param_frag.getSelectedZod();
         if(zod != null)
             intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();
-        if(patr.equals("")){
-            showToast(getResources().getString(R.string.to_fill_patr));
+        if(!patr.equals("")){
+            intent.putExtra(PATRONYMIC, patr);
+        }
+        if(intent.getExtras() == null){
+            showToast(getString(R.string.sel_alert));
             return;
         }
-        else
-            intent.putExtra(PATRONYMIC, patr);
         startActivity(intent);
     }
 

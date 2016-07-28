@@ -99,4 +99,5 @@
     <string name="empty_list">List is empty</string>
     <string name="empty_filter">Not filtered</string>
     <string name="unknown">Unknown</string>
+    <string name="sel_alert">You have to set at least one parameter!</string>
 </resources>
