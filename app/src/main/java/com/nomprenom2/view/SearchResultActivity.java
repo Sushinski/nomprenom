@@ -3,40 +3,42 @@ package com.nomprenom2.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
-import com.nomprenom2.interfaces.ActivityListener;
-import com.nomprenom2.model.GroupRecord;
+import com.nomprenom2.interfaces.RestApi;
 import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.model.ZodiacRecord;
+import com.nomprenom2.pojo.NamePojo;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
 import com.nomprenom2.utils.SearchedNamesAdapter;
-import com.nomprenom2.utils.SelectedNameAdapter;
 
-import java.util.Arrays;
-import java.util.HashSet;
+
+import java.io.IOException;
 import java.util.List;
-import java.util.Set;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class SearchResultActivity extends AppCompatActivity {
+    String base_url = "http://85.143.215.126/names/";
     public static final int SELECTED_NAMES_ID=1;
     public static final int SEARCH_NAMES_ID=2;
     public static final int ADD_NAME_ID=3;
@@ -53,6 +55,16 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView title_tw;
     private TextView empty_tw;
 
+
+    public class LoggingInterceptor implements Interceptor {
+        @Override
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            okhttp3.Response response = chain.proceed(request);
+            return response;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +79,7 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
+        cacheRepoNames("all", "2", "0");
         init();
     }
 
@@ -102,7 +115,14 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         search_result_descr_tw.setText(search_descr);
-        names =  NameRecord.getNames(regions, sex, zod);
+//        if( regions != null ) {
+//            for (String group : regions) {
+//                cacheRepoNames(group, sex != null ? sex : "2", zod != null ? zod : "0");
+//            }
+//        }else{
+//            cacheRepoNames("all", sex != null ? sex : "2", zod != null ? zod : "0");
+//        }
+        names =  presenter.getNames(regions, sex, zod);
         if( names.isEmpty() )
             empty_tw.setVisibility(View.VISIBLE);
         else
@@ -170,8 +190,42 @@ public class SearchResultActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == ADD_NAME_ID) {
-            names =  NameRecord.getNames(regions, sex, zod);
+            names =  presenter.getNames(regions, sex, zod);
             arrayAdapter.notifyDataSetChanged();
         }
+    }
+
+    void cacheRepoNames(String group, String sex, String zod) {
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(new LoggingInterceptor())
+                .build();
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+        RestApi service = retrofit.create(RestApi.class);
+
+        Call<List<NamePojo>> call = service.getName();
+
+
+        call.enqueue(new Callback<List<NamePojo>>() {
+            @Override
+            public void onResponse(Call<List<NamePojo>> call, Response<List<NamePojo>> response) {
+                for(NamePojo n: response.body()){
+                    Log.i("Name", n.getName());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<NamePojo>> call, Throwable t) {
+
+            }
+        });
     }
 }

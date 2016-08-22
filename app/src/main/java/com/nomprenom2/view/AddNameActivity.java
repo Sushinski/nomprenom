@@ -33,7 +33,7 @@ public class AddNameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         name_et = (EditText)findViewById(R.id.name_tw);
         descr_et = (EditText)findViewById(R.id.name_descr);
         param_frag = (NameParamsFragment) getSupportFragmentManager().

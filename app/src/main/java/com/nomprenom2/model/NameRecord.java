@@ -1,33 +1,35 @@
 package com.nomprenom2.model;
 
-import android.app.DownloadManager;
-import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.google.gson.annotations.Expose;
 import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Table(name = "NameRecord", id = "_id")
 public class NameRecord extends Model{
 
+    @Expose
     @Column(name = "name", unique = true, notNull = true)
     public String name;
 
+    @Expose
     @Column(name = "sex", notNull = true)
     public int sex;
 
+    @Expose
     @Column(name = "selected", notNull = true)
     public int selected;
 
+    @Expose
     @Column(name = "description")
     public String description;
 
@@ -50,6 +52,10 @@ public class NameRecord extends Model{
             return check_id;
         }
     }
+
+    public List<String> groups = new ArrayList<>();
+
+    public List<Integer> zodiacs = new ArrayList<>();
 
 
     public NameRecord(){
@@ -84,6 +90,10 @@ public class NameRecord extends Model{
             return new ArrayList<>();
         }
     }
+
+
+
+
 
     public static List<NameRecord> getAll() {
         return new Select().all()
