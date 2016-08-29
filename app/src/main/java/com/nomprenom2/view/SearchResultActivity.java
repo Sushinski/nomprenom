@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,9 +39,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SearchResultActivity extends AppCompatActivity {
-    String base_url = "http://85.143.215.126/names/";
     public static final int SELECTED_NAMES_ID=1;
     public static final int SEARCH_NAMES_ID=2;
+    final String base_url = "http://85.143.215.126/names/";
     public static final int ADD_NAME_ID=3;
     private AbsPresenter presenter;
     private SearchedNamesAdapter arrayAdapter;
@@ -55,7 +56,6 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView title_tw;
     private TextView empty_tw;
 
-
     public class LoggingInterceptor implements Interceptor {
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -64,6 +64,7 @@ public class SearchResultActivity extends AppCompatActivity {
             return response;
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +80,12 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
-        cacheRepoNames("all", "2", "0");
+
         init();
     }
 
 
-    private void init(){
+    void init(){
         Intent data  = getIntent();
         String search_descr = "";
         if(data.hasExtra(MainActivity.REGIONS)) {
@@ -115,13 +116,13 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         search_result_descr_tw.setText(search_descr);
-//        if( regions != null ) {
-//            for (String group : regions) {
-//                cacheRepoNames(group, sex != null ? sex : "2", zod != null ? zod : "0");
-//            }
-//        }else{
-//            cacheRepoNames("all", sex != null ? sex : "2", zod != null ? zod : "0");
-//        }
+        if( regions != null ) {
+            for (String group : regions) {
+                cacheRepoNames(zod != null ? zod : "0",  sex != null ? sex : "2", group);
+            }
+        }else{
+            cacheRepoNames(zod != null ? zod : "0", sex != null ? sex : "2", "all");
+        }
         names =  presenter.getNames(regions, sex, zod);
         if( names.isEmpty() )
             empty_tw.setVisibility(View.VISIBLE);
@@ -195,14 +196,16 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     }
 
-    void cacheRepoNames(String group, String sex, String zod) {
+
+    void cacheRepoNames(String zod, String sex, String group) {
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .addInterceptor(new LoggingInterceptor())
                 .build();
 
 
-        Retrofit retrofit = new Retrofit.Builder()
+
+        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
@@ -210,22 +213,31 @@ public class SearchResultActivity extends AppCompatActivity {
 
         RestApi service = retrofit.create(RestApi.class);
 
-        Call<List<NamePojo>> call = service.getName();
+        final Call<List<NameRecord>> call = service.getName(zod, sex, group);
 
 
-        call.enqueue(new Callback<List<NamePojo>>() {
+        call.enqueue(new Callback<List<NameRecord>>() {
             @Override
-            public void onResponse(Call<List<NamePojo>> call, Response<List<NamePojo>> response) {
-                for(NamePojo n: response.body()){
-                    Log.i("Name", n.getName());
+            public void onResponse(Call<List<NameRecord>> call, Response<List<NameRecord>> response) {
+                Debug.waitForDebugger();
+                if(response.isSuccessful())
+                {
+                    try {
+                        for (NameRecord n : response.body()) {
+                            Log.i("Name", n.name);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
 
             @Override
-            public void onFailure(Call<List<NamePojo>> call, Throwable t) {
-
+            public void onFailure(Call<List<NameRecord>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }
+
 }

@@ -2,7 +2,6 @@ package com.nomprenom2.model;
 
 import android.text.TextUtils;
 
-import com.google.gson.annotations.Expose;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -10,6 +9,9 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +19,24 @@ import java.util.List;
 @Table(name = "NameRecord", id = "_id")
 public class NameRecord extends Model{
 
+    @SerializedName("_id")
+    @Expose
+    public int _id;
+
+    @SerializedName("name")
     @Expose
     @Column(name = "name", unique = true, notNull = true)
     public String name;
 
+    @SerializedName("sex")
     @Expose
     @Column(name = "sex", notNull = true)
     public int sex;
 
-    @Expose
     @Column(name = "selected", notNull = true)
     public int selected;
 
+    @SerializedName("description")
     @Expose
     @Column(name = "description")
     public String description;
@@ -53,9 +61,13 @@ public class NameRecord extends Model{
         }
     }
 
-    public List<String> groups = new ArrayList<>();
+    @SerializedName("groups")
+    @Expose
+    public List<GroupRecord> groups = new ArrayList<>();
 
-    public List<Integer> zodiacs = new ArrayList<>();
+    @SerializedName("zodiacs")
+    @Expose
+    public List<ZodiacRecord> zodiacs = new ArrayList<>();
 
 
     public NameRecord(){

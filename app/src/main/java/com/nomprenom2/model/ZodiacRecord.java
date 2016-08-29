@@ -8,6 +8,8 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.nomprenom2.R;
 
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ import java.util.List;
 
 @Table(name = "ZodiacRecord", id = "_id")
 public class ZodiacRecord extends Model {
+
+    @SerializedName("zod_month")
+    @Expose
     @Column(name="zod_month", unique = true)
     public int zod_month;
 

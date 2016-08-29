@@ -9,6 +9,8 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.List;
 public class GroupRecord extends Model{
     public static final String LIST_FIELD = "group_name";
 
+    @SerializedName("group_name")
+    @Expose
     @Column(name = "group_name", unique = true)
     public String group_name;
 
