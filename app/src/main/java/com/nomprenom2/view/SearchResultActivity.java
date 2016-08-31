@@ -41,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchResultActivity extends AppCompatActivity {
     public static final int SELECTED_NAMES_ID=1;
     public static final int SEARCH_NAMES_ID=2;
-    final String base_url = "http://85.143.215.126/names/";
+
     public static final int ADD_NAME_ID=3;
     private AbsPresenter presenter;
     private SearchedNamesAdapter arrayAdapter;
@@ -56,14 +56,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView title_tw;
     private TextView empty_tw;
 
-    public class LoggingInterceptor implements Interceptor {
-        @Override
-        public okhttp3.Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-            okhttp3.Response response = chain.proceed(request);
-            return response;
-        }
-    }
+
 
 
     @Override
@@ -116,13 +109,13 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         search_result_descr_tw.setText(search_descr);
-        if( regions != null ) {
-            for (String group : regions) {
-                cacheRepoNames(zod != null ? zod : "0",  sex != null ? sex : "2", group);
-            }
-        }else{
-            cacheRepoNames(zod != null ? zod : "0", sex != null ? sex : "2", "all");
-        }
+//        if( regions != null ) {
+//            for (String group : regions) {
+//                cacheRepoNames(zod != null ? zod : "0",  sex != null ? sex : "2", group);
+//            }
+//        }else{
+//            cacheRepoNames(zod != null ? zod : "0", sex != null ? sex : "2", "all");
+//        }
         names =  presenter.getNames(regions, sex, zod);
         if( names.isEmpty() )
             empty_tw.setVisibility(View.VISIBLE);
@@ -196,48 +189,5 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     }
 
-
-    void cacheRepoNames(String zod, String sex, String group) {
-
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .addInterceptor(new LoggingInterceptor())
-                .build();
-
-
-
-        final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base_url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-
-        RestApi service = retrofit.create(RestApi.class);
-
-        final Call<List<NameRecord>> call = service.getName(zod, sex, group);
-
-
-        call.enqueue(new Callback<List<NameRecord>>() {
-            @Override
-            public void onResponse(Call<List<NameRecord>> call, Response<List<NameRecord>> response) {
-                Debug.waitForDebugger();
-                if(response.isSuccessful())
-                {
-                    try {
-                        for (NameRecord n : response.body()) {
-                            Log.i("Name", n.name);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<NameRecord>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 
 }
