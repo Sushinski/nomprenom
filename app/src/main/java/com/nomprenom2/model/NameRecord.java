@@ -11,6 +11,7 @@ import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.nomprenom2.utils.RestInteractionWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,14 @@ public class NameRecord extends Model{
     @Column(name = "description")
     public String description;
 
+    @SerializedName("groups")
+    @Expose
+    public List<GroupRecord> groups = new ArrayList<>();
+
+    @SerializedName("zodiacs")
+    @Expose
+    public List<ZodiacRecord> zodiacs = new ArrayList<>();
+
     public enum Sex{
         Boy( 1 ), Girl( 0 );
         private final int sex_id;
@@ -61,21 +70,18 @@ public class NameRecord extends Model{
         }
     }
 
-    @SerializedName("groups")
-    @Expose
-    public List<GroupRecord> groups = new ArrayList<>();
-
-    @SerializedName("zodiacs")
-    @Expose
-    public List<ZodiacRecord> zodiacs = new ArrayList<>();
-
 
     public NameRecord(){
         super();
     }
 
+    public static void refreshNamesCache(){
+        RestInteractionWorker worker = new RestInteractionWorker();
+        worker.perfomServerOperation("0", "2", "all");
+    }
 
     public static List<NameRecord> getNames(String[] groups, String sex, String zod) {
+
         String _where = "", add = "";
         if( groups != null) {
             _where = "NameRecord._id in (select name_id from NameGroupRecord where group_id in ";
@@ -133,10 +139,16 @@ public class NameRecord extends Model{
     public static void saveName(String name, String sex,
                                 List<String> zodiacs, List<String> groups, String descr ){
         NameRecord rec = new NameRecord();
-        rec.name = name;
-        rec.sex = Sex.valueOf(sex).getId();
-        rec.description = descr;
-        rec.save();
+        try {
+            rec.name = name;
+            rec.sex = Sex.valueOf(sex).getId();
+            rec.description = descr;
+            rec.save();
+        }catch(Exception e){
+            e.printStackTrace();
+            return;
+        }
+
         ActiveAndroid.beginTransaction();
         try {
             for (String z : zodiacs) {
@@ -154,7 +166,10 @@ public class NameRecord extends Model{
                 ngr.save();
             }
             ActiveAndroid.setTransactionSuccessful();
-        }finally {
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
             ActiveAndroid.endTransaction();
         }
     }

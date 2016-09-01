@@ -22,8 +22,12 @@ import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.pojo.NamePojo;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
+import com.nomprenom2.utils.ActionEvent;
 import com.nomprenom2.utils.SearchedNamesAdapter;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.List;
@@ -109,13 +113,6 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         search_result_descr_tw.setText(search_descr);
-//        if( regions != null ) {
-//            for (String group : regions) {
-//                cacheRepoNames(zod != null ? zod : "0",  sex != null ? sex : "2", group);
-//            }
-//        }else{
-//            cacheRepoNames(zod != null ? zod : "0", sex != null ? sex : "2", "all");
-//        }
         names =  presenter.getNames(regions, sex, zod);
         if( names.isEmpty() )
             empty_tw.setVisibility(View.VISIBLE);
@@ -128,11 +125,6 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setAdapter(arrayAdapter);
     }
 
-
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
 
     @Override
     public void onNewIntent(Intent intent){
@@ -188,6 +180,5 @@ public class SearchResultActivity extends AppCompatActivity {
             arrayAdapter.notifyDataSetChanged();
         }
     }
-
 
 }

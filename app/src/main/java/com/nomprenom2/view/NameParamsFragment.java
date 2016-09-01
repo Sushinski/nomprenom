@@ -50,7 +50,7 @@ public class NameParamsFragment extends Fragment implements
     }
 
     public String getSelectedZod(){
-        return (String)zod_spinner.getSelectedItem();
+        return (String)zod_spinner.getSelectedItem();// todo int
     }
 
     public void setSingleSel(boolean bsingle){
