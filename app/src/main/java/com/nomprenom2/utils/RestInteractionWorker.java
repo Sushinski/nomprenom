@@ -73,6 +73,8 @@ public class RestInteractionWorker {
                         List<String> zods = new ArrayList<>();
                         List<String> groups = new ArrayList<>();
                         for (NameRecord nr : res_list) {
+                            zods.clear();
+                            groups.clear();
                             for (ZodiacRecord zr: nr.zodiacs) {
                                 zods.add(String.valueOf(zr.zod_sign));
                             }

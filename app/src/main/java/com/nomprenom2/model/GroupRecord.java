@@ -44,7 +44,7 @@ public class GroupRecord extends Model{
     public static GroupRecord getGroup(String group_name){
         return new Select().
                 from(GroupRecord.class).
-                where("group_name = ?", group_name).
+                where("group_name = ? collate nocase", group_name).
                 executeSingle();
     }
 

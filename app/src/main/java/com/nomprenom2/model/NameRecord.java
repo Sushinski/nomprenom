@@ -51,7 +51,7 @@ public class NameRecord extends Model{
     public List<ZodiacRecord> zodiacs = new ArrayList<>();
 
     public enum Sex{
-        Boy( 1 ), Girl( 0 );
+        Girl(0), Boy(1), ;
         private final int sex_id;
         Sex( int id ){ this.sex_id = id; }
         public final int getId(){
@@ -62,7 +62,7 @@ public class NameRecord extends Model{
     }
 
     public enum Check{
-        Checked( 1 ), Unchecked( 0 );
+        Unchecked( 0 ), Checked( 1 );
         private final int check_id;
         Check( int id ){ this.check_id = id; }
         public final int getId(){
