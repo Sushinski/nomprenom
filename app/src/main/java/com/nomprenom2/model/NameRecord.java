@@ -44,11 +44,11 @@ public class NameRecord extends Model{
 
     @SerializedName("groups")
     @Expose
-    public List<GroupRecord> groups = new ArrayList<>();
+    public String group;
 
     @SerializedName("zodiacs")
     @Expose
-    public List<ZodiacRecord> zodiacs = new ArrayList<>();
+    public List<String> zodiacs = new ArrayList<>();
 
     public enum Sex{
         Girl(0), Boy(1), ;

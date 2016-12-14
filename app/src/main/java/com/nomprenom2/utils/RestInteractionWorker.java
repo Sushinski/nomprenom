@@ -75,12 +75,10 @@ public class RestInteractionWorker {
                         for (NameRecord nr : res_list) {
                             zods.clear();
                             groups.clear();
-                            for (ZodiacRecord zr: nr.zodiacs) {
-                                zods.add(String.valueOf(zr.zod_sign));
+                            for (String zr: nr.zodiacs) {
+                                zods.add(String.valueOf(zr));
                             }
-                            for (GroupRecord gr: nr.groups){
-                                groups.add(gr.group_name);
-                            }
+                            groups.add(nr.group);
                             NameRecord.saveName(nr.name, NameRecord.Sex.values()[nr.sex].toString(),
                                     zods, groups, nr.description);
                         }

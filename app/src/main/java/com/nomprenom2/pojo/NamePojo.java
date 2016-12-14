@@ -22,7 +22,7 @@ public class NamePojo {
     private String description;
     @SerializedName("groups")
     @Expose
-    private List<GroupPojo> groups = new ArrayList<GroupPojo>();
+    private String groups;
     @SerializedName("zodiacs")
     @Expose
     private List<ZodiacPojo> zodiacs = new ArrayList<ZodiacPojo>();
@@ -104,7 +104,7 @@ public class NamePojo {
      * @return
      * The groups
      */
-    public List<GroupPojo> getGroups() {
+    public String getGroups() {
         return groups;
     }
 
@@ -113,7 +113,7 @@ public class NamePojo {
      * @param groups
      * The groups
      */
-    public void setGroups(List<GroupPojo> groups) {
+    public void setGroups(String groups) {
         this.groups = groups;
     }
 
