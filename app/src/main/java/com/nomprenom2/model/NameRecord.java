@@ -105,6 +105,7 @@ public class NameRecord extends Model{
         try {
             return sel.execute();
         }catch (Exception e){
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -139,18 +140,13 @@ public class NameRecord extends Model{
     public static void saveName(String name, String sex,
                                 List<String> zodiacs, List<String> groups, String descr ){
         NameRecord rec = new NameRecord();
+
+        ActiveAndroid.beginTransaction();
         try {
             rec.name = name;
             rec.sex = Sex.valueOf(sex).getId();
             rec.description = descr;
             rec.save();
-        }catch(Exception e){
-            e.printStackTrace();
-            return;
-        }
-
-        ActiveAndroid.beginTransaction();
-        try {
             for (String z : zodiacs) {
                 NameZodiacRecord nzr = new NameZodiacRecord();
                 nzr.name_id = rec.getId();
