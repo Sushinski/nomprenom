@@ -15,6 +15,7 @@ import com.nomprenom2.utils.RestInteractionWorker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 
 @Table(name = "NameRecord", id = "_id")
@@ -75,9 +76,25 @@ public class NameRecord extends Model{
         super();
     }
 
-    public static void refreshNamesCache(){
+
+    public static NameRecord get_or_create(String name){
+        try {
+            NameRecord rec = new Select().from(NameRecord.class).where("name=?", name).executeSingle();
+            if(rec.getId() == -1){
+                rec.name = name;
+                rec.save();
+            }
+            return rec;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+
+    public static void refreshNamesCache( String last_version){
         RestInteractionWorker worker = new RestInteractionWorker();
-        worker.perfomServerOperation("0", "2", "all");
+        worker.getNamesUpdate(last_version);
     }
 
     public static List<NameRecord> getNames(String[] groups, String sex, String zod) {
@@ -139,14 +156,10 @@ public class NameRecord extends Model{
 
     public static void saveName(String name, String sex,
                                 List<String> zodiacs, List<String> groups, String descr ){
-        NameRecord rec = new NameRecord();
-
+        NameRecord rec = get_or_create(name);
+        if( rec == null ) return;
         ActiveAndroid.beginTransaction();
         try {
-            rec.name = name;
-            rec.sex = Sex.valueOf(sex).getId();
-            rec.description = descr;
-            rec.save();
             for (String z : zodiacs) {
                 NameZodiacRecord nzr = new NameZodiacRecord();
                 nzr.name_id = rec.getId();

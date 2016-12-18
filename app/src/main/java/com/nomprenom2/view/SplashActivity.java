@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.PrefsRecord;
 import com.nomprenom2.utils.ActionEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NameRecord.refreshNamesCache();
+        NameRecord.refreshNamesCache(PrefsRecord.getStringValue("base_version"));
     }
 
     @Override

@@ -15,5 +15,8 @@ public interface RestApi {
     Observable<List<NameRecord>> getName(@Path("zod") String zod,
                                  @Path("sex") String sex,
                                  @Path("group") String group);
+
+    @GET("updates/{version}/")
+    Observable<List<NameRecord>> getNamesUpdate(@Path("version") String version);
 }
 
