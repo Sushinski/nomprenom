@@ -104,6 +104,8 @@ public class RestInteractionWorker {
     }
 
     public void getNamesUpdate(String last_upd_ver){
+        if(last_upd_ver == null)
+            last_upd_ver = "0";
         restApi.getNamesUpdate(last_upd_ver)
                 .subscribeOn(Schedulers.newThread()) //для запроса используем отдельный поток
                 .timeout(30, TimeUnit.SECONDS) // таймаут
