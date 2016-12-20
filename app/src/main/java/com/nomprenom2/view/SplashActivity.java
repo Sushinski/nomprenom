@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String last_name_id = PrefsRecord.getStringValue("base_version");
+        String last_name_id = PrefsRecord.getStringValue(PrefsRecord.LAST_UPD_NAME_ID);
         if(last_name_id == null)
             last_name_id = "0";
         NameRecord.refreshNamesCache(last_name_id);

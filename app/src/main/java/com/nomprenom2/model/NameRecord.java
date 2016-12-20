@@ -79,8 +79,9 @@ public class NameRecord extends Model{
 
     public static NameRecord get_or_create(String name){
         try {
-            NameRecord rec = new Select().from(NameRecord.class).where("name=?", name).executeSingle();
-            if(rec.getId() == -1){
+            NameRecord rec = new Select().from(NameRecord.class).where("name = ?", name).executeSingle();
+            if(rec == null){
+                rec = new NameRecord();
                 rec.name = name;
                 rec.save();
             }
@@ -127,15 +128,11 @@ public class NameRecord extends Model{
         }
     }
 
-
-
-
-
-    public static List<NameRecord> getAll() {
-        return new Select().all()
+    public static NameRecord getLast() {
+        return new Select()
                 .from(NameRecord.class)
-                .orderBy("name ASC")
-                .execute();
+                .orderBy("id DESC")
+                .executeSingle();
     }
 
     public static void setSelection(String name, int selection){
@@ -154,10 +151,10 @@ public class NameRecord extends Model{
     }
 
 
-    public static void saveName(String name, String sex,
+    public static long saveName(String name, String sex,
                                 List<String> zodiacs, List<String> groups, String descr ){
         NameRecord rec = get_or_create(name);
-        if( rec == null ) return;
+        if( rec == null ) return -1;
         ActiveAndroid.beginTransaction();
         try {
             for (String z : zodiacs) {
@@ -181,6 +178,7 @@ public class NameRecord extends Model{
         finally {
             ActiveAndroid.endTransaction();
         }
+        return rec.getId();
     }
 
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import com.nomprenom2.interfaces.RestApi;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.PrefsRecord;
 import com.nomprenom2.model.ZodiacRecord;
 
 import org.greenrobot.eventbus.EventBus;
@@ -115,6 +116,7 @@ public class RestInteractionWorker {
                     public ActionEvent call(List<NameRecord> res_list) {
                         List<String> zods = new ArrayList<>();
                         List<String> groups = new ArrayList<>();
+                        long last_id = -1;
                         for (NameRecord nr : res_list) {
                             zods.clear();
                             groups.clear();
@@ -122,9 +124,13 @@ public class RestInteractionWorker {
                                 zods.add(String.valueOf(zr));
                             }
                             groups.add(nr.group);
-                            NameRecord.saveName(nr.name, NameRecord.Sex.values()[nr.sex].toString(),
-                                    zods, groups, nr.description);
+                            long ins_id = NameRecord.saveName(nr.name,
+                                        NameRecord.Sex.values()[nr.sex].toString(),
+                                        zods, groups, nr.description);
+                            if(ins_id > 0)
+                                last_id = nr._id;
                         }
+                        PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(last_id));
                         // обрабатываем результат, после чего высылаем событие с флагом успешного выполнения запроса
                         return new ActionEvent(true, "ok");
                     }
