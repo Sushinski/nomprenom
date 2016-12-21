@@ -116,7 +116,7 @@ public class RestInteractionWorker {
                     public ActionEvent call(List<NameRecord> res_list) {
                         List<String> zods = new ArrayList<>();
                         List<String> groups = new ArrayList<>();
-                        long last_id = -1;
+                        long last_id = 0;
                         for (NameRecord nr : res_list) {
                             zods.clear();
                             groups.clear();
@@ -128,9 +128,8 @@ public class RestInteractionWorker {
                                         NameRecord.Sex.values()[nr.sex].toString(),
                                         zods, groups, nr.description);
                             if(ins_id > 0)
-                                last_id = nr._id;
+                                PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(nr._id));
                         }
-                        PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(last_id));
                         // обрабатываем результат, после чего высылаем событие с флагом успешного выполнения запроса
                         return new ActionEvent(true, "ok");
                     }

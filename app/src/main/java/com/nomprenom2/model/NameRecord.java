@@ -71,25 +71,29 @@ public class NameRecord extends Model{
         }
     }
 
-
     public NameRecord(){
         super();
     }
 
-
-    public static NameRecord get_or_create(String name){
+    public static NameRecord get(String name){
         try {
-            NameRecord rec = new Select().from(NameRecord.class).where("name = ?", name).executeSingle();
-            if(rec == null){
-                rec = new NameRecord();
-                rec.name = name;
-                rec.save();
-            }
-            return rec;
+            return new Select().from(NameRecord.class).where("name = ?", name).executeSingle();
         }
         catch (Exception e){
             e.printStackTrace();
             return  null;
+        }
+    }
+
+    public static NameRecord create(String name){
+        try{
+            NameRecord rec = new NameRecord();
+            rec.name = name;
+            rec.save();
+            return rec;
+        }
+        catch(Exception e){
+            return null;
         }
     }
 
@@ -153,10 +157,18 @@ public class NameRecord extends Model{
 
     public static long saveName(String name, String sex,
                                 List<String> zodiacs, List<String> groups, String descr ){
-        NameRecord rec = get_or_create(name);
-        if( rec == null ) return -1;
+        boolean created = false;
+        NameRecord rec = get(name);
+        if( rec == null ){
+            if( (rec = create(name)) == null)
+                return -1;
+            created = true;
+        }
         ActiveAndroid.beginTransaction();
         try {
+            rec.sex = Sex.valueOf(sex).getId();
+            rec.description = descr;
+            rec.save();
             for (String z : zodiacs) {
                 NameZodiacRecord nzr = new NameZodiacRecord();
                 nzr.name_id = rec.getId();
@@ -178,7 +190,10 @@ public class NameRecord extends Model{
         finally {
             ActiveAndroid.endTransaction();
         }
-        return rec.getId();
+        if( created )
+            return rec.getId();
+        else
+            return -1;
     }
 
 
