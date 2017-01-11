@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".SelectedNamesActivity"
+    tools:context=".view.SelectedNamesActivity"
     tools:showIn="@layout/activity_selected_names"
     android:id="@+id/select_names_content">
 

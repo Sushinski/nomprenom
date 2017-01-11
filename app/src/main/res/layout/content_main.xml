@@ -21,8 +21,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/mainActivityTitle"
         android:id="@+id/title_text"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
@@ -36,9 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/input_first_name"
         android:layout_below="@+id/title_text"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/title_text"
         android:layout_alignEnd="@+id/title_text"
         android:layout_marginTop="10dp"
         android:divider="#00000000"/>

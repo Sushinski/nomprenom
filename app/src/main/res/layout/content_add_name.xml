@@ -40,7 +40,6 @@
         android:layout_alignEnd="@+id/name_params_fragment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:editable="true"
         android:enabled="true"
         android:focusable="true"
         android:hint="Enter name description"
