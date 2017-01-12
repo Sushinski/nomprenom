@@ -3,7 +3,6 @@ package com.nomprenom2.presenter;
 import android.content.Context;
 
 import com.nomprenom2.model.NameRecord;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +14,8 @@ public abstract class AbsPresenter{
     }
 
     public List<NameRecord> getNames(String[] groups, String sex, String zod ){
-        return NameRecord.getNames(groups, sex, zod);
+        return new ArrayList<>();
     }
-
 
 
     public abstract void onOk();

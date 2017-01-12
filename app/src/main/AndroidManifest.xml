@@ -29,33 +29,33 @@
         <activity
             android:name=".view.MainActivity"
             android:label="@string/search_names_act"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".view.SelectedNamesActivity"
             android:label="@string/title_screen3"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".view.SelectedRegionActivity"
             android:label="@string/title_selected_region"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".view.SearchResultActivity"
             android:label="@string/title_activity_search_result"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".view.NameDetailActivity"
             android:label="@string/title_activity_name_detail"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".view.AddNameActivity"
             android:label="@string/title_activity_add_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
     </application>
 </manifest>

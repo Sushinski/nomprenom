@@ -42,7 +42,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class SearchResultActivity extends AppCompatActivity {
+public class SearchResultActivity extends Activity {
     public static final int SELECTED_NAMES_ID=1;
     public static final int SEARCH_NAMES_ID=2;
 
@@ -67,8 +67,8 @@ public class SearchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
         // // TODO: 06.04.16  inject candidate
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
@@ -89,22 +89,26 @@ public class SearchResultActivity extends AppCompatActivity {
             regions = data.getStringArrayExtra(MainActivity.REGIONS);
             search_descr = getResources().getString(R.string.descr_regions) +
                     TextUtils.join(",", regions ) + "\n";
-        }
+        }else
+            regions = null;
         if(data.hasExtra(MainActivity.SEX)) {
             sex = data.getStringExtra(MainActivity.SEX);
             search_descr += getResources().getString(R.string.descr_sex) +
                     sex + "\n";
-        }
+        }else
+            sex = null;
         if(data.hasExtra(MainActivity.ZODIAC)) {
             zod = data.getStringExtra(MainActivity.ZODIAC);
             search_descr += getResources().getString(R.string.descr_zod) +
                     zod + "\n";
-        }
+        }else
+            zod = null;
         if(data.hasExtra(MainActivity.PATRONYMIC)) {
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
             search_descr += getResources().getString(R.string.descr_patr) +
                     patronymic;
-        }
+        }else
+            patronymic = null;
         if(regions != null || sex != null || zod != null ||patronymic != null) {
             title_tw.setText(getResources().getText(R.string.search_results_for));
         }else{

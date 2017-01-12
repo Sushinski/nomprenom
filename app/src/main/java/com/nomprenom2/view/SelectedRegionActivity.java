@@ -1,5 +1,6 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SelectedRegionActivity extends AppCompatActivity {
+public class SelectedRegionActivity extends Activity {
 
     public ListView region_list_view;
     public ArrayAdapter<GroupRecord> arrayAdapter;
@@ -35,9 +36,6 @@ public class SelectedRegionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_region);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
         // set clicks handler

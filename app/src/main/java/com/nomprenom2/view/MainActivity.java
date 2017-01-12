@@ -1,8 +1,10 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,7 +19,7 @@ import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends FragmentActivity {
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
     public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";
@@ -35,9 +37,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title_txt = (TextView) findViewById(R.id.title_text);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
         param_frag =

@@ -1,10 +1,12 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,7 +25,7 @@ import com.nomprenom2.model.ZodiacRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNameActivity extends AppCompatActivity {
+public class AddNameActivity extends FragmentActivity {
     private NameParamsFragment param_frag;
     protected EditText name_et;
     protected EditText descr_et;
@@ -32,8 +34,6 @@ public class AddNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         name_et = (EditText)findViewById(R.id.name_tw);
         descr_et = (EditText)findViewById(R.id.name_descr);
         param_frag = (NameParamsFragment) getSupportFragmentManager().

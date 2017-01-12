@@ -1,5 +1,6 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,7 +25,7 @@ import java.util.Set;
 import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
-public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
+public class SelectedNamesActivity extends Activity implements IListItemDeleter {
     private List<NameRecord> names;
     private SelectedNameAdapter arrayAdapter;
     private RecyclerView result_list_view;
@@ -40,9 +41,6 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_names);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);

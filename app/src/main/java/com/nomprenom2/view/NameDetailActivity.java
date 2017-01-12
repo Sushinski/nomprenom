@@ -1,5 +1,6 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 import com.nomprenom2.R;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
-public class NameDetailActivity extends AppCompatActivity {
+public class NameDetailActivity extends Activity {
     private String name;
     private String name_descr;
     private TextView name_tw;
@@ -25,9 +26,6 @@ public class NameDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         name_tw = (TextView)findViewById(R.id.text_fullname);
         name_descr_tw = (TextView)findViewById(R.id.text_name_descr);
         Intent intent = getIntent();

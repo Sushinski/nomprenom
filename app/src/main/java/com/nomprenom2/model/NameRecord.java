@@ -125,7 +125,12 @@ public class NameRecord extends Model{
         }
         sel.where(_where).orderBy("NameRecord.name ASC");
         try {
-            return sel.execute();
+            if(!_where.equals(""))
+                return sel.execute();
+            else
+                return new Select().all().from(NameRecord.class).
+                        orderBy("NameRecord.name ASC").
+                        execute();
         }catch (Exception e){
             e.printStackTrace();
             return new ArrayList<>();
