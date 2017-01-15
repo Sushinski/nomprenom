@@ -128,9 +128,7 @@ public class NameRecord extends Model{
             if(!_where.equals(""))
                 return sel.execute();
             else
-                return new Select().all().from(NameRecord.class).
-                        orderBy("NameRecord.name ASC").
-                        execute();
+                return  new Select().all().from(NameRecord.class).execute();
         }catch (Exception e){
             e.printStackTrace();
             return new ArrayList<>();

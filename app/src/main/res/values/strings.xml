@@ -73,7 +73,7 @@
     <string name="chooser_title">Send by:</string>
     <string name="names_string_prefix">Look what names i`ve found in %s! It`s </string>
     <string name="names_string_postfix">Maybe you will find some nice among them :)</string>
-    <string name="send_names_title">Names found in %1% : </string>
+    <string name="send_names_title">Names found in %s : </string>
     <string name="add_name">Add name</string>
     <string name="enter_name">Enter name</string>
     <!-- TODO: Remove or change this placeholder text -->

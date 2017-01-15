@@ -25,7 +25,7 @@ import java.util.Set;
 import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
-public class SelectedNamesActivity extends Activity implements IListItemDeleter {
+public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
     private List<NameRecord> names;
     private SelectedNameAdapter arrayAdapter;
     private RecyclerView result_list_view;
@@ -66,8 +66,8 @@ public class SelectedNamesActivity extends Activity implements IListItemDeleter 
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String txt = String.format(getResources().getString(R.string.send_names_title),
-                        getResources().getString(R.string.app_name));
+                String fmt = getResources().getString(R.string.send_names_title);
+                String txt = String.format(fmt, getResources().getString(R.string.app_name));
                 intent.putExtra(Intent.EXTRA_SUBJECT,
                         txt);
                 intent.putExtra(Intent.EXTRA_TEXT, getNamesString());

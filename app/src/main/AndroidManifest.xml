@@ -16,7 +16,12 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
-
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.nomprenom2.model.GroupRecord, com.nomprenom2.model.NameRecord,
+            com.nomprenom2.model.NameGroupRecord, com.nomprenom2.model.ZodiacRecord,
+            com.nomprenom2.model.NameZodiacRecord, com.nomprenom2.model.PrefsRecord,
+            com.nomprenom2.model.SearchRecord, com.nomprenom2.model.SelectedName" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme" >
@@ -35,7 +40,7 @@
         <activity
             android:name=".view.SelectedNamesActivity"
             android:label="@string/title_screen3"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme.Appcompat">
         </activity>
         <activity
             android:name=".view.SelectedRegionActivity"
