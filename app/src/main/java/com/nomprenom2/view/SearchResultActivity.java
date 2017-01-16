@@ -1,5 +1,6 @@
 package com.nomprenom2.view;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
@@ -72,6 +74,8 @@ public class SearchResultActivity extends Activity {
         // // TODO: 06.04.16  inject candidate
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
+
+
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
@@ -185,4 +189,24 @@ public class SearchResultActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        result_list_view.post(new Runnable(){
+            @Override
+            public void run()
+            {
+                int cx = (result_list_view.getLeft() + result_list_view.getRight()) / 2;
+                int cy = (result_list_view.getTop() + result_list_view.getBottom()) / 2;
+                // get the final radius for the clipping circle
+                int finalRadius = Math.max(result_list_view.getWidth(), result_list_view.getHeight());
+                // create the animator for this view (the start radius is zero)
+                Animator anim =
+                        ViewAnimationUtils.createCircularReveal(result_list_view, cx, cy, 0, finalRadius);
+                // make the view visible and start the animation
+                result_list_view.setVisibility(View.VISIBLE);
+                anim.start();
+            }
+        });
+    }
 }
