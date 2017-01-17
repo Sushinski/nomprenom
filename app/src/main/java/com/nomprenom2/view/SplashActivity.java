@@ -1,11 +1,14 @@
 package com.nomprenom2.view;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
 import com.nomprenom2.utils.ActionEvent;
@@ -41,7 +44,12 @@ public class SplashActivity extends Activity {
     public void onEvent(ActionEvent event){
         Log.i("event res = ", event.getMessage());
         Intent intent = new Intent(this, SearchResultActivity.class);
-        startActivity(intent);
+        final View androidRobotView = findViewById(R.id.tr_ico);
+
+        ActivityOptions options = ActivityOptions
+                .makeSceneTransitionAnimation(this, androidRobotView, "trans_icon");
+        // start the new activity
+        startActivity(intent, options.toBundle());
         finish();
     }
 

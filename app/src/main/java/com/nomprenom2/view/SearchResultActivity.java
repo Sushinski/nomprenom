@@ -1,6 +1,7 @@
 package com.nomprenom2.view;
 
 import android.animation.Animator;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,6 +72,8 @@ public class SearchResultActivity extends Activity {
         setContentView(R.layout.activity_search_result);
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
+        ActionBar ab = getActionBar();
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
         // // TODO: 06.04.16  inject candidate
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);

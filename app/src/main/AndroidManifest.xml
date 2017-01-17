@@ -49,6 +49,7 @@
         </activity>
         <activity
             android:name=".view.SearchResultActivity"
+            android:icon="@mipmap/ic_launcher"
             android:label="@string/title_activity_search_result"
             android:theme="@style/AppTheme" >
         </activity>
