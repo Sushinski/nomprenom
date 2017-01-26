@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.nomprenom2.R;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
-public class NameDetailActivity extends Activity {
+public class NameDetailActivity extends AppCompatActivity {
     private String name;
     private String name_descr;
     private TextView name_tw;

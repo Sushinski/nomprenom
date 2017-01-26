@@ -10,6 +10,7 @@ import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
 import com.nomprenom2.model.ZodiacRecord;
+import com.nomprenom2.pojo.NamePojo;
 
 import org.greenrobot.eventbus.EventBus;
 

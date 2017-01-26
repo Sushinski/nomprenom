@@ -3,6 +3,7 @@ package com.nomprenom2.view;
 import android.animation.Animator;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
@@ -44,8 +46,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.app.ActionBar.DISPLAY_SHOW_HOME;
 
-public class SearchResultActivity extends Activity {
+
+public class SearchResultActivity extends AppCompatActivity {
     public static final int SELECTED_NAMES_ID=1;
     public static final int SEARCH_NAMES_ID=2;
 
@@ -70,11 +74,15 @@ public class SearchResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
-        ActionBar ab = getActionBar();
-        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
-        // // TODO: 06.04.16  inject candidate
+        android.support.v7.app.ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        final View androidRobotView = findViewById(R.id.tr_icon);
+
+        androidRobotView.setTransitionName("tr_icon");
+        getWindow().setAllowEnterTransitionOverlap(true);
+
+       // ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        //ab.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_HOME | android.support.v7.app.ActionBar.DISPLAY_SHOW_TITLE);
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
 
@@ -195,21 +203,6 @@ public class SearchResultActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        result_list_view.post(new Runnable(){
-            @Override
-            public void run()
-            {
-                int cx = (result_list_view.getLeft() + result_list_view.getRight()) / 2;
-                int cy = (result_list_view.getTop() + result_list_view.getBottom()) / 2;
-                // get the final radius for the clipping circle
-                int finalRadius = Math.max(result_list_view.getWidth(), result_list_view.getHeight());
-                // create the animator for this view (the start radius is zero)
-                Animator anim =
-                        ViewAnimationUtils.createCircularReveal(result_list_view, cx, cy, 0, finalRadius);
-                // make the view visible and start the animation
-                result_list_view.setVisibility(View.VISIBLE);
-                anim.start();
-            }
-        });
+        result_list_view.setVisibility(View.VISIBLE);
     }
 }

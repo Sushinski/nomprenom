@@ -1,5 +1,6 @@
 package com.nomprenom2.interfaces;
 import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.pojo.NamePojo;
 
 import java.util.List;
 

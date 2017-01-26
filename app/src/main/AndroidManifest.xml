@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="AA_DB_NAME"
@@ -24,10 +24,9 @@
             com.nomprenom2.model.SearchRecord, com.nomprenom2.model.SelectedName" />
         <activity
             android:name=".view.SplashActivity"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/NoActionBAr" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,7 +39,7 @@
         <activity
             android:name=".view.SelectedNamesActivity"
             android:label="@string/title_screen3"
-            android:theme="@style/AppTheme.Appcompat">
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".view.SelectedRegionActivity"
@@ -49,9 +48,9 @@
         </activity>
         <activity
             android:name=".view.SearchResultActivity"
-            android:icon="@mipmap/ic_launcher"
             android:label="@string/title_activity_search_result"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            >
         </activity>
         <activity
             android:name=".view.NameDetailActivity"

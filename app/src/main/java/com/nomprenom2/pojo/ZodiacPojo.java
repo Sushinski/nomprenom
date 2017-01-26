@@ -7,14 +7,14 @@ public class ZodiacPojo {
 
     @SerializedName("zod_month")
     @Expose
-    private int zodMonth;
+    private String zodMonth;
 
     /**
      *
      * @return
      * The zodMonth
      */
-    public int getZodMonth() {
+    public String getZodMonth() {
         return zodMonth;
     }
 
@@ -23,7 +23,7 @@ public class ZodiacPojo {
      * @param zodMonth
      * The zod_month
      */
-    public void setZodMonth(int zodMonth) {
+    public void setZodMonth(String zodMonth) {
         this.zodMonth = zodMonth;
     }
 

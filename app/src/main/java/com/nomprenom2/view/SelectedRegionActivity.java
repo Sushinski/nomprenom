@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SelectedRegionActivity extends Activity {
+public class SelectedRegionActivity extends AppCompatActivity {
 
     public ListView region_list_view;
     public ArrayAdapter<GroupRecord> arrayAdapter;

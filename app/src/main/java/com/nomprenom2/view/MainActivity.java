@@ -19,7 +19,7 @@ import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
     public static final int SEARCH_RESULT = 2;
     public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";

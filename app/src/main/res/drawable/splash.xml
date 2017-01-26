@@ -5,7 +5,6 @@
 
     <item>
         <bitmap
-            android:id="@+id/tr_ico"
             android:gravity="center"
             android:transitionName="trans_icon"
             android:src="@mipmap/ic_launcher"/>

@@ -25,7 +25,7 @@ import com.nomprenom2.model.ZodiacRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNameActivity extends FragmentActivity {
+public class AddNameActivity extends AppCompatActivity {
     private NameParamsFragment param_frag;
     protected EditText name_et;
     protected EditText descr_et;
