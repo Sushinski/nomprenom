@@ -1,13 +1,13 @@
 package com.nomprenom2.view;
 
 import android.animation.Animator;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.Debug;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,11 +74,17 @@ public class SearchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        android.support.v7.app.ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        final View androidRobotView = findViewById(R.id.tr_icon);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
-        androidRobotView.setTransitionName("tr_icon");
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        //myToolbar.findViewById(R.id.tr_icon).setTransitionName("trans_icon");
+        myToolbar.getChildAt(1).setTransitionName("trans_icon");
+
+
         getWindow().setAllowEnterTransitionOverlap(true);
 
        // ab.setHomeAsUpIndicator(R.drawable.transform_icon);

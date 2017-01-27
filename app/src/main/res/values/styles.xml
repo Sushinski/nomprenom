@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- enable window content transitions -->
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@transition/explode</item>
@@ -12,14 +12,8 @@
         <item name="android:windowSharedElementExitTransition">
             @transition/change_image_transform</item>
         <item name="android:textColorPrimary">?attr/colorAccent</item>
-        <item name="android:homeAsUpIndicator">@drawable/transform_icon</item>
     </style>
 
-    <style name="NoActionBAr" parent="AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
 
 
 </resources>

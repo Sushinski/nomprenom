@@ -24,7 +24,7 @@
             com.nomprenom2.model.SearchRecord, com.nomprenom2.model.SelectedName" />
         <activity
             android:name=".view.SplashActivity"
-            android:theme="@style/NoActionBAr" >
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
