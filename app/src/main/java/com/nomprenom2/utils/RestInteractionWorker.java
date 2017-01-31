@@ -1,16 +1,11 @@
 package com.nomprenom2.utils;
 
 
-import android.os.Debug;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.nomprenom2.interfaces.RestApi;
-import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
-import com.nomprenom2.model.ZodiacRecord;
-import com.nomprenom2.pojo.NamePojo;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -22,13 +17,9 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;

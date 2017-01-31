@@ -18,5 +18,5 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/tr_icon"
-        android:contentDescription="icicon" />
+        android:contentDescription="@string/icicon" />
 </RelativeLayout>

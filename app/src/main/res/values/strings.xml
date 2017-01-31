@@ -100,4 +100,13 @@
     <string name="empty_filter">Not filtered</string>
     <string name="unknown">Unknown</string>
     <string name="sel_alert">You have to set at least one parameter!</string>
+    <string name="name">Имя</string>
+    <string name="text1">text1</string>
+    <string name="icicon">icicon</string>
+    <string name="patronymic">Отчество</string>
+    <string name="text2">text2</string>
+    <string name="zodiac">Зодиак</string>
+    <string name="enter_name_description">Enter name description</string>
+    <string name="compl">Совмес\nтимость</string>
+    <string name="nookmarked">Избран\nное</string>
 </resources>

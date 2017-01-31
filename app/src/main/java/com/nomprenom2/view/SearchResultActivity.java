@@ -22,36 +22,15 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
-import com.nomprenom2.interfaces.RestApi;
 import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.pojo.NamePojo;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
-import com.nomprenom2.utils.ActionEvent;
 import com.nomprenom2.utils.SearchedNamesAdapter;
 
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.io.IOException;
 import java.util.List;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.app.ActionBar.DISPLAY_SHOW_HOME;
 
 
 public class SearchResultActivity extends AppCompatActivity {
-    public static final int SELECTED_NAMES_ID=1;
-    public static final int SEARCH_NAMES_ID=2;
 
     public static final int ADD_NAME_ID=3;
     private AbsPresenter presenter;

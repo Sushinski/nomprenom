@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:navigationIcon="@drawable/ic_launcher_m" />
+        android:navigationIcon="@drawable/trans_icon_m" />
 
     <include layout="@layout/content_search_result"
         android:layout_below="@+id/my_toolbar"
