@@ -11,9 +11,9 @@
     <string name="action_search">Search</string>
     <!-- todo: rename : menu_app_settings -->
 
-    <string name="menu_favorites">Избранное</string>
-    <string name="menu_my_names">Мои имена</string>
-    <string name="menu_choose_name">Подобрать имя</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_my_names">Choosen names</string>
+    <string name="menu_choose_name">Search for name</string>
 
     <!-- Inputs-->
     <string name="input_first_name">Child\'s patronymic</string>
@@ -55,7 +55,7 @@
         <item>November</item>
         <item>December</item>
     </string-array>
-    <string name="zodiac_view">zodiac</string>
+    <string name="zodiac_view" translatable="false">zodiac</string>
     <string name="select_child_sex">Select child\'s sex</string>
     <string name="select_child_zod">Select zodiac sign</string>
     <string name="title_activity_search_result">Names</string>
@@ -66,8 +66,8 @@
     <string name="not_selected_region">Not selected</string>
     <string name="title_activity_name_detail">Name Detail</string>
     <string name="menu_delete_item">Delete</string>
-    <string name="vowels">уеыаоэёяию</string>
-    <string name="consonants">йцкнгшщзхъфвпрлджчсмтьб</string>
+    <string name="vowels" translatable="false">уеыаоэёяию</string>
+    <string name="consonants" translatable="false">йцкнгшщзхъфвпрлджчсмтьб</string>
     <string name="to_fill_sex">Set child\'s sex!</string>
     <string name="to_fill_patr">Set child\'s patronymic!</string>
     <string name="chooser_title">Send by:</string>
@@ -77,8 +77,8 @@
     <string name="add_name">Add name</string>
     <string name="enter_name">Enter name</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_main2" translatable="false">Main2Activity</string>
     <string name="title_activity_add_name">Add Name</string>
     <string name="btn_add_descr">Name description</string>
     <string name="en_name_descr">Enter name description</string>
@@ -100,13 +100,13 @@
     <string name="empty_filter">Not filtered</string>
     <string name="unknown">Unknown</string>
     <string name="sel_alert">You have to set at least one parameter!</string>
-    <string name="name">Имя</string>
-    <string name="text1">text1</string>
-    <string name="icicon">icicon</string>
-    <string name="patronymic">Отчество</string>
-    <string name="text2">text2</string>
-    <string name="zodiac">Зодиак</string>
+    <string name="text1" translatable="false">text1</string>
+    <string name="icicon" translatable="false">icicon</string>
+    <string name="patronymic">Patronymic</string>
+    <string name="text2" translatable="false">text2</string>
     <string name="enter_name_description">Enter name description</string>
     <string name="compl">Совмес\nтимость</string>
-    <string name="nookmarked">Избран\nное</string>
+    <string name="nookmarked" translatable="false">Избран\nное</string>
+    <string name="name">Name</string>
+    <string name="zodiac">Zodiac</string>
 </resources>
