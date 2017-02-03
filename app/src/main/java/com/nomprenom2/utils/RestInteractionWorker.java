@@ -3,6 +3,9 @@ package com.nomprenom2.utils;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nomprenom2.interfaces.RestApi;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
@@ -45,56 +48,20 @@ public class RestInteractionWorker {
                 .addInterceptor(new LoggingInterceptor())
                 .build();
 
+        final Gson gson =
+                new GsonBuilder()
+                        .excludeFieldsWithoutExposeAnnotation()
+                        .create();
+
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
         restApi = retrofit.create(RestApi.class);
     }
 
-    public void perfomServerOperation(String zod, String sex, String group){
-
-        restApi.getName(zod, sex, group)
-                .subscribeOn(Schedulers.newThread()) //для запроса используем отдельный поток
-                .timeout(30, TimeUnit.SECONDS) // таймаут
-                .map(new Func1<List<NameRecord>, ActionEvent>() {
-                    @NonNull
-                    @Override
-                    public ActionEvent call(List<NameRecord> res_list) {
-                        List<String> zods = new ArrayList<>();
-                        List<String> groups = new ArrayList<>();
-                        for (NameRecord nr : res_list) {
-                            zods.clear();
-                            groups.clear();
-                            for (String zr: nr.zodiacs) {
-                                zods.add(String.valueOf(zr));
-                            }
-                            groups.add(nr.group);
-                            NameRecord.saveName(nr.name, NameRecord.Sex.values()[nr.sex].toString(),
-                                    zods, groups, nr.description);
-                        }
-                        // обрабатываем результат, после чего высылаем событие с флагом успешного выполнения запроса
-                        return new ActionEvent(true, "ok");
-                    }
-                })
-                .onErrorReturn(new Func1<Throwable, ActionEvent>() {
-                    @NonNull
-                    @Override
-                    public ActionEvent call(Throwable throwable) {
-                        // произошла ошибка, создаем событие сообщающее об ошибке
-                        return new ActionEvent(false, throwable.getMessage());
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread()) // дальше код будет вызываться в главном потоке приложения
-                .subscribe(new Action1<ActionEvent>() {
-                    @Override
-                    public void call(ActionEvent event) {
-                        EventBus.getDefault().post(event); // высылаем событие
-                    }
-                });
-    }
 
     public void getNamesUpdate(String last_upd_ver){
         if(last_upd_ver == null)
