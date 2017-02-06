@@ -75,4 +75,5 @@
         <item>Мальчик</item>
         <item>Девочка</item>
     </string-array>
+    <string name="region_repr">" Регион: "</string>
 </resources>

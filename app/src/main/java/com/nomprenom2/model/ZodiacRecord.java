@@ -1,6 +1,5 @@
 package com.nomprenom2.model;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -36,12 +35,11 @@ public class ZodiacRecord extends Model {
                 where("zod_month=?", mon_id).executeSingle();
     }
 
-    public static String getMonthsForName(String name, Context context){
+    public static String getMonthsForName(String name){
         List<String> str_res = new ArrayList<>();
         List<ZodiacRecord> res = getMonthsListForName(name);
-        String[] zodiacs = context.getResources().getStringArray(R.array.zod_sels);
         for ( ZodiacRecord z : res ) {
-            str_res.add(); // ordinal, not value
+            str_res.add(ZodMonth.fromInt(z.zod_month)); // ordinal, not value
         }
         return TextUtils.join(", ", str_res);
     }

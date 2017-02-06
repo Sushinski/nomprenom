@@ -12,7 +12,7 @@
     <!-- todo: rename : menu_app_settings -->
 
     <string name="menu_favorites">Favorites</string>
-    <string name="menu_my_names">Choosen names</string>
+    <string name="menu_my_names">Chosen names</string>
     <string name="menu_choose_name">Search for name</string>
 
     <!-- Inputs-->
@@ -109,4 +109,5 @@
     <string name="nookmarked" translatable="false">Избран\nное</string>
     <string name="name">Name</string>
     <string name="zodiac">Zodiac</string>
+    <string name="region_repr">Region:</string>
 </resources>
