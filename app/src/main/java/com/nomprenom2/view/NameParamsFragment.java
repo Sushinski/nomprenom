@@ -45,11 +45,12 @@ public class NameParamsFragment extends Fragment implements
     }
 
     public Integer getSelectedSex(){
+
         return sex_spinner.getSelectedItemPosition();
     }
 
     public Integer getSelectedZod(){
-        return zod_spinner.getSelectedItemPosition();// todo int
+        return zod_spinner.getSelectedItemPosition();
     }
 
     public void setSingleSel(boolean bsingle){

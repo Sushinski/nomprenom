@@ -15,7 +15,7 @@ public class SearchResultPresenter extends AbsPresenter{
     public void onOk(){
     }
 
-    public List<NameRecord> getNames(String[] groups, String sex, String zod ){
+    public List<NameRecord> getNames(String[] groups, int sex, int zod ){
         return NameRecord.getNames(groups, sex, zod);
     }
 }

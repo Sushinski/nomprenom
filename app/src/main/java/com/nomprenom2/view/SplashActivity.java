@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                 .makeSceneTransitionAnimation(this, androidRobotView, "trans_icon");
         // start the new activity
         startActivity(intent, options.toBundle());
-        finishAfterTransition();
+        finish();
     }
 
 

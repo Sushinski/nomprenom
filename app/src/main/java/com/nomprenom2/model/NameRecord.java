@@ -102,7 +102,7 @@ public class NameRecord extends Model{
         worker.getNamesUpdate(last_version);
     }
 
-    public static List<NameRecord> getNames(String[] groups, String sex, String zod) {
+    public static List<NameRecord> getNames(String[] groups, int sex, int zod) {
 
         String _where = "", add = "";
         if( groups != null) {
@@ -112,16 +112,16 @@ public class NameRecord extends Model{
             _where += str;
             add = " and ";
         }
-        if( sex != null ) {
-            _where += add + "NameRecord.sex=" + Sex.valueOf(sex).getId();
+        if( sex != -1 ) {
+            _where += add + "NameRecord.sex=" + Sex.fromInt(sex);
             add = " and ";
         }
         From sel = new Select()
                 .from(NameRecord.class);
-        if( zod != null ) {
+        if( zod != -1 ) {
             _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
-                    " b.zod_month=" + ZodiacRecord.ZodMonth.valueOf(zod).getId() + ")";
+                    " b.zod_month=" + Integer.toString(zod) + ")";
         }
         sel.where(_where).orderBy("NameRecord.name ASC");
         try {

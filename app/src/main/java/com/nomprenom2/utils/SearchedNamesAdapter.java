@@ -43,9 +43,9 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
              c = getContext().getResources().getText(R.string.compabl_pref) +
                      getCompatibility(nr);
         }else {
-            c = getContext().getResources().getText(R.string.descr_sex) +
-                    NameRecord.Sex.fromInt(nr.sex);
-                    String str = ZodiacRecord.getMonthsForName(nr.name);
+            c = getContext().getResources().getText(R.string.descr_sex) + getContext().getResources().getStringArray(R.array.sex_sels)[nr.sex];
+            //[ToDo названия зодиака]
+            String str = ZodiacRecord.getMonthsForName(nr.);
             GroupRecord gr = GroupRecord.getGroupForName(nr);
             c += "  Region: " +
                     ( gr== null ? getContext().getResources().getText(R.string.unknown) : gr);

@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
             param_frag.regions.toArray(sa);
             intent.putExtra(REGIONS, sa);
         }
-        String sex = NameRecord.Sex.fromInt(param_frag.getSelectedSex());
+        Integer sex = param_frag.getSelectedSex();
         if(sex != null) {
             intent.putExtra(SEX, sex);
         }
-        String zod = ZodiacRecord.ZodMonth.fromInt(param_frag.getSelectedZod());
+        Integer zod = param_frag.getSelectedZod();
         if(zod != null)
             intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();

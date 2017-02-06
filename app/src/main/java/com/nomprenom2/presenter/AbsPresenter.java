@@ -13,7 +13,7 @@ public abstract class AbsPresenter{
         context = c;
     }
 
-    public List<NameRecord> getNames(String[] groups, String sex, String zod ){
+    public List<NameRecord> getNames(String[] groups, int sex, int zod ){
         return new ArrayList<>();
     }
 

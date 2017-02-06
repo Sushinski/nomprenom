@@ -38,8 +38,10 @@ public class SearchResultActivity extends AppCompatActivity {
     private RecyclerView result_list_view;
     private RecyclerView.LayoutManager mLayoutManager;
     private String[] regions;
-    private String sex;
-    private String zod;
+    private int sex;
+    private String sex_str;
+    private int zod;
+    private String zod_str;
     private String patronymic;
     private List<NameRecord> names;
     private TextView search_result_descr_tw;
@@ -88,24 +90,26 @@ public class SearchResultActivity extends AppCompatActivity {
         }else
             regions = null;
         if(data.hasExtra(MainActivity.SEX)) {
-            sex = data.getStringExtra(MainActivity.SEX);
+            sex = data.getIntExtra(MainActivity.SEX, 0);
+            sex_str = getResources().getStringArray(R.array.sex_sels)[sex];
             search_descr += getResources().getString(R.string.descr_sex) +
-                    sex + "\n";
+                    sex_str + "\n";
         }else
-            sex = null;
+            sex = -1;
         if(data.hasExtra(MainActivity.ZODIAC)) {
-            zod = data.getStringExtra(MainActivity.ZODIAC);
+            zod = data.getIntExtra(MainActivity.ZODIAC, -1);
+            zod_str = getResources().getStringArray(R.array.zod_sels)[zod];
             search_descr += getResources().getString(R.string.descr_zod) +
-                    zod + "\n";
+                    zod_str + "\n";
         }else
-            zod = null;
+            zod = -1;
         if(data.hasExtra(MainActivity.PATRONYMIC)) {
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
             search_descr += getResources().getString(R.string.descr_patr) +
                     patronymic;
         }else
             patronymic = null;
-        if(regions != null || sex != null || zod != null ||patronymic != null) {
+        if(regions != null || sex != -1 || zod != -1 ||patronymic != null) {
             title_tw.setText(getResources().getText(R.string.search_results_for));
         }else{
             title_tw.setText(getResources().getText(R.string.names_list));
@@ -121,7 +125,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
-                names, patronymic, sex, zod);
+                names, patronymic, sex_str, zod_str);
         result_list_view.setAdapter(arrayAdapter);
     }
 

@@ -84,7 +84,7 @@ public class RestInteractionWorker {
                             }
                             groups.add(nr.group);
                             long ins_id = NameRecord.saveName(nr.name,
-                                        NameRecord.Sex.values()[nr.sex].toString(),
+                                        NameRecord.Sex.fromInt(nr.sex),
                                         zods, groups, nr.description);
                             if(ins_id > 0)
                                 PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(nr._id));
