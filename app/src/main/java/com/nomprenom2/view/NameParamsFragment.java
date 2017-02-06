@@ -32,8 +32,7 @@ public class NameParamsFragment extends Fragment implements
     private List<WeakReference<Fragment>> frag_list;
 
     public static NameParamsFragment newInstance() {
-        NameParamsFragment fragment = new NameParamsFragment();
-        return fragment;
+        return new NameParamsFragment();
     }
 
     public NameParamsFragment() {
@@ -45,12 +44,12 @@ public class NameParamsFragment extends Fragment implements
 
     }
 
-    public String getSelectedSex(){
-        return (String)sex_spinner.getSelectedItem();
+    public Integer getSelectedSex(){
+        return sex_spinner.getSelectedItemPosition();
     }
 
-    public String getSelectedZod(){
-        return (String)zod_spinner.getSelectedItem();// todo int
+    public Integer getSelectedZod(){
+        return zod_spinner.getSelectedItemPosition();// todo int
     }
 
     public void setSingleSel(boolean bsingle){

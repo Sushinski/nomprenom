@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.nomprenom2.R;
+import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.ZodiacRecord;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.MainPresenter;
 
@@ -37,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        }
+
         title_txt = (TextView) findViewById(R.id.title_text);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
         param_frag =
@@ -86,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
             param_frag.regions.toArray(sa);
             intent.putExtra(REGIONS, sa);
         }
-        String sex = param_frag.getSelectedSex();
+        String sex = NameRecord.Sex.fromInt(param_frag.getSelectedSex());
         if(sex != null) {
             intent.putExtra(SEX, sex);
         }
-        String zod = param_frag.getSelectedZod();
+        String zod = ZodiacRecord.ZodMonth.fromInt(param_frag.getSelectedZod());
         if(zod != null)
             intent.putExtra(ZODIAC, zod);
         String patr = patr_tw.getText().toString();

@@ -16,7 +16,7 @@
     <string name="descr_sex">Пол:</string>
     <string name="descr_zod">Знак зодиака:</string>
     <string name="empty_filter">Без фильтров</string>
-    <string name="empty_list">Лист пуст</string>
+    <string name="empty_list">Список пуст</string>
     <string name="empty_name">Пустое имя</string>
     <string name="empty_name_descr">У этого имени не добавлено описания</string>
     <string name="en_name_descr">Введите описание для имени</string>
@@ -30,7 +30,7 @@
     <string name="menu_favorites">Избранное</string>
     <string name="menu_my_names">Избранные имена</string>
     <string name="name">Имя</string>
-    <string name="names_list">Лист имён</string>
+    <string name="names_list">Список имён</string>
     <string name="names_string_postfix">Возможно ты найдёшь среди них подходящее ;)</string>
     <string name="names_string_prefix">"Смотри, какие имена нашлись в приложении %s! Это  "</string>
     <string name="not_selected_region">Не выбрано</string>
@@ -42,19 +42,37 @@
     <string name="search_results_for">Результаты поиска для:</string>
     <string name="sel_alert">Нужно ввести параметры поиска!</string>
     <string name="select_child_sex">Выберите пол ребёнка</string>
-    <string name="select_child_zod">Выберите зодиак ребёнка</string>
-    <string name="select_region_button">Выберите регион имён</string>
+    <string name="select_child_zod">Выберите знак зодиака</string>
+    <string name="select_region_button">Регион для имени</string>
     <string name="send_names_title">"Имена, найденные в %s : "</string>
     <string name="title_activity_add_name">Добавить имя</string>
     <string name="title_activity_name_detail">Описание имени</string>
     <string name="title_activity_search_result">Имена</string>
     <string name="title_activity_selected_names">Избранные имена</string>
     <string name="title_all_names">Все имена</string>
-    <string name="title_screen3">Отмеченные</string>
+    <string name="title_screen3">Отобранные</string>
     <string name="title_selected_region">Выберите регионы</string>
     <string name="to_fill_patr">Установите отчество!</string>
     <string name="to_fill_sex">Установите пол!</string>
     <string name="unknown">Неизвестно</string>
     <string name="zod_pref">Знаки зодиака:</string>
     <string name="zodiac">Зодиак</string>
+    <string-array name="zod_sels">
+        <item>Овен</item>
+        <item>Телец</item>
+        <item>Близнецы</item>
+        <item>Рак</item>
+        <item>Лев</item>
+        <item>Дева</item>
+        <item>Весы</item>
+        <item>Скорпион</item>
+        <item>Стрелец</item>
+        <item>Козерог</item>
+        <item>Водолей</item>
+        <item>Рыбы</item>
+    </string-array>
+    <string-array name="sex_sels">
+        <item>Мальчик</item>
+        <item>Девочка</item>
+    </string-array>
 </resources>

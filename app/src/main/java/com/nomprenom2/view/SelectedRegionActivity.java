@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseBooleanArray;
@@ -36,6 +37,15 @@ public class SelectedRegionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_region);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        }
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
         // set clicks handler
@@ -89,7 +99,9 @@ public class SelectedRegionActivity extends AppCompatActivity {
                 int key = checkedItemPositions.keyAt(i);
                 if (checkedItemPositions.get(key)) {
                     GroupRecord rec = arrayAdapter.getItem(key);
-                    checked[i] = rec.group_name;
+                    if (rec != null) {
+                        checked[i] = rec.group_name;
+                    }
                 }
             }
             data.putExtra(MainActivity.REGIONS, checked);

@@ -58,16 +58,13 @@ public class SearchResultActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setHomeAsUpIndicator(R.drawable.transform_icon);
-        //myToolbar.findViewById(R.id.tr_icon).setTransitionName("trans_icon");
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        }
+
         myToolbar.getChildAt(1).setTransitionName("trans_icon");
-
-
         getWindow().setAllowEnterTransitionOverlap(true);
-
-       // ab.setHomeAsUpIndicator(R.drawable.transform_icon);
-        //ab.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_HOME | android.support.v7.app.ActionBar.DISPLAY_SHOW_TITLE);
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
 
@@ -77,7 +74,6 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
-
         init();
     }
 

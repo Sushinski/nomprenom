@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,16 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_names);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        }
+
         result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
         mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);

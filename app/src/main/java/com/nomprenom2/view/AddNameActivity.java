@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,6 +35,15 @@ public class AddNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+        }
         name_et = (EditText)findViewById(R.id.name_tw);
         descr_et = (EditText)findViewById(R.id.name_descr);
         param_frag = (NameParamsFragment) getSupportFragmentManager().
@@ -65,14 +75,16 @@ public class AddNameActivity extends AppCompatActivity {
     private void addName(){
         // todo get zodiac list
         List<String> zod_list = new ArrayList<>();
-        String z = param_frag.getSelectedZod();
-        zod_list.add(z);
+        Integer z = param_frag.getSelectedZod();
+        String[] zods = getResources().getStringArray(R.array.zod_sels);
+        zod_list.add(zods[z]);
         List<String> gr_list = new ArrayList<>();
         for (String s : param_frag.regions ) {
             gr_list.add(s);
         }
+        String sx[] = getResources().getStringArray(R.array.sex_sels);
         NameRecord.saveName(name_et.getText().toString(),
-                param_frag.getSelectedSex(),
+                sx[param_frag.getSelectedSex()],
                 zod_list, gr_list, descr_et.getText().toString());
     }
 
