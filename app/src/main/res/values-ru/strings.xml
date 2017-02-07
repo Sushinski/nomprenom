@@ -72,8 +72,8 @@
         <item>Рыбы</item>
     </string-array>
     <string-array name="sex_sels">
-        <item>Мальчик</item>
         <item>Девочка</item>
+        <item>Мальчик</item>
     </string-array>
     <string name="region_repr">" Регион: "</string>
 </resources>

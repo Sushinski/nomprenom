@@ -28,18 +28,18 @@ public class ZodiacRecord extends Model {
 
     public ZodiacRecord(){ super(); }
 
-    public static ZodiacRecord getZodiacRec(ZodMonth month){
-        int mon_id = month.getId();
+    public static ZodiacRecord getZodiacRec(Integer mon_id){
         return new Select().
                 from(ZodiacRecord.class).
                 where("zod_month=?", mon_id).executeSingle();
     }
 
-    public static String getMonthsForName(String name){
+    public static String getMonthsForName(String name, @Nullable String[] translation){
         List<String> str_res = new ArrayList<>();
         List<ZodiacRecord> res = getMonthsListForName(name);
         for ( ZodiacRecord z : res ) {
-            str_res.add(ZodMonth.fromInt(z.zod_month)); // ordinal, not value
+            str_res.add( translation == null ? ZodMonth.fromInt(z.zod_month - 1) :
+                                                translation[z.zod_month - 1]); // ordinal, not value
         }
         return TextUtils.join(", ", str_res);
     }

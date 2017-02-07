@@ -23,8 +23,8 @@
     <string name="select_region_button">Select name region</string>
     <string name="search_name_button">Search</string>
     <string-array name="sex_sels">
-        <item>Boy</item>
         <item>Girl</item>
+        <item>Boy</item>
     </string-array>
     <string-array name="zod_sels">
         <item>Aries</item>

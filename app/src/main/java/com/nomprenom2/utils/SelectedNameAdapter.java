@@ -29,6 +29,8 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     private NamePatrComp comp;
     private int tw_id;
     private String info_prefx;
+    private static String[] zodiac_repr_names;
+
 
 
     public Context getContext(){
@@ -46,6 +48,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         this.comp = new NamePatrComp(context);
         this.sex = sex != null ? NameRecord.Sex.valueOf(sex) : null;
         this.zod = zod != null ? ZodiacRecord.ZodMonth.valueOf(zod) : null;
+        zodiac_repr_names = getContext().getResources().getStringArray(R.array.zod_sels);
     }
 
 
@@ -92,12 +95,13 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 String n = tw.getText().toString();
                 String d = getContext().getResources().getText(R.string.descr_sex) +
                         NameRecord.Sex.fromInt(nr.sex);
-                String str = ZodiacRecord.getMonthsForName(nr.name);
+                String str = ZodiacRecord.getMonthsForName(nr.name, zodiac_repr_names);
                 GroupRecord gr = GroupRecord.getGroupForName(nr);
-                d += "  Region: " +
-                        ( gr== null ? getContext().getResources().getText(R.string.unknown) : gr);
+                d += getContext().getResources().getString(R.string.region_repr) +
+                        ( gr== null ? getContext().getResources().getString(R.string.unknown) : gr);
                 d += "\n" + getInfoPrefix() +
-                        (str.equals("") ? getContext().getResources().getText(R.string.unknown) : str);
+                        (str.equals("") ? getContext().getResources()
+                                .getString(R.string.unknown) : str);
                 d += "\n\n" + (nr.description == null ?
                         getContext().getResources().getString(R.string.empty_name_descr) :
                         nr.description);
@@ -146,6 +150,4 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 deleter.onDeleteListItem(nm);
         }
     }
-
-
 }

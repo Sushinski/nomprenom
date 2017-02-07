@@ -158,8 +158,8 @@ public class NameRecord extends Model{
     }
 
 
-    public static long saveName(String name, String sex,
-                                List<String> zodiacs, List<String> groups, String descr ){
+    public static long saveName(String name, Integer sex,
+                                List<Integer> zodiacs, List<String> groups, String descr ){
         boolean created = false;
         NameRecord rec = get(name);
         if( rec == null ){
@@ -169,14 +169,13 @@ public class NameRecord extends Model{
         }
         ActiveAndroid.beginTransaction();
         try {
-            rec.sex = Sex.valueOf(sex).getId();
+            rec.sex = sex;
             rec.description = descr;
             rec.save();
-            for (String z : zodiacs) {
+            for (Integer z : zodiacs) {
                 NameZodiacRecord nzr = new NameZodiacRecord();
                 nzr.name_id = rec.getId();
-                ZodiacRecord.ZodMonth m = ZodiacRecord.ZodMonth.valueOf(z);
-                nzr.zodiac_id = ZodiacRecord.getZodiacRec(m).getId();
+                nzr.zodiac_id = ZodiacRecord.getZodiacRec(z+1).getId();
                 nzr.save();
             }
 

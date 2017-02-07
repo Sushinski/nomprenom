@@ -74,17 +74,15 @@ public class AddNameActivity extends AppCompatActivity {
 
     private void addName(){
         // todo get zodiac list
-        List<String> zod_list = new ArrayList<>();
+        List<Integer> zod_list = new ArrayList<>();
         Integer z = param_frag.getSelectedZod();
-        String[] zods = getResources().getStringArray(R.array.zod_sels);
-        zod_list.add(zods[z]);
+        zod_list.add(z);
         List<String> gr_list = new ArrayList<>();
         for (String s : param_frag.regions ) {
             gr_list.add(s);
         }
-        String sx[] = getResources().getStringArray(R.array.sex_sels);
         NameRecord.saveName(name_et.getText().toString(),
-                sx[param_frag.getSelectedSex()],
+                param_frag.getSelectedSex(),
                 zod_list, gr_list, descr_et.getText().toString());
     }
 

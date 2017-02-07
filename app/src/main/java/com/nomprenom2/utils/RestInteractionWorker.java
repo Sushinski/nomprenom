@@ -73,18 +73,18 @@ public class RestInteractionWorker {
                     @NonNull
                     @Override
                     public ActionEvent call(List<NameRecord> res_list) {
-                        List<String> zods = new ArrayList<>();
+                        List<Integer> zods = new ArrayList<>();
                         List<String> groups = new ArrayList<>();
                         long last_id = 0;
                         for (NameRecord nr : res_list) {
                             zods.clear();
                             groups.clear();
                             for (String zr: nr.zodiacs) {
-                                zods.add(String.valueOf(zr));
+                                zods.add(String.valueOf(zr).ge);// todo !!!
                             }
                             groups.add(nr.group);
                             long ins_id = NameRecord.saveName(nr.name,
-                                        NameRecord.Sex.fromInt(nr.sex),
+                                        nr.sex,
                                         zods, groups, nr.description);
                             if(ins_id > 0)
                                 PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(nr._id));
