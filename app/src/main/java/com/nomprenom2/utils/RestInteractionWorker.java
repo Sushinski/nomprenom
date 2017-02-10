@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.nomprenom2.interfaces.RestApi;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
+import com.nomprenom2.model.ZodiacRecord;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -80,7 +81,7 @@ public class RestInteractionWorker {
                             zods.clear();
                             groups.clear();
                             for (String zr: nr.zodiacs) {
-                                zods.add(String.valueOf(zr).ge);// todo !!!
+                                zods.add(ZodiacRecord.ZodMonth.valueOf(zr).getId());// todo !!!
                             }
                             groups.add(nr.group);
                             long ins_id = NameRecord.saveName(nr.name,

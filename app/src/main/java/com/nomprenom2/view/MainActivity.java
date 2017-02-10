@@ -1,25 +1,16 @@
 package com.nomprenom2.view;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.nomprenom2.R;
-import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.model.ZodiacRecord;
-import com.nomprenom2.presenter.AbsPresenter;
-import com.nomprenom2.presenter.MainPresenter;
+import com.nomprenom2.utils.AppToast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -111,18 +102,10 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(PATRONYMIC, patr);
         }
         if(intent.getExtras() == null){
-            showToast(getString(R.string.sel_alert));
+            AppToast toast = new AppToast(getApplicationContext());
+            toast.showToast(getString(R.string.sel_alert));
             return;
         }
         startActivity(intent);
     }
-
-
-
-    private void showToast(String str){
-        Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
 }

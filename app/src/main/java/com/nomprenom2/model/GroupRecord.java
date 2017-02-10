@@ -65,7 +65,7 @@ public class GroupRecord extends Model{
     public static GroupRecord getGroupForName(NameRecord nm){
         return new Select().from(GroupRecord.class).
                 innerJoin(NameGroupRecord.class).on("GroupRecord._id=NameGroupRecord.group_id").
-                where("NameGroupRecord._id=?", nm.getId()).executeSingle();
+                where("NameGroupRecord.name_id=?", nm.getId()).executeSingle();
     }
 
 

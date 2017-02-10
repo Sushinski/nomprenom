@@ -22,6 +22,7 @@ import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.ZodiacRecord;
+import com.nomprenom2.utils.AppToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,8 @@ public class AddNameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.add_name) {
-            addName();
+            if(!addName())
+                return false;
             Intent data = new Intent();
             setResult(RESULT_OK, data);
             finish();
@@ -72,18 +74,31 @@ public class AddNameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addName(){
+    private boolean addName(){
         // todo get zodiac list
         List<Integer> zod_list = new ArrayList<>();
         Integer z = param_frag.getSelectedZod();
-        zod_list.add(z);
+        if( z != -1)
+            zod_list.add(z);
+        Integer sx = param_frag.getSelectedSex();
         List<String> gr_list = new ArrayList<>();
         for (String s : param_frag.regions ) {
             gr_list.add(s);
         }
-        NameRecord.saveName(name_et.getText().toString(),
-                param_frag.getSelectedSex(),
-                zod_list, gr_list, descr_et.getText().toString());
+        if( z == -1 ||
+                sx == -1 ||
+                gr_list.isEmpty() ||
+                name_et.getText().length() == 0 ||
+                descr_et.getText().length() == 0){
+            AppToast toast = new AppToast(getApplicationContext());
+            toast.showToast(getString(R.string.must_set_all_param));
+            return false;
+        }
+
+        return NameRecord.saveName(name_et.getText().toString(), sx,
+                zod_list, gr_list, descr_et.getText().toString()) != -1;
     }
+
+
 
 }
