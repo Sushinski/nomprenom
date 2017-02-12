@@ -3,6 +3,7 @@ package com.nomprenom2.view;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.ChangeImageTransform;
@@ -25,7 +26,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setAllowEnterTransitionOverlap(true);
         setContentView(R.layout.activity_splash);
         String last_name_id = PrefsRecord.getStringValue(PrefsRecord.LAST_UPD_NAME_ID);
         if(last_name_id == null)
@@ -50,11 +50,16 @@ public class SplashActivity extends AppCompatActivity {
        // Log.i("event res = ", event.getMessage());
 
         Intent intent = new Intent(this, SearchResultActivity.class);
-        final View androidRobotView = findViewById(R.id.tr_icon);
-        ActivityOptions options = ActivityOptions
-                .makeSceneTransitionAnimation(this, androidRobotView, "trans_icon");
-        // start the new activity
-        startActivity(intent, options.toBundle());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final View androidRobotView = findViewById(R.id.tr_icon);
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(this, androidRobotView, "trans_icon");
+            startActivity(intent, options.toBundle());
+        }else{
+            // start the new activity
+            startActivity(intent);
+        }
+
         finish();
     }
 

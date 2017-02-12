@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Debug;
@@ -64,9 +65,10 @@ public class SearchResultActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setHomeAsUpIndicator(R.drawable.transform_icon);
         }
-
-        myToolbar.getChildAt(1).setTransitionName("trans_icon");
-        getWindow().setAllowEnterTransitionOverlap(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            myToolbar.getChildAt(1).setTransitionName("trans_icon");
+            getWindow().setAllowEnterTransitionOverlap(true);
+        }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
 
