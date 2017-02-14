@@ -6,8 +6,8 @@
     <string name="action_settings">Настройки</string>
     <string name="action_search">Поиск</string>
     <string name="chooser_title">Отправить через:</string>
-    <string name="compabl_pref">Совместимость:</string>
-    <string name="compl">Совмес\\nтимость</string>
+    <string name="compabl_pref">Совместимость с отчеством:</string>
+    <string name="compl">Совместимость</string>
     <string name="descr_cancel">Отмена</string>
     <string name="descr_hdr">Описание имени</string>
     <string name="descr_patr">Отчество:</string>

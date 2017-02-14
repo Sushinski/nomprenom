@@ -38,7 +38,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     }
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
-                           List<NameRecord> nameList, String patronymic, String sex, String zod) {
+                           List<NameRecord> nameList, String patronymic, int sex, int zod) {
         this.context = context;
         this.name_list = new ArrayList<>();
         name_list = nameList;
@@ -46,8 +46,10 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         this.context = context;
         this.patronymic = patronymic != null ? patronymic : "";
         this.comp = new NamePatrComp(context);
-        this.sex = sex != null ? NameRecord.Sex.valueOf(sex) : null;
-        this.zod = zod != null ? ZodiacRecord.ZodMonth.valueOf(zod) : null;
+        this.sex = sex != -1 ? NameRecord.Sex.valueOf(NameRecord.Sex.fromInt(sex)) : null;
+        this.zod = zod != -1 ?
+                ZodiacRecord.ZodMonth.valueOf(ZodiacRecord.ZodMonth.fromInt(zod)) :
+                null;
         zodiac_repr_names = getContext().getResources().getStringArray(R.array.zod_sels);
     }
 

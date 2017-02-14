@@ -92,15 +92,19 @@ public class SearchResultActivity extends AppCompatActivity {
         }else
             regions = null;
         if(data.hasExtra(MainActivity.SEX)) {
-            sex = data.getIntExtra(MainActivity.SEX, 0);
-            sex_str = getResources().getStringArray(R.array.sex_sels)[sex];
+            sex = data.getIntExtra(MainActivity.SEX, -1);
+            sex_str = sex != -1 ?
+                    getResources().getStringArray(R.array.sex_sels)[sex] :
+                    getResources().getString(R.string.unknown);
             search_descr += getResources().getString(R.string.descr_sex) +
                     sex_str + "\n";
         }else
             sex = -1;
         if(data.hasExtra(MainActivity.ZODIAC)) {
             zod = data.getIntExtra(MainActivity.ZODIAC, -1);
-            zod_str = getResources().getStringArray(R.array.zod_sels)[zod];
+            zod_str = zod != -1 ?
+                    getResources().getStringArray(R.array.zod_sels)[zod] :
+                    getResources().getString(R.string.unknown);
             search_descr += getResources().getString(R.string.descr_zod) +
                     zod_str + "\n";
         }else
@@ -127,7 +131,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         arrayAdapter = new SearchedNamesAdapter(this,
                 R.layout.name_list_item_checked,
-                names, patronymic, sex_str, zod_str);
+                names, patronymic, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
     }
 

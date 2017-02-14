@@ -20,23 +20,26 @@ import java.util.List;
 import java.util.Map;
 
 public class NamePatrComp {
-    public final String vowels;
-    public final String consonants;
+    private String vowels;
+    private String consonants;
 
     public NamePatrComp(Context context){
-        this.vowels = context.getResources().getString(R.string.vowels);
-        this.consonants = context.getResources().getString(R.string.consonants);
+            vowels = context.getResources().getString(R.string.vowels);
+            consonants = context.getResources().getString(R.string.consonants);
     }
 
-    public boolean isWowel(char ch){
+    private boolean isWowel(char ch){
         return vowels.indexOf(ch) >= 0;
     }
 
-    public boolean isConsonant(char ch){ return consonants.indexOf(ch) >= 0; }
+    private boolean isConsonant(char ch){ return consonants.indexOf(ch) >= 0; }
 
     public int compare(NameRecord nr,
-                       String patronymic, NameRecord.Sex sex, ZodiacRecord.ZodMonth zod){
-        String name = nr.name;
+                       String patr, NameRecord.Sex sex, ZodiacRecord.ZodMonth zod){
+        String name = nr.name.toLowerCase();
+        if( !isConsonant(name.charAt(0)) && !isWowel(name.charAt(0)))
+            return 0; // not our language
+        String patronymic = patr.toLowerCase();
         if( patronymic.equals(""))
             return 0;
         if( !isConsonant(patronymic.charAt(0)) && !isWowel(patronymic.charAt(0)))
@@ -47,7 +50,7 @@ public class NamePatrComp {
         int start = 1; // don't check last letter for girls
         if( sex == null || sex == NameRecord.Sex.Boy)
           start = 0;
-        int len = name.length() > 3 ? 3 : 1; // limit letters to check for short names
+        int len = name.length() > 5 ? 3 : 1; // limit letters to check for short names
         for (int i = start; i < len; ++i) {
             char name_last = name.charAt(name.length()-i-1);
             char patr_first = patronymic.charAt(i);
@@ -60,7 +63,7 @@ public class NamePatrComp {
         HashMap<Character, Integer> ch_freq = new HashMap<>(entire_len, 1);
         for (int i = 0; i < name.length(); ++i) {
             Character ch = name.charAt(i);
-            if(isConsonant(Character.toLowerCase(ch))) {
+            if(isConsonant(ch)) {
                 Integer fr = ch_freq.get(ch);
                 if (fr != null)
                     fr += 1;
@@ -72,10 +75,10 @@ public class NamePatrComp {
 
         for (int i = 0; i < patronymic.length(); ++i) {
             Character ch = patronymic.charAt(i);
-            if(isConsonant(Character.toLowerCase(ch))) {
+            if(isConsonant(ch)) {
                 Integer fr = ch_freq.get(ch);
                 if (fr != null && fr > 2 )
-                    res -= 10;
+                    res -= 5;
             }
         }
         return res;

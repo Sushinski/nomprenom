@@ -19,9 +19,9 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
     private boolean bsearched;
     static String[] zodiac_repr_names;
     public SearchedNamesAdapter(Context context, int textViewResourceId,
-                               List<NameRecord> nameList, String patronymic, String sex, String zod) {
+                               List<NameRecord> nameList, String patronymic, int sex, int zod) {
         super(context, textViewResourceId, nameList, patronymic, sex, zod);
-        if( patronymic != null || sex != null || zod != null ) {
+        if( patronymic != null || sex != -1 || zod != -1 ) {
             bsearched = true;
             setInfoPrefx(context.getResources().getText(R.string.compabl_pref).toString());
         }else{
@@ -44,7 +44,7 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
         String c;
         if(bsearched){
              c = getContext().getResources().getText(R.string.compabl_pref) +
-                     getCompatibility(nr);
+                     getCompatibility(nr) + "%";
         }else {
             c = getContext().getResources().getText(R.string.descr_sex) +
                     getContext().getResources().getStringArray(R.array.sex_sels)[nr.sex];

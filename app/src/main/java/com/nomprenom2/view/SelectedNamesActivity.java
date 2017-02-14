@@ -33,8 +33,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     private RecyclerView.LayoutManager mLayoutManager;
     private SelectedNamesPresenter presenter;
     private String patr;
-    private String sex;
-    private String zod;
+    private int sex;
+    private int zod;
     FloatingActionButton fab;
 
 
@@ -62,9 +62,9 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         if(intent.hasExtra(MainActivity.PATRONYMIC))
             patr = intent.getStringExtra(MainActivity.PATRONYMIC);
         if(intent.hasExtra(MainActivity.SEX))
-            sex = intent.getStringExtra(MainActivity.SEX);
+            sex = intent.getIntExtra(MainActivity.SEX, -1);
         if(intent.hasExtra(MainActivity.ZODIAC))
-            zod = intent.getStringExtra(MainActivity.ZODIAC);
+            zod = intent.getIntExtra(MainActivity.ZODIAC, -1);
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
                 names, patr, sex, zod);
@@ -125,8 +125,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     @Override
     protected void onSaveInstanceState(Bundle bundle){
         bundle.putString(MainActivity.PATRONYMIC, patr);
-        bundle.putString(MainActivity.SEX, sex);
-        bundle.putString(MainActivity.ZODIAC, zod);
+        bundle.putInt(MainActivity.SEX, sex);
+        bundle.putInt(MainActivity.ZODIAC, zod);
         super.onSaveInstanceState(bundle);
     }
 
@@ -134,8 +134,8 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     protected void onRestoreInstanceState(Bundle savedInstance){
         super.onRestoreInstanceState(savedInstance);
         patr = savedInstance.getString(MainActivity.PATRONYMIC);
-        sex = savedInstance.getString(MainActivity.SEX);
-        zod = savedInstance.getString(MainActivity.ZODIAC);
+        sex = savedInstance.getInt(MainActivity.SEX);
+        zod = savedInstance.getInt(MainActivity.ZODIAC);
     }
 
     @Override
