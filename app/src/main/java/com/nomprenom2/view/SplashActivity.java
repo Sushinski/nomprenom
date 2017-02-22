@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.ChangeImageTransform;
 import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -47,8 +49,6 @@ public class SplashActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(ActionEvent event){
-       // Log.i("event res = ", event.getMessage());
-
         Intent intent = new Intent(this, SearchResultActivity.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final View androidRobotView = findViewById(R.id.tr_icon);
@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        finish();
+
     }
 
 

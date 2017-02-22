@@ -3,6 +3,7 @@ package com.nomprenom2.view;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +35,9 @@ public class AddNameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setAllowEnterTransitionOverlap(true);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);

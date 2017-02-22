@@ -54,6 +54,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setAllowEnterTransitionOverlap(true);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -67,7 +70,6 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             myToolbar.getChildAt(1).setTransitionName("trans_icon");
-            getWindow().setAllowEnterTransitionOverlap(true);
         }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
@@ -180,7 +182,13 @@ public class SearchResultActivity extends AppCompatActivity {
 
     protected void addName(){
         Intent intent = new Intent(this, AddNameActivity.class);
-        startActivityForResult(intent, ADD_NAME_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivityForResult(intent,ADD_NAME_ID,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivityForResult(intent,
+                    ADD_NAME_ID);
+        }
     }
 
     @Override
