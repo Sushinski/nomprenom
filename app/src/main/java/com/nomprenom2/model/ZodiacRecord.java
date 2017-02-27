@@ -79,10 +79,4 @@ public class ZodiacRecord extends Model {
         }
     }
 
-    public static int getPicIdByMonth(@Nullable ZodMonth month){
-        return R.drawable.virgo30;
-        // todo get real pic
-        // todo cast to month
-
-    }
 }

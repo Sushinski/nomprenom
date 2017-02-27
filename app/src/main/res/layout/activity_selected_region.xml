@@ -10,9 +10,7 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:navigationIcon="@drawable/trans_icon_m" />
+        android:background="?attr/colorPrimary" />
 
     <include layout="@layout/content_selected_region"
         android:layout_below="@+id/my_toolbar"

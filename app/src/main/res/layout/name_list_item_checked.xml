@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
     android:orientation="vertical"
-    android:padding="6dip">
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp">
 
 
     <TextView
@@ -17,8 +17,7 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_toLeftOf="@+id/checkBox1"
-        android:layout_toStartOf="@+id/checkBox1"
-        android:layout_margin="6dp" />
+        android:layout_toStartOf="@+id/checkBox1" />
 
     <TextView
         android:id="@+id/name_info"
@@ -37,10 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBox1"
+        android:button="@drawable/checkbox_star"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="6dp" />
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

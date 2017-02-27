@@ -18,4 +18,8 @@ public class SearchResultPresenter extends AbsPresenter{
     public List<NameRecord> getNames(String[] groups, int sex, int zod ){
         return NameRecord.getNames(groups, sex, zod);
     }
+
+    public NameRecord getLastName(){
+        return NameRecord.getLast();
+    }
 }

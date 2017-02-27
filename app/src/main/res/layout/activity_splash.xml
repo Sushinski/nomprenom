@@ -19,4 +19,14 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/tr_icon"
         android:contentDescription="@string/icicon" />
+
+    <TextView
+        android:text="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_below="@+id/tr_icon"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAlignment="center" />
 </RelativeLayout>

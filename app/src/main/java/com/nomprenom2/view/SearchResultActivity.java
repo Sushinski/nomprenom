@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,12 +22,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
+import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SearchedNamesAdapter;
 
 import java.util.List;
@@ -35,7 +40,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     public static final int ADD_NAME_ID=3;
     private AbsPresenter presenter;
-    private SearchedNamesAdapter arrayAdapter;
+    public SearchedNamesAdapter arrayAdapter;
     private RecyclerView result_list_view;
     private RecyclerView.LayoutManager mLayoutManager;
     private String[] regions;
@@ -61,19 +66,18 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+            ColorUtils.initTeamColors(this);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             myToolbar.getChildAt(1).setTransitionName("trans_icon");
         }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
-
 
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         mLayoutManager = new LinearLayoutManager(this);
@@ -182,13 +186,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     protected void addName(){
         Intent intent = new Intent(this, AddNameActivity.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            startActivityForResult(intent,ADD_NAME_ID,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        }else{
-            startActivityForResult(intent,
-                    ADD_NAME_ID);
-        }
+        startActivityForResult(intent, ADD_NAME_ID);
     }
 
     @Override
@@ -196,6 +194,11 @@ public class SearchResultActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && requestCode == ADD_NAME_ID) {
             names =  presenter.getNames(regions, sex, zod);
             arrayAdapter.notifyDataSetChanged();
+            /*runOnUiThread(new Runnable() {
+                public void run() {
+                    result_list_view.getAdapter().notifyDataSetChanged();
+                }
+            });*/
         }
     }
 
@@ -204,4 +207,5 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onResume();
         result_list_view.setVisibility(View.VISIBLE);
     }
+
 }

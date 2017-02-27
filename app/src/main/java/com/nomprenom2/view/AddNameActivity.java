@@ -3,6 +3,7 @@ package com.nomprenom2.view;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,7 @@ import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.ZodiacRecord;
 import com.nomprenom2.utils.AppToast;
+import com.nomprenom2.utils.ColorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +43,13 @@ public class AddNameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(myToolbar);
-
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+            ColorUtils.initTeamColors(this);
         }
         name_et = (EditText)findViewById(R.id.name_tw);
         descr_et = (EditText)findViewById(R.id.name_descr);
@@ -66,17 +68,21 @@ public class AddNameActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.add_name) {
-            if(!addName())
-                return false;
-            Intent data = new Intent();
-            setResult(RESULT_OK, data);
-            finish();
-            return true;
-        }
+       switch(item.getItemId()) {
+           case (R.id.add_name):
+               if (!addName())
+                   return false;
+               Intent data = new Intent();
+               setResult(RESULT_OK, data);
+               finish();
+               return true;
+           case android.R.id.home:
+               onBackPressed();
+               return true;
+       }
         return super.onOptionsItemSelected(item);
     }
+
 
     private boolean addName(){
         // todo get zodiac list
@@ -102,7 +108,4 @@ public class AddNameActivity extends AppCompatActivity {
         return NameRecord.saveName(name_et.getText().toString(), sx,
                 zod_list, gr_list, descr_et.getText().toString()) != -1;
     }
-
-
-
 }

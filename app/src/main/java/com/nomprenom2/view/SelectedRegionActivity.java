@@ -18,6 +18,8 @@ import android.widget.ListView;
 
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
+import com.nomprenom2.utils.ColorUtils;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -38,13 +40,13 @@ public class SelectedRegionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_region);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(myToolbar);
 
         ActionBar ab = getSupportActionBar();
-        // Enable the Up button
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+            ColorUtils.initTeamColors(this);
         }
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);

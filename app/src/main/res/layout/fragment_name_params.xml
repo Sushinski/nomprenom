@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.nomprenom2.view.NameParamsFragment"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:layout_marginBottom="16dp">
 
     <Spinner
         android:layout_width="wrap_content"
@@ -10,9 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
         android:layout_alignParentEnd="true"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        android:layout_marginBottom="16dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -23,8 +24,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:text="@string/select_region_button"
@@ -36,8 +37,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/sex_spinner"
         android:layout_alignEnd="@+id/sex_spinner"
-        android:layout_marginTop="10dp"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_marginBottom="16dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -48,8 +49,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.nomprenom2.R;
+import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class NameDetailActivity extends AppCompatActivity {
@@ -28,13 +29,14 @@ public class NameDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_detail);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(myToolbar);
 
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+            ColorUtils.initTeamColors(this);
         }
 
         name_tw = (TextView)findViewById(R.id.text_fullname);

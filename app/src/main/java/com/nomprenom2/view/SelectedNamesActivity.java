@@ -2,8 +2,10 @@ package com.nomprenom2.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.nomprenom2.interfaces.IListItemDeleter;
+import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
@@ -43,13 +46,12 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_names);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(myToolbar);
-
         ActionBar ab = getSupportActionBar();
-        // Enable the Up button
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+            ColorUtils.initTeamColors(this);
         }
 
         result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
@@ -88,6 +90,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
                     startActivity(chooser);
             }
         });
+
     }
 
 

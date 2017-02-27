@@ -17,6 +17,10 @@ public abstract class AbsPresenter{
         return new ArrayList<>();
     }
 
+    public NameRecord getLastName(){
+        return null;
+    }
+
 
     public abstract void onOk();
 }
