@@ -1,74 +1,155 @@
 package com.nomprenom2.utils;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import com.nomprenom2.R;
 import com.nomprenom2.interfaces.IListItemDeleter;
-import com.nomprenom2.model.SelectedName;
-
+import com.nomprenom2.model.GroupRecord;
+import com.nomprenom2.model.NameRecord;
+import com.nomprenom2.model.ZodiacRecord;
+import com.nomprenom2.view.NameDetailActivity;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class SelectedNameAdapter extends ArrayAdapter<String> {
-    private ArrayList<SelectedName> name_list;
+public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapter.ViewHolder>
+        implements View.OnClickListener{
+    public final static String NAME = "com.nomprenom2.utils.name";
+    public final static String NAME_DESCR = "com.nomprenom2.utils.name_descr";
+    private List<NameRecord> name_list;
     private Context context;
+    private String patronymic;
+    private NameRecord.Sex sex;
+    private ZodiacRecord.ZodMonth zod;
+    private NamePatrComp comp;
+    private int tw_id;
+    private String info_prefx;
+    private static String[] zodiac_repr_names;
+
+
+
+    public Context getContext(){
+        return this.context;
+    }
 
     public SelectedNameAdapter(Context context, int textViewResourceId,
-                           ArrayList<String> nameList) {
-        super(context, textViewResourceId, nameList);
-        this.name_list = new ArrayList<>();
-        for (String s : nameList) {
-            name_list.add(new SelectedName(s,false));
-        }
+                           List<NameRecord> nameList, String patronymic, int sex, int zod) {
         this.context = context;
+        this.name_list = new ArrayList<>();
+        name_list = nameList;
+        this.tw_id = textViewResourceId;
+        this.context = context;
+        this.patronymic = patronymic != null ? patronymic : "";
+        this.comp = new NamePatrComp(context);
+        this.sex = sex != -1 ? NameRecord.Sex.valueOf(NameRecord.Sex.fromInt(sex)) : null;
+        this.zod = zod != -1 ?
+                ZodiacRecord.ZodMonth.valueOf(ZodiacRecord.ZodMonth.fromInt(zod)) :
+                null;
+        zodiac_repr_names = getContext().getResources().getStringArray(R.array.zod_sels);
     }
 
 
-    private class ViewHolder{
-        TextView name;
-        CheckBox selector;
+    public void setInfoPrefx( String str ){
+        info_prefx = str;
     }
+
+
+    public String getInfoPrefix(){ return info_prefx; }
+
+
+    public String getCompatibility(NameRecord name){
+        return Integer.toString(comp.compare(name, this.patronymic, this.sex, this.zod));
+    }
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView name;
+        public TextView name_info;
+        public CheckBox selector;
+
+        public ViewHolder(View v){
+            super(v);
+            name = (TextView) v.findViewById(R.id.name);
+            name_info = (TextView) v.findViewById(R.id.name_info);
+            selector = (CheckBox) v.findViewById(R.id.checkBox1);
+        }
+    }
+
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         ViewHolder holder;
-        if (convertView == null) {
-            LayoutInflater li = (LayoutInflater)context.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            convertView = li.inflate(R.layout.name_list_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(this.tw_id, parent, false);
+        holder = new ViewHolder(v);
+        holder.selector.setOnClickListener(this);
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(v.getContext(), NameDetailActivity.class);
+                TextView tw = (TextView) v;
+                NameRecord nr = (NameRecord)tw.getTag();
+                String n = tw.getText().toString();
+                String d = getContext().getResources().getText(R.string.descr_sex) +
+                        NameRecord.Sex.fromInt(nr.sex);
+                String str = ZodiacRecord.getMonthsForName(nr.name, zodiac_repr_names);
+                GroupRecord gr = GroupRecord.getGroupForName(nr);
+                d += getContext().getResources().getString(R.string.region_repr) +
+                        ( gr== null ? getContext().getResources().getString(R.string.unknown) : gr);
+                d += "\n" + getInfoPrefix() +
+                        (str.equals("") ? getContext().getResources()
+                                .getString(R.string.unknown) : str);
+                d += "\n\n" + (nr.description == null ?
+                        getContext().getResources().getString(R.string.empty_name_descr) :
+                        nr.description);
+                in.putExtra(NAME, n);
+                in.putExtra(NAME_DESCR, d);
+                v.getContext().startActivity(in);
+            }
+        });
+        return holder;
+    }
 
-            holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.selector = (CheckBox) convertView.findViewById(R.id.checkBox1);
-            convertView.setTag(holder);
 
-            holder.selector.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    SelectedName nm = (SelectedName) cb.getTag();
-                    SelectedNameAdapter.this.remove(nm.getName());
-                    SelectedNameAdapter.this.name_list.remove(nm);
-                    SelectedNameAdapter.this.notifyDataSetChanged();
-                    IListItemDeleter deleter = (IListItemDeleter)getContext();
-                    if( deleter != null)
-                        deleter.onDeleteListItem(nm.getName());
-                }
-            });
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+
+        NameRecord n = name_list.get(position);
+        holder.name.setText(n.name);
+        holder.selector.setChecked(n.selected == 1);
+        holder.name_info.setText(getInfoText(n));
+        holder.selector.setTag(n);
+        holder.name.setTag(n);
+    }
+
+
+    public String getInfoText(NameRecord name){
+        return "";
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return name_list.size();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        CheckBox cb = (CheckBox) v;
+        NameRecord nm = (NameRecord) cb.getTag();
+        int pos = name_list.indexOf(nm);
+        if(pos >= 0) {
+            this.name_list.remove(nm);
+            notifyItemRemoved(pos);
+            IListItemDeleter deleter = (IListItemDeleter) this.context;
+            if (deleter != null)
+                deleter.onDeleteListItem(nm);
         }
-        else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        SelectedName sn = name_list.get(position);
-        holder.name.setText(sn.getName());
-        holder.selector.setChecked(sn.isSelected());
-        holder.selector.setTag(sn);
-        return convertView;
     }
 }

@@ -1,90 +1,151 @@
 package com.nomprenom2.model;
 
-import android.app.DownloadManager;
 import android.text.TextUtils;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
-import com.nomprenom2.utils.Placeholder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.nomprenom2.utils.RestInteractionWorker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
+
 
 @Table(name = "NameRecord", id = "_id")
 public class NameRecord extends Model{
 
+    @SerializedName("_id")
+    @Expose
+    public int _id;
+
+    @SerializedName("name")
+    @Expose
     @Column(name = "name", unique = true, notNull = true)
     public String name;
 
+    @SerializedName("sex")
+    @Expose
     @Column(name = "sex", notNull = true)
     public int sex;
 
     @Column(name = "selected", notNull = true)
     public int selected;
 
+    @SerializedName("description")
+    @Expose
+    @Column(name = "description")
+    public String description;
+
+    @SerializedName("groups")
+    @Expose
+    public String group;
+
+    @SerializedName("zodiacs")
+    @Expose
+    public List<String> zodiacs = new ArrayList<>();
+
     public enum Sex{
-        Boy( 1 ), Girl( 0 );
+        Girl(0), Boy(1), ;
         private final int sex_id;
         Sex( int id ){ this.sex_id = id; }
         public final int getId(){
             return sex_id;
         }
+        static final Sex[] vals = Sex.values();
+        public static String fromInt(int val){ return vals[val].toString(); }
     }
 
     public enum Check{
-        Checked( 1 ), Unchecked( 0 );
+        Unchecked( 0 ), Checked( 1 );
         private final int check_id;
         Check( int id ){ this.check_id = id; }
         public final int getId(){
             return check_id;
         }
     }
-    @Column(name = "from_group", onUpdate = Column.ForeignKeyAction.CASCADE,
-            onDelete = Column.ForeignKeyAction.CASCADE)
-    public GroupRecord from_group;
 
     public NameRecord(){
         super();
     }
 
-    public NameRecord( String _name,  GroupRecord _group, Sex _sex ){
-        super();
-        this.name = _name;
-        this.from_group = _group;
-        this.sex = _sex.getId();
+    public static NameRecord get(String name){
+        try {
+            return new Select().from(NameRecord.class).where("name = ?", name).executeSingle();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
     }
 
-    public static List<NameRecord> getNames(String[] groups, String s) {
+    public static NameRecord create(String name){
+        try{
+            NameRecord rec = new NameRecord();
+            rec.name = name;
+            rec.save();
+            return rec;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+    public static void refreshNamesCache( String last_version){
+        RestInteractionWorker worker = new RestInteractionWorker();
+        worker.getNamesUpdate(last_version);
+    }
+
+    public static List<NameRecord> getNames(String[] groups, int sex, int zod) {
+
         String _where = "", add = "";
         if( groups != null) {
-            _where = "GroupRecord.group_name IN (\'" + TextUtils.join("\',\'", groups) + "\')";
+            _where = "NameRecord._id in (select name_id from NameGroupRecord where group_id in ";
+            List<Long> group_id_list = GroupRecord.groupIdForNames(groups);
+            String str  = "(" + TextUtils.join(",", group_id_list) + "))";
+            _where += str;
             add = " and ";
         }
-        if( s != null )
-            _where += add + "NameRecord.sex=" + Sex.valueOf(s).getId();
+        if( sex != -1 ) {
+            _where += add + "NameRecord.sex=" + Sex.fromInt(sex);
+            add = " and ";
+        }
+        From sel = new Select()
+                .from(NameRecord.class);
+        if( zod != -1 ) {
+            _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
+                    " ZodiacRecord b on a.zodiac_id = b._id where" +
+                    " b.zod_month=" + Integer.toString(zod) + ")";
+        }
+        sel.where(_where).orderBy("NameRecord.name ASC");
+        try {
+            if(!_where.equals(""))
+                return sel.execute();
+            else
+                return  new Select().all().from(NameRecord.class).execute();
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public static NameRecord getLast() {
         return new Select()
                 .from(NameRecord.class)
-                .innerJoin(GroupRecord.class)
-                .on("NameRecord.from_group=GroupRecord._id")
-                .where(_where)
-                .execute();
+                .orderBy("id DESC")
+                .executeSingle();
     }
 
-    public static List<NameRecord> getAll() {
-        return new Select().all()
-                .from(NameRecord.class)
-                .orderBy("name ASC")
-                .execute();
-    }
-
-    public static void setSelection(String[] names, int selection){
+    public static void setSelection(String name, int selection){
         new Update(NameRecord.class)
-                .set("selected = " + String.valueOf(selection))
-                .where("name in(\'" + TextUtils.join("\',\'", names) + "\')")
+                .set("selected = ?",  String.valueOf(selection))
+                .where("name = ?", name )
                 .execute();
     }
 
@@ -94,6 +155,57 @@ public class NameRecord extends Model{
                 .where("selected=?", selected)
                 .orderBy("name ASC")
                 .execute();
+    }
+
+
+    public static long saveName(String name, Integer sex,
+                                List<Integer> zodiacs, List<String> groups, String descr ){
+        boolean created = false;
+        NameRecord rec = get(name);
+        if( rec == null ){
+            if( (rec = create(name)) == null)
+                return -1;
+            created = true;
+        }
+        ActiveAndroid.beginTransaction();
+        try {
+            rec.sex = sex;
+            rec.description = descr;
+            rec.save();
+            for (Integer z : zodiacs) {
+                NameZodiacRecord nzr = new NameZodiacRecord();
+                nzr.name_id = rec.getId();
+                nzr.zodiac_id = ZodiacRecord.getZodiacRec(z+1).getId();
+                nzr.save();
+            }
+
+            for (String g : groups) {
+                NameGroupRecord ngr = new NameGroupRecord();
+                ngr.name_id = rec.getId();
+                ngr.group_id = GroupRecord.getGroup(g).getId();
+                ngr.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            ActiveAndroid.endTransaction();
+        }
+        if( created )
+            return rec.getId();
+        else
+            return -1;
+    }
+
+
+    public static String getNameDescr(String name){
+        NameRecord nr =  new Select()
+                .from(NameRecord.class)
+                .where("name=?", name)
+                .orderBy("name ASC")
+                .executeSingle();
+        return nr.description;
     }
 
     @Override

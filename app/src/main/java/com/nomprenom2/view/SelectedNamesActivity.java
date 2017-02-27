@@ -1,9 +1,17 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,86 +22,128 @@ import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.SelectedNamesPresenter;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.nomprenom2.interfaces.IListItemDeleter;
+import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
-    private ArrayList<String> names;
+    private List<NameRecord> names;
     private SelectedNameAdapter arrayAdapter;
-    private ListView result_list_view;
+    private RecyclerView result_list_view;
+    private RecyclerView.LayoutManager mLayoutManager;
     private SelectedNamesPresenter presenter;
-    public Set<String> checked_set;
+    private String patr;
+    private int sex;
+    private int zod;
+    FloatingActionButton fab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_names);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        result_list_view = (ListView)findViewById(R.id.selected_names_list_view);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ColorUtils.initTeamColors(this);
+        }
+
+        result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        result_list_view.setLayoutManager(mLayoutManager);
         // todo inject candidate
         presenter = new SelectedNamesPresenter(this);
-        names = presenter.getNames(NameRecord.Check.Checked.getId());
-        // todo add custom adapter
+        names = NameRecord.getSelected(NameRecord.Check.Checked.getId());
+        Intent intent = getIntent();
+        if(intent.hasExtra(MainActivity.PATRONYMIC))
+            patr = intent.getStringExtra(MainActivity.PATRONYMIC);
+        if(intent.hasExtra(MainActivity.SEX))
+            sex = intent.getIntExtra(MainActivity.SEX, -1);
+        if(intent.hasExtra(MainActivity.ZODIAC))
+            zod = intent.getIntExtra(MainActivity.ZODIAC, -1);
         arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
-                names);
-        //result_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                names, patr, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
 
-        checked_set = new HashSet<>();
-        result_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent in = new Intent(view.getContext(), NameDetailActivity.class);
-                startActivity(in);
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String fmt = getResources().getString(R.string.send_names_title);
+                String txt = String.format(fmt, getResources().getString(R.string.app_name));
+                intent.putExtra(Intent.EXTRA_SUBJECT,
+                        txt);
+                intent.putExtra(Intent.EXTRA_TEXT, getNamesString());
+                String title = getResources().getString(R.string.chooser_title);
+                Intent chooser = Intent.createChooser(intent, title);
+                if(intent.resolveActivity(getPackageManager()) != null)
+                    startActivity(chooser);
             }
         });
 
     }
 
+
+    private String getNamesString(){
+        String res = String.format(getResources().getString(R.string.names_string_prefix),
+                getResources().getString(R.string.app_name)) + "\n";
+        res += TextUtils.join(", ", names) + ". ";
+        res +=  getResources().getString(R.string.names_string_postfix);
+        return res;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selected_names, menu);
+        //getMenuInflater().inflate(R.menu.menu_selected_names, menu);
         return true;
     }
 
-
     public void onDeleteListItem(Object obj){
-        String name = (String)obj;
-        names.remove(name);
-        checked_set.add(name);
+        NameRecord nr = (NameRecord)obj;
+        names.remove(nr);
+        NameRecord.setSelection(nr.name, 0);
         // arrayAdapter.notifyDataSetChanged();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case android.R.id.home:
+                onBackPressed();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle){
+        bundle.putString(MainActivity.PATRONYMIC, patr);
+        bundle.putInt(MainActivity.SEX, sex);
+        bundle.putInt(MainActivity.ZODIAC, zod);
+        super.onSaveInstanceState(bundle);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstance){
+        super.onRestoreInstanceState(savedInstance);
+        patr = savedInstance.getString(MainActivity.PATRONYMIC);
+        sex = savedInstance.getInt(MainActivity.SEX);
+        zod = savedInstance.getInt(MainActivity.ZODIAC);
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        if( checked_set.size() != 0) {
-            String[] dels = new String[checked_set.size()];
-            checked_set.toArray(dels);
-            presenter.deselectNames(dels);
-            checked_set.clear();
-        }
     }
 
 }

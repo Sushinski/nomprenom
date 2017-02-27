@@ -3,9 +3,8 @@ package com.nomprenom2.presenter;
 import android.content.Context;
 
 import com.nomprenom2.model.NameRecord;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class SelectedNamesPresenter extends AbsPresenter{
     public SelectedNamesPresenter(Context c){
@@ -24,7 +23,8 @@ public class SelectedNamesPresenter extends AbsPresenter{
     }
 
     public void deselectNames( String[] names ){
-        if( names != null )
-            NameRecord.setSelection(names, 0);
+        for (String s : names ) {
+            NameRecord.setSelection(s, 0);
+        }
     }
 }

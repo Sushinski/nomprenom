@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".view.MainActivity"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:layout_marginBottom="16dp"
+    android:id="@+id/main_content">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="@string/enter_name"
+        android:id="@+id/name_tw"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"/>
+
+    <fragment
+        android:name="com.nomprenom2.view.NameParamsFragment"
+        android:id="@+id/name_params_fragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/name_tw"
+        tools:layout="@layout/fragment_name_params" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_descr"
+        android:layout_below="@+id/name_params_fragment"
+        android:layout_alignRight="@+id/name_params_fragment"
+        android:layout_alignEnd="@+id/name_params_fragment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="@string/enter_name_description"
+        android:inputType="text|textMultiLine"
+        android:lines="5"
+        android:gravity="center_vertical|center_horizontal" />
+
+</RelativeLayout>

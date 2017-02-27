@@ -4,10 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.nomprenom2.view.NameDetailActivity"
     tools:showIn="@layout/activity_name_detail">
@@ -15,37 +11,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Фёдор"
         android:id="@+id/text_fullname"
-        android:layout_margin="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_name_character"
-        android:layout_margin="20dp"
-        android:text="Маленький Федя – молчаливый и упрямый мальчик. Он не становится заводилой в детских играх, чаще играет в стороне от других ребят. В отличие от большинства мальчишек его возраста Фёдор аккуратен и соблюдает порядок в своей одежде и вещах. Домашнее задание делает всегда сам и с одноклассниками делится им неохотно."
+        android:id="@+id/text_name_descr"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/text_fullname"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_fam_persons"
-        android:layout_margin="20dp"
-        android:text="Фёдор Достоевский Фёдор Тютчев  Теодор Рузвельт  Теодор Моммзен Фёдор Ушаков Фёдор Шаляпин "
-        android:layout_below="@+id/text_name_character"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

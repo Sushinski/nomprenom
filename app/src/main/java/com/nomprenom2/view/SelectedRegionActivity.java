@@ -1,11 +1,14 @@
 package com.nomprenom2.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +18,8 @@ import android.widget.ListView;
 
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
+import com.nomprenom2.utils.ColorUtils;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -34,33 +39,28 @@ public class SelectedRegionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_region);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        setSupportActionBar(myToolbar);
 
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ColorUtils.initTeamColors(this);
+        }
          // get regions names
         region_list_view = (ListView) findViewById(R.id.select_region_list_view);
         // set clicks handler
         checked_set = new HashSet<>();
-        region_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if(checkedTextView.isChecked()){
-                    checked_set.add(position);
-                }else{
-                    checked_set.remove(position);
-                }
-            }
-        });
         List<GroupRecord> lst =  GroupRecord.getAll();
         arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice,
                  lst);
         region_list_view.setAdapter(arrayAdapter);
         region_list_view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        String[] selected_rgns = getIntent().getStringArrayExtra("regions");
-        if( selected_rgns != null) {
+        Intent intent = getIntent();
+        if(intent.hasExtra(MainActivity.REGIONS)){
+            String[] selected_rgns = intent.getStringArrayExtra(MainActivity.REGIONS);
             int pos = 0;
             List<String> sel_lst = Arrays.asList(selected_rgns);
             for (GroupRecord rec : lst) {
@@ -71,6 +71,12 @@ public class SelectedRegionActivity extends AppCompatActivity {
                 pos++;
             }
         }
+        if(intent.hasExtra(MainActivity.SINGLE_REGION)){
+            if(intent.getBooleanExtra(MainActivity.SINGLE_REGION, false)){
+                region_list_view.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            }
+
+        }
     }
 
 
@@ -79,7 +85,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 setResult();
-                finish();
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -87,15 +93,27 @@ public class SelectedRegionActivity extends AppCompatActivity {
 
     private void setResult(){
         Intent data = new Intent();
-        if(checked_set.size() != 0) {
-            String[] checked = new String[checked_set.size()];
-            int j = 0;
-            for (Integer i : checked_set) {
-                GroupRecord rec = arrayAdapter.getItem(i);
-                checked[j++] = rec.group_name;
+        SparseBooleanArray checkedItemPositions = region_list_view.getCheckedItemPositions();
+        final int checkedItemCount = checkedItemPositions.size();
+        if( checkedItemCount > 0 ) {
+            String[] checked = new String[checkedItemCount];
+            for (int i = 0; i < checkedItemCount; i++) {
+                int key = checkedItemPositions.keyAt(i);
+                if (checkedItemPositions.get(key)) {
+                    GroupRecord rec = arrayAdapter.getItem(key);
+                    if (rec != null) {
+                        checked[i] = rec.group_name;
+                    }
+                }
             }
-            data.putExtra("regions", checked);
+            data.putExtra(MainActivity.REGIONS, checked);
         }
         setResult(RESULT_OK, data);
+    }
+
+    @Override
+    public void onBackPressed(){
+        setResult();
+        super.onBackPressed();
     }
 }

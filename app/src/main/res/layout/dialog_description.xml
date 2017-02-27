@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/descr_hdr"
+        android:id="@+id/descr_hdr"
+        android:gravity="center_horizontal"
+        android:layout_alignLeft="@+id/namedescr"
+        android:layout_alignRight="@+id/namedescr"
+        android:layout_alignStart="@+id/namedescr"
+        android:layout_alignEnd="@+id/namedescr"/>
+
+    <EditText
+        android:id="@+id/namedescr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:lines="4"
+        android:hint="@string/en_name_descr"
+        android:layout_below="@+id/descr_hdr"/>
+
+
+</RelativeLayout>
