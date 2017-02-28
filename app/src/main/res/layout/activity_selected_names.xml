@@ -12,7 +12,8 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary"
+        android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
     <include layout="@layout/content_selected_names"
         android:layout_below="@+id/my_toolbar"
@@ -24,7 +25,7 @@
         app:backgroundTint="@color/team26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_share_black_24dp"
+        android:src="@drawable/ic_share_white_24dp"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginBottom="24dp"

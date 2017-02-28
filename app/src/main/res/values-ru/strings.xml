@@ -5,16 +5,16 @@
     <string name="add_name">Добавить имя</string>
     <string name="action_settings">Настройки</string>
     <string name="action_search">Поиск</string>
-    <string name="chooser_title">Отправить через:</string>
-    <string name="compabl_pref">Совместимость с отчеством:</string>
+    <string name="chooser_title">"Отправить через: "</string>
+    <string name="compabl_pref">"Совместимость с отчеством: "</string>
     <string name="compl">Совместимость</string>
     <string name="descr_cancel">Отмена</string>
     <string name="descr_hdr">Описание имени</string>
-    <string name="descr_patr">Отчество:</string>
-    <string name="descr_regions">Регионы:</string>
+    <string name="descr_patr">"Отчество: "</string>
+    <string name="descr_regions">"Регионы: "</string>
     <string name="descr_save">Сохранить</string>
-    <string name="descr_sex">Пол:</string>
-    <string name="descr_zod">Знак зодиака:</string>
+    <string name="descr_sex">"Пол: "</string>
+    <string name="descr_zod">"Знак зодиака: "</string>
     <string name="empty_filter">Без фильтров</string>
     <string name="empty_list">Список пуст</string>
     <string name="empty_name">Пустое имя</string>
@@ -35,7 +35,7 @@
     <string name="names_string_prefix">"Смотри, какие имена нашлись в приложении %s! Это  "</string>
     <string name="not_selected_region">Не выбрано</string>
     <string name="patronymic">Отчество</string>
-    <string name="results_for">Результаты поиска для:</string>
+    <string name="results_for">"Результаты поиска для: "</string>
     <string name="save_btn_txt">Сохранить</string>
     <string name="search_name_button">Найти</string>
     <string name="search_names_act">Найти имена</string>
@@ -55,7 +55,7 @@
     <string name="to_fill_patr">Установите отчество!</string>
     <string name="to_fill_sex">Установите пол!</string>
     <string name="unknown">Неизвестно</string>
-    <string name="zod_pref">Знаки зодиака:</string>
+    <string name="zod_pref">"Знаки зодиака: "</string>
     <string name="zodiac">Зодиак</string>
     <string-array name="zod_sels">
         <item>Овен</item>
@@ -77,4 +77,6 @@
     </string-array>
     <string name="region_repr">" Регион: "</string>
     <string name="must_set_all_param">Следует заполнить все поля!</string>
+    <string name="err_duplicate_keys">Ошибка при сохранении имени!</string>
+    <string name="feature_not_implemented">Не реализовано!</string>
 </resources>

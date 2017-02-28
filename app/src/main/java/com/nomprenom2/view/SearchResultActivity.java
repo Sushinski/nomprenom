@@ -1,48 +1,36 @@
 package com.nomprenom2.view;
 
-import android.animation.Animator;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import android.os.Debug;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.AbsPresenter;
 import com.nomprenom2.presenter.SearchResultPresenter;
+import com.nomprenom2.utils.AppToast;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SearchedNamesAdapter;
-
 import java.util.List;
 
 
 public class SearchResultActivity extends AppCompatActivity {
 
-    public static final int ADD_NAME_ID=3;
+    public static final int ADD_NAME_ID = 3;
+    public static final int SEL_NAMES_ID = 4;
     private AbsPresenter presenter;
     public SearchedNamesAdapter arrayAdapter;
-    private RecyclerView result_list_view;
-    private RecyclerView.LayoutManager mLayoutManager;
+    public RecyclerView result_list_view;
     private String[] regions;
     private int sex;
     private String sex_str;
@@ -80,7 +68,7 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
 
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
@@ -158,6 +146,7 @@ public class SearchResultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings:
+                settingsAction();
                 return true;
             case R.id.add_name:
                 addName();
@@ -176,7 +165,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     protected void showSelectedNames(){
         Intent intent = new Intent(this, SelectedNamesActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SEL_NAMES_ID);
     }
 
     protected void searchNames(){
@@ -191,14 +180,22 @@ public class SearchResultActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == ADD_NAME_ID) {
-            names =  presenter.getNames(regions, sex, zod);
-            arrayAdapter.notifyDataSetChanged();
-            /*runOnUiThread(new Runnable() {
-                public void run() {
-                    result_list_view.getAdapter().notifyDataSetChanged();
+        switch(requestCode) {
+            case(ADD_NAME_ID):
+                if (resultCode == Activity.RESULT_OK) {
+                    names = presenter.getNames(regions, sex, zod);
+                    arrayAdapter.name_list = names;
+                    arrayAdapter.notifyDataSetChanged();
                 }
-            });*/
+                break;
+            case(SEL_NAMES_ID):
+                if (resultCode == Activity.RESULT_OK) {
+                    names = presenter.getNames(regions, sex, zod);
+                    arrayAdapter.name_list = names;
+                    arrayAdapter.notifyDataSetChanged();
+                }
+                break;
+            default:break;
         }
     }
 
@@ -208,4 +205,9 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setVisibility(View.VISIBLE);
     }
 
+    protected void settingsAction(){
+        // settings is not implemented for now; show toast info
+        AppToast toast = new AppToast(getApplicationContext());
+        toast.showToast(getString(R.string.feature_not_implemented));
+    }
 }

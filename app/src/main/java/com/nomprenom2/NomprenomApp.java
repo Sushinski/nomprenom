@@ -1,7 +1,6 @@
 package com.nomprenom2;
 
 import android.app.Application;
-
 import com.activeandroid.ActiveAndroid;
 
 public class NomprenomApp extends Application {

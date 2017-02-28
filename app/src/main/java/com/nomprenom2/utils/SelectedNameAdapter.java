@@ -21,7 +21,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         implements View.OnClickListener{
     public final static String NAME = "com.nomprenom2.utils.name";
     public final static String NAME_DESCR = "com.nomprenom2.utils.name_descr";
-    private List<NameRecord> name_list;
+    public List<NameRecord> name_list;
     private Context context;
     private String patronymic;
     private NameRecord.Sex sex;
@@ -54,25 +54,25 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     }
 
 
-    public void setInfoPrefx( String str ){
+    void setInfoPrefx(String str){
         info_prefx = str;
     }
 
 
-    public String getInfoPrefix(){ return info_prefx; }
+    private String getInfoPrefix(){ return info_prefx; }
 
 
-    public String getCompatibility(NameRecord name){
+    String getCompatibility(NameRecord name){
         return Integer.toString(comp.compare(name, this.patronymic, this.sex, this.zod));
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
-        public TextView name_info;
-        public CheckBox selector;
+        TextView name_info;
+        CheckBox selector;
 
-        public ViewHolder(View v){
+        ViewHolder(View v){
             super(v);
             name = (TextView) v.findViewById(R.id.name);
             name_info = (TextView) v.findViewById(R.id.name_info);

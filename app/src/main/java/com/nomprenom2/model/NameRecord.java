@@ -15,7 +15,6 @@ import com.nomprenom2.utils.RestInteractionWorker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Attributes;
 
 
 @Table(name = "NameRecord", id = "_id")
@@ -85,7 +84,7 @@ public class NameRecord extends Model{
         }
     }
 
-    public static NameRecord create(String name){
+    private static NameRecord create(String name){
         try{
             NameRecord rec = new NameRecord();
             rec.name = name;

@@ -1,32 +1,19 @@
 package com.nomprenom2.view;
 
-import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-
 import com.nomprenom2.R;
-import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.model.ZodiacRecord;
 import com.nomprenom2.utils.AppToast;
 import com.nomprenom2.utils.ColorUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +30,7 @@ public class AddNameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
@@ -105,7 +92,12 @@ public class AddNameActivity extends AppCompatActivity {
             return false;
         }
 
-        return NameRecord.saveName(name_et.getText().toString(), sx,
-                zod_list, gr_list, descr_et.getText().toString()) != -1;
+        if(NameRecord.saveName(name_et.getText().toString(), sx,
+                zod_list, gr_list, descr_et.getText().toString())  < 0){
+            AppToast toast = new AppToast(getApplicationContext());
+            toast.showToast(getString(R.string.err_duplicate_keys));
+            return false;
+        }
+        return true;
     }
 }

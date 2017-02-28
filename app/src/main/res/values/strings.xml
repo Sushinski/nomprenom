@@ -70,7 +70,7 @@
     <string name="consonants" translatable="false">йцкнгшщзхъфвпрлджчсмтьб</string>
     <string name="to_fill_sex">Set child\'s sex!</string>
     <string name="to_fill_patr">Set child\'s patronymic!</string>
-    <string name="chooser_title">Send by:</string>
+    <string name="chooser_title">"Send by: "</string>
     <string name="names_string_prefix">Look what names i`ve found in %s! It`s </string>
     <string name="names_string_postfix">Maybe you will find some nice among them :)</string>
     <string name="send_names_title">Names found in %s : </string>
@@ -90,8 +90,8 @@
     <string name="compabl_pref">"Compatibility with patronymic: "</string>
     <string name="zod_pref">Zodiacs: </string>
     <string name="results_for">Search results for: </string>
-    <string name="descr_regions">Regions: </string>
-    <string name="descr_patr">Patronymic: </string>
+    <string name="descr_regions">"Regions:  "</string>
+    <string name="descr_patr">"Patronymic:  "</string>
     <string name="descr_zod">Zodiac: </string>
     <string name="descr_sex">Sex: </string>
     <string name="names_list">Names list</string>
@@ -111,4 +111,6 @@
     <string name="zodiac">Zodiac</string>
     <string name="region_repr">Region:</string>
     <string name="must_set_all_param">You should set all name fields!</string>
+    <string name="err_duplicate_keys">Error saving new name!</string>
+    <string name="feature_not_implemented">Not implemeted yet!</string>
 </resources>

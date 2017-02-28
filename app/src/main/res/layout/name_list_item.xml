@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/text1"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_toLeftOf="@+id/checkBox1"
         android:layout_toStartOf="@+id/checkBox1" />
 

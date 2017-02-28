@@ -18,7 +18,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/tr_icon"
-        android:contentDescription="@string/icicon" />
+        android:contentDescription="@string/icicon"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:text="@string/app_name"

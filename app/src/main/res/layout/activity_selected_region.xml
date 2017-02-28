@@ -10,7 +10,8 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary"
+        android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
     <include layout="@layout/content_selected_region"
         android:layout_below="@+id/my_toolbar"

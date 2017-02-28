@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
-    <changeBounds android:duration="2000"/>
-    <changeTransform android:duration="2000"/>
-    <changeImageTransform android:duration="2000"/>
+    <changeBounds android:duration="1500"/>
+    <changeTransform android:duration="1500"/>
+    <changeImageTransform android:duration="1500"/>
 </transitionSet>
 
 
