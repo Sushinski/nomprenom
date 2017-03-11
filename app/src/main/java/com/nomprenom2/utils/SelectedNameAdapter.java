@@ -51,6 +51,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 ZodiacRecord.ZodMonth.valueOf(ZodiacRecord.ZodMonth.fromInt(zod)) :
                 null;
         zodiac_repr_names = getContext().getResources().getStringArray(R.array.zod_sels);
+        setInfoPrefx(context.getResources().getText(R.string.zod_pref).toString());
     }
 
 
@@ -96,10 +97,10 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 NameRecord nr = (NameRecord)tw.getTag();
                 String n = tw.getText().toString();
                 String d = getContext().getResources().getText(R.string.descr_sex) +
-                        NameRecord.Sex.fromInt(nr.sex);
+                        getContext().getResources().getStringArray(R.array.sex_sels)[nr.sex];
                 String str = ZodiacRecord.getMonthsForName(nr.name, zodiac_repr_names);
                 GroupRecord gr = GroupRecord.getGroupForName(nr);
-                d += getContext().getResources().getString(R.string.region_repr) +
+                d += "\n" + getContext().getResources().getString(R.string.region_repr) +
                         ( gr== null ? getContext().getResources().getString(R.string.unknown) : gr);
                 d += "\n" + getInfoPrefix() +
                         (str.equals("") ? getContext().getResources()

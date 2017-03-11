@@ -8,6 +8,7 @@ import com.activeandroid.query.Select;
 @Table(name = "PrefsRecord", id = "_id")
 public class PrefsRecord extends Model{
     public static final String LAST_UPD_NAME_ID = "last_upd_name_id";
+    public static final String BASE_SERV_IP_ADDR = "serv_ip";
 
     @Column(name = "name", unique = true, notNull = true)
     public String name;

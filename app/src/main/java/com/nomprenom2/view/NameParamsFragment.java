@@ -50,7 +50,7 @@ public class NameParamsFragment extends Fragment implements
     }
 
     public Integer getSelectedZod(){
-        return zod_spinner.getSelectedItemPosition() - 1;
+        return zod_spinner.getSelectedItemPosition()-1;
     }
 
     public void setSingleSel(boolean bsingle){

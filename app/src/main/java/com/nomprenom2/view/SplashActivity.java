@@ -13,6 +13,8 @@ import com.nomprenom2.utils.ActionEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import static com.nomprenom2.model.PrefsRecord.BASE_SERV_IP_ADDR;
+
 
 public class SplashActivity extends AppCompatActivity {
     final static int FINISH_CODE  = 1;
@@ -23,7 +25,8 @@ public class SplashActivity extends AppCompatActivity {
         String last_name_id = PrefsRecord.getStringValue(PrefsRecord.LAST_UPD_NAME_ID);
         if(last_name_id == null)
             last_name_id = "0";
-        NameRecord.refreshNamesCache(last_name_id);
+        String base_addr = PrefsRecord.getStringValue(BASE_SERV_IP_ADDR);
+        NameRecord.refreshNamesCache(base_addr, last_name_id);
     }
 
     @Override

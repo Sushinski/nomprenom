@@ -30,8 +30,6 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class RestInteractionWorker {
-
-    final String base_url = "http://85.143.215.126/names/";
     RestApi restApi;
 
     public class LoggingInterceptor implements Interceptor {
@@ -43,8 +41,8 @@ public class RestInteractionWorker {
         }
     }
 
-    public RestInteractionWorker(){
-
+    public RestInteractionWorker( String base_addr ){
+        String base_url = "http://" +base_addr + "/names/";
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .addInterceptor(new LoggingInterceptor())
                 .build();
@@ -69,24 +67,19 @@ public class RestInteractionWorker {
             last_upd_ver = "0";
         restApi.getNamesUpdate(last_upd_ver)
                 .subscribeOn(Schedulers.newThread()) //для запроса используем отдельный поток
-                .timeout(30, TimeUnit.SECONDS) // таймаут
+                .timeout(10, TimeUnit.SECONDS) // таймаут
                 .map(new Func1<List<NameRecord>, ActionEvent>() {
                     @NonNull
                     @Override
                     public ActionEvent call(List<NameRecord> res_list) {
-                        List<Integer> zods = new ArrayList<>();
                         List<String> groups = new ArrayList<>();
                         long last_id = 0;
                         for (NameRecord nr : res_list) {
-                            zods.clear();
                             groups.clear();
-                            for (String zr: nr.zodiacs) {
-                                zods.add(ZodiacRecord.ZodMonth.valueOf(zr).getId());// todo !!!
-                            }
                             groups.add(nr.group);
                             long ins_id = NameRecord.saveName(nr.name,
                                         nr.sex,
-                                        zods, groups, nr.description);
+                                        nr.zodiacs, groups, nr.description);
                             if(ins_id > 0)
                                 PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(nr._id));
                         }

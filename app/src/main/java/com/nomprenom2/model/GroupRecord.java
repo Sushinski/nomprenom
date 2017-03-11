@@ -2,6 +2,7 @@ package com.nomprenom2.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.activeandroid.Model;
@@ -42,10 +43,30 @@ public class GroupRecord extends Model{
     }
 
     public static GroupRecord getGroup(String group_name){
-        return new Select().
-                from(GroupRecord.class).
-                where("group_name = ? collate nocase", group_name).
-                executeSingle();
+        GroupRecord gr = null;
+        try{
+            gr =  new Select().
+                    from(GroupRecord.class).
+                    where("group_name = ? collate nocase", group_name).
+                    executeSingle();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if( gr == null )
+            return createGroup(group_name);
+        return gr;
+    }
+
+    @Nullable
+    public static GroupRecord createGroup(String group_name){
+        try {
+            GroupRecord gr = new GroupRecord();
+            gr.group_name = group_name;
+            gr.save();
+            return gr;
+        }catch (Exception e){
+            return null;
+        }
     }
 
     public static List<Long> groupIdForNames(String[] group_names){

@@ -51,8 +51,8 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
             //[ToDo названия зодиака]
             String str = ZodiacRecord.getMonthsForName(nr.name, zodiac_repr_names);
             GroupRecord gr = GroupRecord.getGroupForName(nr);
-            c += getContext().getResources().getString(R.string.region_repr) +
-                    ( gr== null ? getContext().getResources().getText(R.string.unknown) : gr);
+            c += " " + getContext().getResources().getString(R.string.region_repr) +
+                    ( gr == null ? getContext().getResources().getText(R.string.unknown) : gr);
             c += "\n" + getContext().getResources().getText(R.string.descr_zod) +
                     (str.equals("") ? getContext().getResources().getText(R.string.unknown) : str);
         }

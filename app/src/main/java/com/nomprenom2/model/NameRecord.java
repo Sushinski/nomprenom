@@ -48,7 +48,7 @@ public class NameRecord extends Model{
 
     @SerializedName("zodiacs")
     @Expose
-    public List<String> zodiacs = new ArrayList<>();
+    public List<Integer> zodiacs = new ArrayList<>();
 
     public enum Sex{
         Girl(0), Boy(1), ;
@@ -96,8 +96,8 @@ public class NameRecord extends Model{
         }
     }
 
-    public static void refreshNamesCache( String last_version){
-        RestInteractionWorker worker = new RestInteractionWorker();
+    public static void refreshNamesCache( String base_addr, String last_version){
+        RestInteractionWorker worker = new RestInteractionWorker(base_addr);
         worker.getNamesUpdate(last_version);
     }
 
@@ -112,20 +112,21 @@ public class NameRecord extends Model{
             add = " and ";
         }
         if( sex != -1 ) {
-            _where += add + "NameRecord.sex=" + Sex.fromInt(sex);
+            _where += add + "NameRecord.sex=" + sex;
             add = " and ";
         }
-        From sel = new Select()
-                .from(NameRecord.class);
         if( zod != -1 ) {
             _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
                     " b.zod_month=" + Integer.toString(zod) + ")";
         }
-        sel.where(_where).orderBy("NameRecord.name ASC");
         try {
             if(!_where.equals(""))
-                return sel.execute();
+                return new Select()
+                        .from(NameRecord.class)
+                        .where(_where)
+                        .orderBy("NameRecord.name ASC")
+                        .execute();
             else
                 return  new Select().all().from(NameRecord.class).execute();
         }catch (Exception e){
@@ -166,7 +167,6 @@ public class NameRecord extends Model{
                 return -1;
             created = true;
         }
-        ActiveAndroid.beginTransaction();
         try {
             rec.sex = sex;
             rec.description = descr;
@@ -174,7 +174,7 @@ public class NameRecord extends Model{
             for (Integer z : zodiacs) {
                 NameZodiacRecord nzr = new NameZodiacRecord();
                 nzr.name_id = rec.getId();
-                nzr.zodiac_id = ZodiacRecord.getZodiacRec(z+1).getId();
+                nzr.zodiac_id = ZodiacRecord.getZodiacRec(z).getId();
                 nzr.save();
             }
 
@@ -184,12 +184,8 @@ public class NameRecord extends Model{
                 ngr.group_id = GroupRecord.getGroup(g).getId();
                 ngr.save();
             }
-            ActiveAndroid.setTransactionSuccessful();
         }catch (Exception e){
             e.printStackTrace();
-        }
-        finally {
-            ActiveAndroid.endTransaction();
         }
         if( created )
             return rec.getId();

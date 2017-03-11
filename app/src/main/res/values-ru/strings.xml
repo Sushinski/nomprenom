@@ -4,7 +4,6 @@
     <string name="btn_add_descr">Описание имени</string>
     <string name="add_name">Добавить имя</string>
     <string name="action_settings">Настройки</string>
-    <string name="action_search">Поиск</string>
     <string name="chooser_title">"Отправить через: "</string>
     <string name="compabl_pref">"Совместимость с отчеством: "</string>
     <string name="compl">Совместимость</string>
@@ -24,7 +23,7 @@
     <string name="enter_name_description">Введите описание для имени</string>
     <string name="input_first_name">Отчество ребёнка</string>
     <string name="input_surname">Фамилия ребёнка</string>
-    <string name="mainActivityTitle">Поиск</string>
+    <string name="mainActivityTitle">Заполните параметры поиска:</string>
     <string name="menu_choose_name">Подобрать имя</string>
     <string name="menu_delete_item">Удалить</string>
     <string name="menu_favorites">Избранное</string>
@@ -75,8 +74,9 @@
         <item>Девочка</item>
         <item>Мальчик</item>
     </string-array>
-    <string name="region_repr">" Регион: "</string>
+    <string name="region_repr">"Регион: "</string>
     <string name="must_set_all_param">Следует заполнить все поля!</string>
     <string name="err_duplicate_keys">Ошибка при сохранении имени!</string>
     <string name="feature_not_implemented">Не реализовано!</string>
+    <string name="action_search">Поиск</string>
 </resources>
