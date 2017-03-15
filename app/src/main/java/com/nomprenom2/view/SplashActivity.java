@@ -43,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(ActionEvent event){
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         Intent intent = new Intent(this, SearchResultActivity.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final View androidRobotView = findViewById(R.id.tr_icon);

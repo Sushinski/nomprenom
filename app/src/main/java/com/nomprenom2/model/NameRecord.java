@@ -128,7 +128,10 @@ public class NameRecord extends Model{
                         .orderBy("NameRecord.name ASC")
                         .execute();
             else
-                return  new Select().all().from(NameRecord.class).execute();
+                return  new Select().all()
+                        .from(NameRecord.class)
+                        .orderBy("NameRecord.name ASC")
+                        .execute();
         }catch (Exception e){
             e.printStackTrace();
             return new ArrayList<>();

@@ -18,8 +18,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/tr_icon"
-        android:contentDescription="@string/icicon"
-        tools:targetApi="lollipop" />
+        android:contentDescription="@string/icicon" />
 
     <TextView
         android:text="@string/app_name"
@@ -30,4 +29,14 @@
         android:layout_below="@+id/tr_icon"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textAlignment="center" />
+
+    <ProgressBar
+        android:id="@+id/loadingPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
 </RelativeLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">nomprenom2</string>
+    <string name="app_name">Найди то имя</string>
     <string name="btn_add_descr">Описание имени</string>
     <string name="add_name">Добавить имя</string>
     <string name="action_settings">Настройки</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">nomprenom2</string>
+    <string name="app_name">Search for that name</string>
 
     <!-- Activities-->
     <string name="title_screen3">Bookmarked</string>

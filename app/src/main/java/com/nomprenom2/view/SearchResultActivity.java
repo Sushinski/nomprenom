@@ -72,6 +72,7 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
+        //result_list_view.setFastScrollEnabled(true);
         init();
     }
 
