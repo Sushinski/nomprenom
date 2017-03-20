@@ -17,7 +17,6 @@ import static com.nomprenom2.model.PrefsRecord.BASE_SERV_IP_ADDR;
 
 
 public class SplashActivity extends AppCompatActivity {
-    final static int FINISH_CODE  = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

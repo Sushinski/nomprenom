@@ -79,4 +79,5 @@
     <string name="err_duplicate_keys">Ошибка при сохранении имени!</string>
     <string name="feature_not_implemented">Не реализовано!</string>
     <string name="action_search">Поиск</string>
+    <string name="search_hint">начните печатать имя</string>
 </resources>

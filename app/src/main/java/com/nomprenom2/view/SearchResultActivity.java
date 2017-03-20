@@ -41,6 +41,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView search_result_descr_tw;
     private TextView title_tw;
     private TextView empty_tw;
+    private android.widget.SearchView search_view_action;
 
 
 
@@ -66,13 +67,32 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
+        search_view_action = (android.widget.SearchView) findViewById(R.id.search_view);
+        android.widget.SearchView.OnQueryTextListener text_change_listener =
+                new android.widget.SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                System.out.println("on text chnge text: " + newText);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                System.out.println("on query submit: "+query);
+                return true;
+            }
+        };
+        search_view_action.setOnQueryTextListener(text_change_listener);
+        search_view_action.setQueryHint(getResources().getString(R.string.search_hint));
+        search_view_action.setIconifiedByDefault(true);
 
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
         title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
-        //result_list_view.setFastScrollEnabled(true);
         init();
     }
 
