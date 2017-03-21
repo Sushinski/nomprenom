@@ -88,7 +88,7 @@ public class SearchResultActivity extends AppCompatActivity {
         };
         search_view_action.setOnQueryTextListener(text_change_listener);
         search_view_action.setQueryHint(getResources().getString(R.string.search_hint));
-        search_view_action.setIconifiedByDefault(true);
+        search_view_action.setIconifiedByDefault(false);
 
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
