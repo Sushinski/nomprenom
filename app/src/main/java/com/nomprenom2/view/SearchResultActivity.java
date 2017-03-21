@@ -37,7 +37,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private int zod;
     private String zod_str;
     private String patronymic;
-    private List<NameRecord> names;
+    private List<NameRecord> names; // [todo] move data to presenter
     private TextView search_result_descr_tw;
     private TextView title_tw;
     private TextView empty_tw;
@@ -74,7 +74,9 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText)
             {
-                System.out.println("on text chnge text: " + newText);
+                names = presenter.getSuggestions(newText ,regions, sex, zod);
+                arrayAdapter.name_list = names;
+                arrayAdapter.notifyDataSetChanged();
                 return true;
             }
             @Override

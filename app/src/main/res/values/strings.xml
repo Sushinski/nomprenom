@@ -113,5 +113,6 @@
     <string name="err_duplicate_keys">Error saving new name!</string>
     <string name="feature_not_implemented">Not implemeted yet!</string>
     <string name="action_search">Search</string>
-    <string name="search_hint">start typing a name</string>
+    <string name="search_hint">start typing a name...</string>
+    <string name="updating_names">Updating names...</string>
 </resources>

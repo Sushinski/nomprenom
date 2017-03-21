@@ -21,6 +21,9 @@ public abstract class AbsPresenter{
         return null;
     }
 
+    public List<NameRecord> getSuggestions(String name_part, String[] regions, int sex, int zod){
+       return getNames( regions, sex, zod );
+    }
 
     public abstract void onOk();
 }
