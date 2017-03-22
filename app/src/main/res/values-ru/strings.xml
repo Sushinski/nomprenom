@@ -80,4 +80,6 @@
     <string name="feature_not_implemented">Не реализовано!</string>
     <string name="action_search">Поиск</string>
     <string name="search_hint">начните печатать имя...</string>
+    <string name="updating_names">Подождите, идёт обновление имён...</string>
+    <string name="filter_all">Все</string>
 </resources>

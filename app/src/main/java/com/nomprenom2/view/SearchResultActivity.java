@@ -8,11 +8,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
@@ -39,9 +41,8 @@ public class SearchResultActivity extends AppCompatActivity {
     private String patronymic;
     private List<NameRecord> names; // [todo] move data to presenter
     private TextView search_result_descr_tw;
-    private TextView title_tw;
     private TextView empty_tw;
-    private android.widget.SearchView search_view_action;
+    private SearchView search_view_action;
 
 
 
@@ -67,9 +68,9 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
-        search_view_action = (android.widget.SearchView) findViewById(R.id.search_view);
-        android.widget.SearchView.OnQueryTextListener text_change_listener =
-                new android.widget.SearchView.OnQueryTextListener()
+        search_view_action = (SearchView) findViewById(R.id.search_view);
+        SearchView.OnQueryTextListener text_change_listener =
+                new SearchView.OnQueryTextListener()
         {
             @Override
             public boolean onQueryTextChange(String newText)
@@ -82,18 +83,19 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query)
             {
-                System.out.println("on query submit: "+query);
                 return true;
             }
         };
         search_view_action.setOnQueryTextListener(text_change_listener);
         search_view_action.setQueryHint(getResources().getString(R.string.search_hint));
         search_view_action.setIconifiedByDefault(false);
+        ImageView searchIcon = (ImageView)search_view_action
+                .findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
+        searchIcon.setImageResource(R.drawable.ic_find_in_page_black_24dp);
 
         search_result_descr_tw = (TextView) findViewById(R.id.search_result_descr);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
-        title_tw = (TextView)findViewById(R.id.search_result_title);
         empty_tw = (TextView)findViewById(R.id.empty_list);
         init();
     }
@@ -101,45 +103,44 @@ public class SearchResultActivity extends AppCompatActivity {
 
     void init(){
         Intent data  = getIntent();
-        String search_descr = "";
+        String regions_str = getResources().getString(R.string.descr_regions);
+        String sex_str = getResources().getString(R.string.descr_sex);
+        String zod_str = getResources().getString(R.string.descr_zod);
         if(data.hasExtra(MainActivity.REGIONS)) {
             regions = data.getStringArrayExtra(MainActivity.REGIONS);
-            search_descr = getResources().getString(R.string.descr_regions) +
-                    TextUtils.join(",", regions ) + "\n";
+            regions_str += TextUtils.join(", ", regions );
         }else
-            regions = null;
+            regions_str += getResources().getString(R.string.filter_all);
         if(data.hasExtra(MainActivity.SEX)) {
             sex = data.getIntExtra(MainActivity.SEX, -1);
-            sex_str = sex != -1 ?
+            sex_str += sex != -1 ?
                     getResources().getStringArray(R.array.sex_sels)[sex] :
-                    getResources().getString(R.string.unknown);
-            search_descr += getResources().getString(R.string.descr_sex) +
-                    sex_str + "\n";
-        }else
+                    getResources().getString(R.string.filter_all);
+        }else {
             sex = -1;
+            sex_str += getResources().getString(R.string.filter_all);
+        }
         if(data.hasExtra(MainActivity.ZODIAC)) {
             zod = data.getIntExtra(MainActivity.ZODIAC, -1);
-            zod_str = zod != -1 ?
+            zod_str += zod != -1 ?
                     getResources().getStringArray(R.array.zod_sels)[zod] :
-                    getResources().getString(R.string.unknown);
-            search_descr += getResources().getString(R.string.descr_zod) +
-                    zod_str + "\n";
-        }else
+                    getResources().getString(R.string.filter_all);
+        }else {
             zod = -1;
+            zod_str += getResources().getString(R.string.filter_all);
+        }
         if(data.hasExtra(MainActivity.PATRONYMIC)) {
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
-            search_descr += getResources().getString(R.string.descr_patr) +
-                    patronymic;
         }else
             patronymic = null;
-        if(regions != null || sex != -1 || zod != -1 ||patronymic != null) {
-            title_tw.setText(getResources().getText(R.string.search_results_for));
-        }else{
-            title_tw.setText(getResources().getText(R.string.names_list));
-            search_descr = getResources().getString(R.string.empty_filter);
-        }
 
-        search_result_descr_tw.setText(search_descr);
+        search_result_descr_tw.setText( regions_str + '\n'+
+                                        sex_str + '\n' +
+                                        zod_str +
+                (patronymic != null ?
+                '\n' + getResources().getString(R.string.descr_patr) + patronymic :
+                "")
+        );
         names =  presenter.getNames(regions, sex, zod);
         if( names.isEmpty() )
             empty_tw.setVisibility(View.VISIBLE);
