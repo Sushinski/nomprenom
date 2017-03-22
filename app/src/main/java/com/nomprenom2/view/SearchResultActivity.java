@@ -122,8 +122,8 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         if(data.hasExtra(MainActivity.ZODIAC)) {
             zod = data.getIntExtra(MainActivity.ZODIAC, -1);
-            zod_str += zod != -1 ?
-                    getResources().getStringArray(R.array.zod_sels)[zod] :
+            zod_str += zod > 0 ?
+                    getResources().getStringArray(R.array.zod_sels)[zod-1] :
                     getResources().getString(R.string.filter_all);
         }else {
             zod = -1;

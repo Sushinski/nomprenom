@@ -73,9 +73,10 @@ public class AddNameActivity extends AppCompatActivity {
 
     private boolean addName(){
         // todo get zodiac list
+        AppToast toast = new AppToast(getApplicationContext());
         List<Integer> zod_list = new ArrayList<>();
         Integer z = param_frag.getSelectedZod();
-        if( z != -1)
+        if( z > 0)
             zod_list.add(z);
         Integer sx = param_frag.getSelectedSex();
         List<String> gr_list = new ArrayList<>();
@@ -87,17 +88,16 @@ public class AddNameActivity extends AppCompatActivity {
                 gr_list.isEmpty() ||
                 name_et.getText().length() == 0 ||
                 descr_et.getText().length() == 0){
-            AppToast toast = new AppToast(getApplicationContext());
             toast.showToast(getString(R.string.must_set_all_param));
             return false;
         }
 
         if(NameRecord.saveName(name_et.getText().toString(), sx,
                 zod_list, gr_list, descr_et.getText().toString())  < 0){
-            AppToast toast = new AppToast(getApplicationContext());
             toast.showToast(getString(R.string.err_duplicate_keys));
             return false;
         }
+        toast.showToast(getString(R.string.save_ok));
         return true;
     }
 }

@@ -89,30 +89,38 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
                 .inflate(this.tw_id, parent, false);
         holder = new ViewHolder(v);
         holder.selector.setOnClickListener(this);
-        holder.name.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(v.getContext(), NameDetailActivity.class);
                 TextView tw = (TextView) v;
                 NameRecord nr = (NameRecord)tw.getTag();
-                String n = tw.getText().toString();
-                String d = getContext().getResources().getText(R.string.descr_sex) +
+                String nm = nr.name;
+                String sx = getContext().getResources().getText(R.string.descr_sex) +
                         getContext().getResources().getStringArray(R.array.sex_sels)[nr.sex];
-                String str = ZodiacRecord.getMonthsForName(nr.name, zodiac_repr_names);
-                GroupRecord gr = GroupRecord.getGroupForName(nr);
-                d += "\n" + getContext().getResources().getString(R.string.region_repr) +
-                        ( gr== null ? getContext().getResources().getString(R.string.unknown) : gr);
-                d += "\n" + getInfoPrefix() +
-                        (str.equals("") ? getContext().getResources()
-                                .getString(R.string.unknown) : str);
-                d += "\n\n" + (nr.description == null ?
+                String zd = ZodiacRecord.getMonthsForName(nr.name, zodiac_repr_names);
+                if( !zd.isEmpty())
+                    zd = getContext().getResources().getString(R.string.descr_zod) + zd;
+                else
+                    zd = getContext().getResources().getString(R.string.descr_zod) +
+                        getContext().getResources().getString(R.string.unknown);
+                GroupRecord g = GroupRecord.getGroupForName(nr);
+                String gr = getContext().getResources().getString(R.string.region_repr) +
+                        ( g == null ? getContext().getResources().getString(R.string.unknown) :
+                                g.group_name);
+                String descr = sx + '\n' +
+                        gr + '\n' +
+                        zd + "\n\n" +
+                        (nr.description == null ?
                         getContext().getResources().getString(R.string.empty_name_descr) :
                         nr.description);
-                in.putExtra(NAME, n);
-                in.putExtra(NAME_DESCR, d);
+                in.putExtra(NAME, nm);
+                in.putExtra(NAME_DESCR, descr);
                 v.getContext().startActivity(in);
             }
-        });
+        };
+        holder.name.setOnClickListener(listener);
+        holder.name_info.setOnClickListener(listener);
         return holder;
     }
 
@@ -126,6 +134,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         holder.name_info.setText(getInfoText(n));
         holder.selector.setTag(n);
         holder.name.setTag(n);
+        holder.name_info.setTag(n);
     }
 
 
