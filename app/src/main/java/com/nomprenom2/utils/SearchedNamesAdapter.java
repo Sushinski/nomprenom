@@ -1,23 +1,18 @@
 package com.nomprenom2.utils;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
-
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.model.NameRecord;
-import com.nomprenom2.model.SelectedName;
 import com.nomprenom2.model.ZodiacRecord;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class SearchedNamesAdapter extends SelectedNameAdapter {
-    private boolean bsearched;
-    static String[] zodiac_repr_names;
+    private final boolean bsearched;
+    private static String[] zodiac_repr_names;
     public SearchedNamesAdapter(Context context, int textViewResourceId,
                                List<NameRecord> nameList, String patronymic, int sex, int zod) {
         super(context, textViewResourceId, nameList, patronymic, sex, zod);

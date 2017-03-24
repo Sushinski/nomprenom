@@ -9,7 +9,7 @@ import com.activeandroid.util.SQLiteUtils;
 import java.util.List;
 
 @Table(name = "android_metadata", id="_id")
-public class android_metadata extends Model {
+class android_metadata extends Model {
     @Column(name="locale")
     public String locale;
 
@@ -33,8 +33,6 @@ public class android_metadata extends Model {
                     SQLiteUtils.rawQuery(android_metadata.class, "SELECT * from android_metadata;", new String[]{});
             return md.get(0);
         }catch (Exception ex) {
-            String str = ex.toString();
-
             return  null;
         }
     }

@@ -2,8 +2,8 @@ package com.nomprenom2.model;
 
 
 public class SelectedName {
-    String name = null;
-    boolean selected = false;
+    private String name = null;
+    private boolean selected = false;
 
     public SelectedName(String name, boolean selected){
         super();
@@ -19,11 +19,4 @@ public class SelectedName {
         this.name = name;
     }
 
-    public boolean isSelected(){
-        return this.selected;
-    }
-
-    public void setSelected(boolean selected){
-        this.selected = selected;
-    }
 }

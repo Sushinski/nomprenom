@@ -14,7 +14,6 @@ public class FragmentItem extends Fragment {
     private OnFragmentInteractionListener mCallback;
     private String mParam1;
     private TextView frag_text;
-    private Button del_btn;
 
     public static FragmentItem newInstance(String param1, OnFragmentInteractionListener lstnr ) {
         FragmentItem fragment = new FragmentItem();
@@ -48,7 +47,7 @@ public class FragmentItem extends Fragment {
         View v = inflater.inflate(R.layout.fragment_item, container, false);
         frag_text = (TextView)v.findViewById(R.id.frag_text);
         frag_text.setText(mParam1);
-        del_btn = (Button)v.findViewById(R.id.del_btn);
+        Button del_btn = (Button) v.findViewById(R.id.del_btn);
         del_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String fr_str = frag_text.getText().toString();

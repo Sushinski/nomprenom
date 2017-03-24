@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Найди то имя</string>
-    <string name="btn_add_descr">Описание имени</string>
+    <string name="app_name">То имя</string>
     <string name="add_name">Добавить имя</string>
     <string name="action_settings">Настройки</string>
     <string name="chooser_title">"Отправить через: "</string>
     <string name="compabl_pref">"Совместимость с отчеством: "</string>
-    <string name="compl">Совместимость</string>
     <string name="descr_cancel">Отмена</string>
     <string name="descr_hdr">Описание имени</string>
     <string name="descr_patr">"Отчество: "</string>
@@ -14,7 +12,6 @@
     <string name="descr_save">Сохранить</string>
     <string name="descr_sex">"Пол: "</string>
     <string name="descr_zod">"Знак зодиака: "</string>
-    <string name="empty_filter">Без фильтров</string>
     <string name="empty_list">Список пуст</string>
     <string name="empty_name">Пустое имя</string>
     <string name="empty_name_descr">У этого имени не добавлено описания</string>
@@ -22,23 +19,11 @@
     <string name="enter_name">Введите имя</string>
     <string name="enter_name_description">Введите описание для имени</string>
     <string name="input_first_name">Отчество ребёнка</string>
-    <string name="input_surname">Фамилия ребёнка</string>
     <string name="mainActivityTitle">Заполните параметры поиска:</string>
-    <string name="menu_choose_name">Подобрать имя</string>
-    <string name="menu_delete_item">Удалить</string>
-    <string name="menu_favorites">Избранное</string>
-    <string name="menu_my_names">Избранные имена</string>
-    <string name="name">Имя</string>
-    <string name="names_list">Список имён</string>
     <string name="names_string_postfix">Возможно ты найдёшь среди них подходящее ;)</string>
     <string name="names_string_prefix">"Смотри, какие имена нашлись в приложении %s! Это  "</string>
-    <string name="not_selected_region">Не выбрано</string>
-    <string name="patronymic">Отчество</string>
-    <string name="results_for">"Результаты поиска для: "</string>
-    <string name="save_btn_txt">Сохранить</string>
     <string name="search_name_button">Найти</string>
     <string name="search_names_act">Найти имена</string>
-    <string name="search_results_for">Результаты поиска для:</string>
     <string name="sel_alert">Нужно ввести параметры поиска!</string>
     <string name="select_child_sex">Выберите пол ребёнка</string>
     <string name="select_child_zod">Выберите знак зодиака</string>
@@ -47,15 +32,10 @@
     <string name="title_activity_add_name">Добавить имя</string>
     <string name="title_activity_name_detail">Описание имени</string>
     <string name="title_activity_search_result">Имена</string>
-    <string name="title_activity_selected_names">Избранные имена</string>
-    <string name="title_all_names">Все имена</string>
     <string name="title_screen3">Отобранные</string>
     <string name="title_selected_region">Выберите регионы</string>
-    <string name="to_fill_patr">Установите отчество!</string>
-    <string name="to_fill_sex">Установите пол!</string>
     <string name="unknown">Неизвестно</string>
     <string name="zod_pref">"Знаки зодиака: "</string>
-    <string name="zodiac">Зодиак</string>
     <string-array name="zod_sels">
         <item>Овен</item>
         <item>Телец</item>
@@ -79,8 +59,8 @@
     <string name="err_duplicate_keys">Ошибка при сохранении имени!</string>
     <string name="feature_not_implemented">Ещё не реализовано :(</string>
     <string name="action_search">Поиск</string>
-    <string name="search_hint">начните печатать имя...</string>
-    <string name="updating_names">Подождите, идёт обновление имён...</string>
+    <string name="search_hint">начните печатать имя…</string>
+    <string name="updating_names">Подождите, идёт обновление имён…</string>
     <string name="filter_all">Все</string>
     <string name="save_ok">Имя успешно сохранено!</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Search for that name</string>
+    <string name="app_name">That name</string>
 
     <!-- Activities-->
     <string name="title_screen3">Bookmarked</string>
@@ -10,13 +10,8 @@
     <string name="action_settings">Settings</string>
     <!-- todo: rename : menu_app_settings -->
 
-    <string name="menu_favorites">Favorites</string>
-    <string name="menu_my_names">Chosen names</string>
-    <string name="menu_choose_name">Search for name</string>
-
     <!-- Inputs-->
     <string name="input_first_name">Child\'s patronymic</string>
-    <string name="input_surname">Child\'s surname</string>
 
     <!-- Buttons-->
     <string name="select_region_button">Select name region</string>
@@ -40,35 +35,13 @@
         <item>Pisces</item>
     </string-array>
 
-    <string-array name="zod_months">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
-    <string name="zodiac_view" translatable="false">zodiac</string>
     <string name="select_child_sex">Select child\'s sex</string>
     <string name="select_child_zod">Select zodiac sign</string>
     <string name="title_activity_search_result">Names</string>
-    <string name="title_all_names">All names</string>
-    <string name="save_btn_txt">Save</string>
-    <string name="title_activity_selected_names">SelectedNamesActivity</string>
     <string name="mainActivityTitle">Fill search parameters:</string>
-    <string name="not_selected_region">Not selected</string>
     <string name="title_activity_name_detail">Name Detail</string>
-    <string name="menu_delete_item">Delete</string>
     <string name="vowels" translatable="false">уеыаоэёяию</string>
     <string name="consonants" translatable="false">йцкнгшщзхъфвпрлджчсмтьб</string>
-    <string name="to_fill_sex">Set child\'s sex!</string>
-    <string name="to_fill_patr">Set child\'s patronymic!</string>
     <string name="chooser_title">"Send by: "</string>
     <string name="names_string_prefix">Look what names i`ve found in %s! It`s </string>
     <string name="names_string_postfix">Maybe you will find some nice among them :)</string>
@@ -76,10 +49,7 @@
     <string name="add_name">Add name</string>
     <string name="enter_name">Enter name</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="title_activity_main2" translatable="false">Main2Activity</string>
     <string name="title_activity_add_name">Add Name</string>
-    <string name="btn_add_descr">Name description</string>
     <string name="en_name_descr">Enter name description</string>
     <string name="descr_hdr">Name description</string>
     <string name="descr_save">Save</string>
@@ -88,33 +58,24 @@
     <string name="empty_name">Empty name</string>
     <string name="compabl_pref">"Compatibility with patronymic: "</string>
     <string name="zod_pref">Zodiacs: </string>
-    <string name="results_for">Search results for: </string>
     <string name="descr_regions">"Regions:  "</string>
     <string name="descr_patr">"Patronymic:  "</string>
     <string name="descr_zod">Zodiac: </string>
     <string name="descr_sex">Sex: </string>
-    <string name="names_list">Names list</string>
-    <string name="search_results_for">Search results for: </string>
     <string name="empty_list">List is empty</string>
-    <string name="empty_filter">Not filtered</string>
     <string name="unknown">Unknown</string>
     <string name="sel_alert">You have to set at least one parameter!</string>
     <string name="text1" translatable="false">text1</string>
     <string name="icicon" translatable="false">icicon</string>
-    <string name="patronymic">Patronymic</string>
     <string name="text2" translatable="false">text2</string>
     <string name="enter_name_description">Enter name description</string>
-    <string name="compl">Совмес\nтимость</string>
-    <string name="nookmarked" translatable="false">Избран\nное</string>
-    <string name="name">Name</string>
-    <string name="zodiac">Zodiac</string>
     <string name="region_repr">Region:</string>
     <string name="must_set_all_param">You should set all name fields!</string>
     <string name="err_duplicate_keys">Error saving new name!</string>
     <string name="feature_not_implemented">Not implemeted yet :(</string>
     <string name="action_search">Search</string>
-    <string name="search_hint">start typing a name...</string>
-    <string name="updating_names">Wait while names updating...</string>
+    <string name="search_hint">start typing a name…</string>
+    <string name="updating_names">Wait while names updating…</string>
     <string name="filter_all">All</string>
     <string name="save_ok">Save succeed!</string>
 </resources>

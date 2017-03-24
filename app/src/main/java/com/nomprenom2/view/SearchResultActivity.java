@@ -38,13 +38,9 @@ public class SearchResultActivity extends AppCompatActivity {
     private String sex_str;
     private int zod;
     private String zod_str;
-    private String patronymic;
     private List<NameRecord> names; // [todo] move data to presenter
     private TextView search_result_descr_tw;
     private TextView empty_tw;
-    private SearchView search_view_action;
-
-
 
 
     @Override
@@ -60,7 +56,7 @@ public class SearchResultActivity extends AppCompatActivity {
         // Enable the Up button
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setHomeAsUpIndicator(R.drawable.transform_icon);
+            ab.setHomeAsUpIndicator(R.drawable.main_icon_2);
             ColorUtils.initTeamColors(this);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -68,7 +64,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
-        search_view_action = (SearchView) findViewById(R.id.search_view);
+        SearchView search_view_action = (SearchView) findViewById(R.id.search_view);
         SearchView.OnQueryTextListener text_change_listener =
                 new SearchView.OnQueryTextListener()
         {
@@ -89,7 +85,7 @@ public class SearchResultActivity extends AppCompatActivity {
         search_view_action.setOnQueryTextListener(text_change_listener);
         search_view_action.setQueryHint(getResources().getString(R.string.search_hint));
         search_view_action.setIconifiedByDefault(false);
-        ImageView searchIcon = (ImageView)search_view_action
+        ImageView searchIcon = (ImageView) search_view_action
                 .findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
         searchIcon.setImageResource(R.drawable.ic_find_in_page_black_24dp);
 
@@ -129,6 +125,7 @@ public class SearchResultActivity extends AppCompatActivity {
             zod = -1;
             zod_str += getResources().getString(R.string.filter_all);
         }
+        String patronymic;
         if(data.hasExtra(MainActivity.PATRONYMIC)) {
             patronymic = data.getStringExtra(MainActivity.PATRONYMIC);
         }else

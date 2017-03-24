@@ -22,15 +22,10 @@ import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
     private List<NameRecord> names;
-    private SelectedNameAdapter arrayAdapter;
-    private RecyclerView result_list_view;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private SelectedNamesPresenter presenter;
     private String patr;
     private int sex;
     private int zod;
     FloatingActionButton fab;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +40,11 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
             ColorUtils.initTeamColors(this);
         }
 
-        result_list_view = (RecyclerView)findViewById(R.id.selected_names_list_view);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView result_list_view = (RecyclerView) findViewById(R.id.selected_names_list_view);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         result_list_view.setLayoutManager(mLayoutManager);
         // todo inject candidate
-        presenter = new SelectedNamesPresenter(this);
+        SelectedNamesPresenter presenter = new SelectedNamesPresenter(this);
         names = NameRecord.getSelected(NameRecord.Check.Checked.getId());
         Intent intent = getIntent();
         if(intent.hasExtra(MainActivity.PATRONYMIC))
@@ -58,7 +53,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
             sex = intent.getIntExtra(MainActivity.SEX, -1);
         if(intent.hasExtra(MainActivity.ZODIAC))
             zod = intent.getIntExtra(MainActivity.ZODIAC, -1);
-        arrayAdapter = new SelectedNameAdapter(this,
+        SelectedNameAdapter arrayAdapter = new SelectedNameAdapter(this,
                 R.layout.name_list_item,
                 names, patr, sex, zod);
         result_list_view.setAdapter(arrayAdapter);
@@ -103,7 +98,6 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         NameRecord nr = (NameRecord)obj;
         names.remove(nr);
         NameRecord.setSelection(nr.name, 0);
-        // arrayAdapter.notifyDataSetChanged();
     }
 
     @Override

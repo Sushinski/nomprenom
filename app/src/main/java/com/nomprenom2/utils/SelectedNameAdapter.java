@@ -24,10 +24,10 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     public List<NameRecord> name_list;
     private Context context;
     private String patronymic;
-    private NameRecord.Sex sex;
-    private ZodiacRecord.ZodMonth zod;
-    private NamePatrComp comp;
-    private int tw_id;
+    private final NameRecord.Sex sex;
+    private final ZodiacRecord.ZodMonth zod;
+    private final NamePatrComp comp;
+    private final int tw_id;
     private String info_prefx;
     private static String[] zodiac_repr_names;
 
@@ -69,9 +69,9 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name;
-        TextView name_info;
-        CheckBox selector;
+        public final TextView name;
+        final TextView name_info;
+        final CheckBox selector;
 
         ViewHolder(View v){
             super(v);

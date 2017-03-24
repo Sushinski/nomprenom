@@ -2,14 +2,11 @@ package com.nomprenom2.utils;
 
 
 import android.support.annotation.NonNull;
-
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nomprenom2.interfaces.RestApi;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
-import com.nomprenom2.model.ZodiacRecord;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,19 +27,18 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class RestInteractionWorker {
-    RestApi restApi;
+    private RestApi restApi;
 
-    public class LoggingInterceptor implements Interceptor {
+    private class LoggingInterceptor implements Interceptor {
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            okhttp3.Response response = chain.proceed(request);
-            return response;
+            return chain.proceed(request);
         }
     }
 
     public RestInteractionWorker( String base_addr ){
-        String base_url = "http://" +base_addr + "/names/";
+        String base_url = "http://" + base_addr + "/names/";
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .addInterceptor(new LoggingInterceptor())
                 .build();
@@ -73,7 +69,6 @@ public class RestInteractionWorker {
                     @Override
                     public ActionEvent call(List<NameRecord> res_list) {
                         List<String> groups = new ArrayList<>();
-                        long last_id = 0;
                         for (NameRecord nr : res_list) {
                             groups.clear();
                             groups.add(nr.group);
@@ -81,10 +76,11 @@ public class RestInteractionWorker {
                                         nr.sex,
                                         nr.zodiacs, groups, nr.description);
                             if(ins_id > 0)
-                                PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID, String.valueOf(nr._id));
+                                PrefsRecord.saveStringValue(PrefsRecord.LAST_UPD_NAME_ID,
+                                        String.valueOf(nr._id));
                         }
                         // обрабатываем результат, после чего высылаем событие с флагом успешного выполнения запроса
-                        return new ActionEvent(true, "ok");
+                        return new ActionEvent(ActionEvent.TYPE_LOAD_NEW_NAMES, true, "ok");
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, ActionEvent>() {
@@ -92,7 +88,8 @@ public class RestInteractionWorker {
                     @Override
                     public ActionEvent call(Throwable throwable) {
                         // произошла ошибка, создаем событие сообщающее об ошибке
-                        return new ActionEvent(false, throwable.getMessage());
+                        return new ActionEvent(ActionEvent.TYPE_LOAD_NEW_NAMES,
+                                false, throwable.getMessage());
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread()) // дальше код будет вызываться в главном потоке приложения

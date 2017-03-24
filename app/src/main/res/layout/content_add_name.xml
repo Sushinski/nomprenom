@@ -8,8 +8,7 @@
     tools:context=".view.MainActivity"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:layout_marginBottom="16dp"
-    android:id="@+id/main_content">
+    android:layout_marginBottom="16dp">
 
     <EditText
         android:layout_width="wrap_content"

@@ -16,16 +16,15 @@ import com.nomprenom2.utils.ColorUtils;
 
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
-    public static final int SEARCH_RESULT = 2;
     public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";
     public static final String SEX = "com.nomprenom2.view.sex";
     public static final String ZODIAC = "com.nomprenom2.view.zodiac";
     public static final String REGIONS = "com.nomprenom2.view.regions";
     public static final String SINGLE_REGION = "com.nomprenom2.view.single_region";
 
-    protected EditText patr_tw;
-    protected TextView title_txt;
-    protected NameParamsFragment param_frag;
+    private EditText patr_tw;
+    private TextView title_txt;
+    private NameParamsFragment param_frag;
 
 
     @Override

@@ -8,8 +8,8 @@ import java.util.List;
 
 
 public abstract class AbsPresenter{
-    protected Context context;
-    public AbsPresenter(Context c){
+    private Context context;
+    AbsPresenter(Context c){
         context = c;
     }
 
@@ -17,13 +17,8 @@ public abstract class AbsPresenter{
         return new ArrayList<>();
     }
 
-    public NameRecord getLastName(){
-        return null;
-    }
-
     public List<NameRecord> getSuggestions(String name_part, String[] regions, int sex, int zod){
        return getNames( regions, sex, zod );
     }
 
-    public abstract void onOk();
 }

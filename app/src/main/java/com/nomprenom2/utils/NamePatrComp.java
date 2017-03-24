@@ -14,16 +14,14 @@ import android.content.Context;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.ZodiacRecord;
-
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class NamePatrComp {
-    private String vowels;
-    private String consonants;
 
-    public NamePatrComp(Context context){
+class NamePatrComp {
+    private final String vowels;
+    private final String consonants;
+
+    NamePatrComp(Context context){
             vowels = context.getResources().getString(R.string.vowels);
             consonants = context.getResources().getString(R.string.consonants);
     }
@@ -34,8 +32,8 @@ public class NamePatrComp {
 
     private boolean isConsonant(char ch){ return consonants.indexOf(ch) >= 0; }
 
-    public int compare(NameRecord nr,
-                       String patr, NameRecord.Sex sex, ZodiacRecord.ZodMonth zod){
+    int compare(NameRecord nr,
+                String patr, NameRecord.Sex sex, ZodiacRecord.ZodMonth zod){
         String name = nr.name.toLowerCase();
         if( !isConsonant(name.charAt(0)) && !isWowel(name.charAt(0)))
             return 0; // not our language
@@ -45,7 +43,6 @@ public class NamePatrComp {
         if( !isConsonant(patronymic.charAt(0)) && !isWowel(patronymic.charAt(0)))
             return 0; // not our language
         // 1
-        boolean is_vow = false;
         int res = 100; // compability percentage
         int start = 1; // don't check last letter for girls
         if( sex == null || sex == NameRecord.Sex.Boy)

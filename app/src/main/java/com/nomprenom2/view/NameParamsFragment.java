@@ -24,8 +24,6 @@ import java.util.List;
 public class NameParamsFragment extends Fragment implements
         FragmentItem.OnFragmentInteractionListener {
     public HashSet<String> regions;
-    public String[] sex_sel;
-    public String[] zod_sel;
     private boolean single_sel = false;
     private Spinner sex_spinner;
     private Spinner zod_spinner;
@@ -61,7 +59,7 @@ public class NameParamsFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_name_params, container, false);
-                sex_sel = getResources().getStringArray(R.array.sex_sels);
+        String[] sex_sel = getResources().getStringArray(R.array.sex_sels);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, sex_sel);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,7 +67,7 @@ public class NameParamsFragment extends Fragment implements
         sex_spinner.setAdapter(new NothingSelectedSpinnerAdapter(adapter,
                         R.layout.contact_spinner_row_nothing_selected, getActivity()));
         // zodiac spinner
-        zod_sel = getResources().getStringArray(R.array.zod_sels);
+        String[] zod_sel = getResources().getStringArray(R.array.zod_sels);
         ArrayAdapter<String> zod_adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, zod_sel);
         zod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -131,7 +129,7 @@ public class NameParamsFragment extends Fragment implements
         }
     }
 
-    public void selectRegion() {
+    private void selectRegion() {
         Intent intent = new Intent( getActivity(), SelectedRegionActivity.class );
         if( !regions.isEmpty() ) {
             String[] sa = new String[regions.size()];

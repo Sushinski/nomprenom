@@ -12,10 +12,7 @@ import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
 
 public class NameDetailActivity extends AppCompatActivity {
-    private String name;
     private String name_descr;
-    private TextView name_tw;
-    private TextView name_descr_tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +29,10 @@ public class NameDetailActivity extends AppCompatActivity {
             ColorUtils.initTeamColors(this);
         }
 
-        name_tw = (TextView)findViewById(R.id.text_fullname);
-        name_descr_tw = (TextView)findViewById(R.id.text_name_descr);
+        TextView name_tw = (TextView) findViewById(R.id.text_fullname);
+        TextView name_descr_tw = (TextView) findViewById(R.id.text_name_descr);
         Intent intent = getIntent();
-        name = intent.getStringExtra(SelectedNameAdapter.NAME);
+        String name = intent.getStringExtra(SelectedNameAdapter.NAME);
         if( name.equals("") ) {
             name = getResources().getString(R.string.empty_name);
         }

@@ -1,7 +1,5 @@
 package com.nomprenom2.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -12,14 +10,11 @@ import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "GroupRecord", id="_id")
 public class GroupRecord extends Model{
-    public static final String LIST_FIELD = "group_name";
 
     @SerializedName("group_name")
     @Expose

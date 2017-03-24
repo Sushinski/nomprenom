@@ -19,8 +19,8 @@ import java.util.List;
 
 public class AddNameActivity extends AppCompatActivity {
     private NameParamsFragment param_frag;
-    protected EditText name_et;
-    protected EditText descr_et;
+    private EditText name_et;
+    private EditText descr_et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

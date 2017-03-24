@@ -2,8 +2,6 @@ package com.nomprenom2.interfaces;
 import com.nomprenom2.model.NameRecord;
 
 import java.util.List;
-
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
