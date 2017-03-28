@@ -83,8 +83,8 @@ public class AddNameActivity extends AppCompatActivity {
         for (String s : param_frag.regions ) {
             gr_list.add(s);
         }
-        if( z == -1 ||
-                sx == -1 ||
+        if( z == 0 ||
+                sx == 0 ||
                 gr_list.isEmpty() ||
                 name_et.getText().length() == 0 ||
                 descr_et.getText().length() == 0){
@@ -92,7 +92,7 @@ public class AddNameActivity extends AppCompatActivity {
             return false;
         }
 
-        if(NameRecord.saveName(name_et.getText().toString(), sx,
+        if(NameRecord.saveName(name_et.getText().toString(), sx-1,
                 zod_list, gr_list, descr_et.getText().toString())  < 0){
             toast.showToast(getString(R.string.err_duplicate_keys));
             return false;

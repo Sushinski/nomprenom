@@ -90,13 +90,8 @@ public class MainActivity extends AppCompatActivity {
             param_frag.regions.toArray(sa);
             intent.putExtra(REGIONS, sa);
         }
-        Integer sex = param_frag.getSelectedSex();
-        if(sex != null) {
-            intent.putExtra(SEX, sex);
-        }
-        Integer zod = param_frag.getSelectedZod();
-        if(zod != null)
-            intent.putExtra(ZODIAC, zod);
+        intent.putExtra(SEX, param_frag.getSelectedSex());
+        intent.putExtra(ZODIAC, param_frag.getSelectedZod());
         String patr = patr_tw.getText().toString();
         if(!patr.equals("")){
             intent.putExtra(PATRONYMIC, patr);

@@ -49,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(ActionEvent event) {
-        if(event.getType() == ActionEvent.TYPE_LOAD_NEW_NAMES && event.isSuccessful())
+        if(event.getType() == ActionEvent.TYPE_LOAD_NEW_NAMES)
             moveToNextActivity();
     }
 

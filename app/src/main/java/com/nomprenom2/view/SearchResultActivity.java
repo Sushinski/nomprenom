@@ -108,21 +108,21 @@ public class SearchResultActivity extends AppCompatActivity {
         }else
             regions_str += getResources().getString(R.string.filter_all);
         if(data.hasExtra(MainActivity.SEX)) {
-            sex = data.getIntExtra(MainActivity.SEX, -1);
-            sex_str += sex != -1 ?
-                    getResources().getStringArray(R.array.sex_sels)[sex] :
+            sex = data.getIntExtra(MainActivity.SEX, 0);
+            sex_str += sex > 0 ?
+                    getResources().getStringArray(R.array.sex_sels)[sex-1] :
                     getResources().getString(R.string.filter_all);
         }else {
-            sex = -1;
+            sex = 0;
             sex_str += getResources().getString(R.string.filter_all);
         }
         if(data.hasExtra(MainActivity.ZODIAC)) {
-            zod = data.getIntExtra(MainActivity.ZODIAC, -1);
+            zod = data.getIntExtra(MainActivity.ZODIAC, 0);
             zod_str += zod > 0 ?
                     getResources().getStringArray(R.array.zod_sels)[zod-1] :
                     getResources().getString(R.string.filter_all);
         }else {
-            zod = -1;
+            zod = 0;
             zod_str += getResources().getString(R.string.filter_all);
         }
         String patronymic;
@@ -218,6 +218,12 @@ public class SearchResultActivity extends AppCompatActivity {
                 break;
             default:break;
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 
     @Override

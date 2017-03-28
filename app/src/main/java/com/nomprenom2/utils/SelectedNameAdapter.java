@@ -23,7 +23,7 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
     public final static String NAME_DESCR = "com.nomprenom2.utils.name_descr";
     public List<NameRecord> name_list;
     private Context context;
-    private String patronymic;
+    protected String patronymic;
     private final NameRecord.Sex sex;
     private final ZodiacRecord.ZodMonth zod;
     private final NamePatrComp comp;

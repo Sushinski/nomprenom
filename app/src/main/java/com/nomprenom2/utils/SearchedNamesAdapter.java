@@ -16,7 +16,7 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
     public SearchedNamesAdapter(Context context, int textViewResourceId,
                                List<NameRecord> nameList, String patronymic, int sex, int zod) {
         super(context, textViewResourceId, nameList, patronymic, sex, zod);
-        if( patronymic != null || sex != -1 || zod != -1 ) {
+        if( patronymic != null || sex > 0 || zod > 0 ) {
             bsearched = true;
             setInfoPrefx(context.getResources().getText(R.string.compabl_pref).toString());
         }else{
@@ -37,7 +37,7 @@ public class SearchedNamesAdapter extends SelectedNameAdapter {
     @Override
     public String getInfoText(NameRecord nr){
         String c;
-        if(bsearched){
+        if(bsearched && !patronymic.equals("")){
              c = getContext().getResources().getText(R.string.compabl_pref) +
                      getCompatibility(nr) + "%";
         }else {
