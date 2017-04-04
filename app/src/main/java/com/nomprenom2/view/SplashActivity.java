@@ -7,12 +7,16 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.model.PrefsRecord;
 import com.nomprenom2.utils.ActionEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import io.fabric.sdk.android.Fabric;
 
 import static com.nomprenom2.model.PrefsRecord.BASE_SERV_IP_ADDR;
 
@@ -22,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash);
         String last_name_id = PrefsRecord.getStringValue(PrefsRecord.LAST_UPD_NAME_ID);
         if (last_name_id == null)

@@ -9,6 +9,8 @@ import android.util.SparseBooleanArray;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.utils.ColorUtils;
@@ -16,6 +18,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import io.fabric.sdk.android.Fabric;
 
 public class SelectedRegionActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class SelectedRegionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_selected_region);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);

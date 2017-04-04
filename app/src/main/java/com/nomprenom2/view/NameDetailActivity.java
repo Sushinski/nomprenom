@@ -7,9 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
+
+import io.fabric.sdk.android.Fabric;
 
 public class NameDetailActivity extends AppCompatActivity {
     private String name_descr;
@@ -17,6 +21,7 @@ public class NameDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_name_detail);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);

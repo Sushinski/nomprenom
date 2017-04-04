@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.AbsPresenter;
@@ -24,6 +26,8 @@ import com.nomprenom2.utils.AppToast;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SearchedNamesAdapter;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -35,9 +39,7 @@ public class SearchResultActivity extends AppCompatActivity {
     public RecyclerView result_list_view;
     private String[] regions;
     private int sex;
-    private String sex_str;
     private int zod;
-    private String zod_str;
     private List<NameRecord> names; // [todo] move data to presenter
     private TextView search_result_descr_tw;
     private TextView empty_tw;
@@ -49,6 +51,7 @@ public class SearchResultActivity extends AppCompatActivity {
             getWindow().setAllowEnterTransitionOverlap(true);
         }
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_search_result);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -234,7 +237,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
     protected void settingsAction(){
         // settings is not implemented for now; show toast info
-        AppToast toast = new AppToast(getApplicationContext());
-        toast.showToast(getString(R.string.feature_not_implemented));
+        throw new RuntimeException("This is a crash");
+       // AppToast toast = new AppToast(getApplicationContext());
+       // toast.showToast(getString(R.string.feature_not_implemented));
     }
 }

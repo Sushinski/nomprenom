@@ -12,6 +12,8 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
 import com.nomprenom2.presenter.SelectedNamesPresenter;
@@ -19,6 +21,8 @@ import java.util.List;
 import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
+
+import io.fabric.sdk.android.Fabric;
 
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
     private List<NameRecord> names;
@@ -30,6 +34,7 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_selected_names);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
