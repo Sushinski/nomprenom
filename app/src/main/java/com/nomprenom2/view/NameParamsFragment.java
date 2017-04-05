@@ -18,7 +18,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
+import static java.util.Arrays.asList;
 
 
 public class NameParamsFragment extends Fragment implements
@@ -92,25 +96,31 @@ public class NameParamsFragment extends Fragment implements
     private void setGroupList(){
         View v = getView();
         if (v != null && v.findViewById(R.id.fragment_container) != null) {
+            HashSet<String> regs = new HashSet<>();
+            regs.addAll(regions); // copy regions set for proccessing
             FragmentManager mngr = getFragmentManager();
             FragmentTransaction tr = mngr.beginTransaction();
             Fragment fr;
-            for (String s : regions) {
-                fr = mngr.findFragmentByTag(s);
-                if (fr == null) {
-                    fr = FragmentItem.newInstance(s, this);
-                    tr.add(R.id.fragment_container, fr, s);
-                }
-            }
-            for (WeakReference<Fragment> f : frag_list) {
+            // clear fragments not in region list
+            Iterator<WeakReference<Fragment>> it = frag_list.iterator();
+            while (it.hasNext()) {
+                WeakReference<Fragment> f  = it.next();
                 fr = f.get();
                 if (fr != null) {
                     String tg = fr.getTag();
-                    if (!regions.contains(tg))
+                    if (!regs.contains(tg)) {
                         tr.remove(fr);
-                } else {
-                    frag_list.remove(f);
+                        it.remove();  // remove deleted region from fragments list
+                    }else{
+                        regs.remove(tg); // remove proccessed region
+                    }
                 }
+            }
+            // add remained regions
+            for (String s : regs) {
+                fr = FragmentItem.newInstance(s, this);
+                tr.add(R.id.fragment_container, fr, s);
+                frag_list.add(new WeakReference<>(fr));
             }
             tr.commit();
         }
@@ -122,7 +132,7 @@ public class NameParamsFragment extends Fragment implements
         if (resultCode == Activity.RESULT_OK && requestCode == MainActivity.GROUP_REQUEST) {
             regions.clear();
             if(data.hasExtra(MainActivity.REGIONS)) {
-                regions.addAll(Arrays.asList(data.getStringArrayExtra(MainActivity.REGIONS)));
+                regions.addAll(data.getStringArrayListExtra(MainActivity.REGIONS));
             }
             setGroupList();
         }

@@ -14,6 +14,8 @@ import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.utils.ColorUtils;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -81,7 +83,6 @@ public class SelectedRegionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult();
                 onBackPressed();
                 return true;
         }
@@ -91,18 +92,17 @@ public class SelectedRegionActivity extends AppCompatActivity {
     private void setResult(){
         Intent data = new Intent();
         SparseBooleanArray checkedItemPositions = region_list_view.getCheckedItemPositions();
-        final int checkedItemCount = checkedItemPositions.size();
-        if( checkedItemCount > 0 ) {
-            String[] checked = new String[checkedItemCount];
-            for (int i = 0; i < checkedItemCount; i++) {
-                int key = checkedItemPositions.keyAt(i);
-                if (checkedItemPositions.get(key)) {
-                    GroupRecord rec = arrayAdapter.getItem(key);
-                    if (rec != null) {
-                        checked[i] = rec.group_name;
-                    }
+        ArrayList<String> checked = new ArrayList<>();
+        for( int i = 0; i < checkedItemPositions.size(); i++){
+            int key = checkedItemPositions.keyAt(i);
+            if(checkedItemPositions.get(key)){
+                GroupRecord rec = arrayAdapter.getItem(key);
+                if (rec != null) {
+                    checked.add(rec.group_name);
                 }
             }
+        }
+        if(checked.size() != 0){
             data.putExtra(MainActivity.REGIONS, checked);
         }
         setResult(RESULT_OK, data);

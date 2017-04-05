@@ -237,8 +237,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     protected void settingsAction(){
         // settings is not implemented for now; show toast info
-        throw new RuntimeException("This is a crash");
-       // AppToast toast = new AppToast(getApplicationContext());
-       // toast.showToast(getString(R.string.feature_not_implemented));
+       AppToast toast = new AppToast(getApplicationContext());
+       toast.showToast(getString(R.string.feature_not_implemented));
     }
 }
