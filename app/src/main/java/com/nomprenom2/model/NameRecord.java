@@ -117,7 +117,7 @@ public class NameRecord extends Model{
         if( zod > 0 ) {
             _where += add + "NameRecord._id in (select name_id from NameZodiacRecord a inner join " +
                     " ZodiacRecord b on a.zodiac_id = b._id where" +
-                    " b.zod_month=" + Integer.toString(zod - 1) + ")";
+                    " b.zod_month=" + Integer.toString(zod) + ")";
         }
         try {
             if(!_where.equals(""))

@@ -46,9 +46,9 @@ public class SelectedNameAdapter extends RecyclerView.Adapter<SelectedNameAdapte
         this.context = context;
         this.patronymic = patronymic != null ? patronymic : "";
         this.comp = new NamePatrComp(context);
-        this.sex = sex != -1 ? NameRecord.Sex.valueOf(NameRecord.Sex.fromInt(sex)) : null;
-        this.zod = zod != -1 ?
-                ZodiacRecord.ZodMonth.valueOf(ZodiacRecord.ZodMonth.fromInt(zod)) :
+        this.sex = sex > 0 ? NameRecord.Sex.valueOf(NameRecord.Sex.fromInt(sex - 1)) : null;
+        this.zod = zod > 0  ?
+                ZodiacRecord.ZodMonth.valueOf(ZodiacRecord.ZodMonth.fromInt(zod - 1)) :
                 null;
         zodiac_repr_names = getContext().getResources().getStringArray(R.array.zod_sels);
         setInfoPrefx(context.getResources().getText(R.string.zod_pref).toString());
