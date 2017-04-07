@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.content.Intent;
@@ -9,20 +15,20 @@ import android.util.SparseBooleanArray;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.GroupRecord;
 import com.nomprenom2.utils.ColorUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import io.fabric.sdk.android.Fabric;
 
+/**
+ * Selects regions from list
+ */
 public class SelectedRegionActivity extends AppCompatActivity {
 
     public ListView region_list_view;
@@ -33,6 +39,12 @@ public class SelectedRegionActivity extends AppCompatActivity {
         super();
     }
 
+
+    /**
+     * Initializes activity with data, sets toolbar.
+     *Sets list checks fpr selected items
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +90,11 @@ public class SelectedRegionActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Processes menu item selection
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -89,6 +105,9 @@ public class SelectedRegionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Sets activity result
+     */
     private void setResult(){
         Intent data = new Intent();
         SparseBooleanArray checkedItemPositions = region_list_view.getCheckedItemPositions();
@@ -108,6 +127,9 @@ public class SelectedRegionActivity extends AppCompatActivity {
         setResult(RESULT_OK, data);
     }
 
+    /**
+     * Processes back button
+     */
     @Override
     public void onBackPressed(){
         setResult();

@@ -4,7 +4,9 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-
+/**
+ * Represents Group an Name models database tables connection
+ */
 @Table(name = "NameGroupRecord", id = "_id")
 public class NameGroupRecord extends Model {
 

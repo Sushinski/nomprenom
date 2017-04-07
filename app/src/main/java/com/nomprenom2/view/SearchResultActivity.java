@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.app.Activity;
@@ -16,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
@@ -26,12 +31,13 @@ import com.nomprenom2.utils.AppToast;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SearchedNamesAdapter;
 import java.util.List;
-
 import io.fabric.sdk.android.Fabric;
 
 
+/**
+ * Shows name search results with parameters, processes fast search
+ */
 public class SearchResultActivity extends AppCompatActivity {
-
     public static final int ADD_NAME_ID = 3;
     public static final int SEL_NAMES_ID = 4;
     private AbsPresenter presenter;
@@ -40,11 +46,16 @@ public class SearchResultActivity extends AppCompatActivity {
     private String[] regions;
     private int sex;
     private int zod;
-    private List<NameRecord> names; // [todo] move data to presenter
+    private List<NameRecord> names;
     private TextView search_result_descr_tw;
     private TextView empty_tw;
+    // TODO: Move non-ui data to presenter layer
 
-
+    /**
+     * Sets activity data, toolbar, query text change listener;
+     * fills result list with names
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -63,7 +74,7 @@ public class SearchResultActivity extends AppCompatActivity {
             ColorUtils.initTeamColors(this);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            myToolbar.getChildAt(1).setTransitionName("trans_icon");
+            myToolbar.getChildAt(1).setTransitionName(SplashActivity.TRANSITION_NAME);
         }
         presenter = new SearchResultPresenter(this);
         result_list_view = (RecyclerView) findViewById(R.id.names_result_list_view);
@@ -99,7 +110,11 @@ public class SearchResultActivity extends AppCompatActivity {
         init();
     }
 
-
+    /**
+     * Gets and validates search criteries from intent,
+     * invoke presenter search method,
+     * fills names list
+     */
     void init(){
         Intent data  = getIntent();
         String regions_str = getResources().getString(R.string.descr_regions);
@@ -153,19 +168,22 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setAdapter(arrayAdapter);
     }
 
-
-    @Override
-    public void onNewIntent(Intent intent){
-        setIntent(intent);
-        super.onNewIntent(intent);
-    }
-
+    /**
+     * Inflates menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_results, menu);
         return true;
     }
 
+    /**
+     * Precesse menu item selection
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -187,21 +205,36 @@ public class SearchResultActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Calls selected names activity
+     */
     protected void showSelectedNames(){
         Intent intent = new Intent(this, SelectedNamesActivity.class);
         startActivityForResult(intent, SEL_NAMES_ID);
     }
 
+    /**
+     * calls search names activity
+     */
     protected void searchNames(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Calls add name activity
+     */
     protected void addName(){
         Intent intent = new Intent(this, AddNameActivity.class);
         startActivityForResult(intent, ADD_NAME_ID);
     }
 
+    /**
+     * Processes result from called activities
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
@@ -223,11 +256,14 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /**
+     *
+     */
+    /*@Override
     protected void onPause(){
         super.onPause();
         overridePendingTransition(0, 0);
-    }
+    }*/
 
     @Override
     protected void onResume() {
@@ -235,6 +271,9 @@ public class SearchResultActivity extends AppCompatActivity {
         result_list_view.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Processes settings action
+     */
     protected void settingsAction(){
         // settings is not implemented for now; show toast info
        AppToast toast = new AppToast(getApplicationContext());

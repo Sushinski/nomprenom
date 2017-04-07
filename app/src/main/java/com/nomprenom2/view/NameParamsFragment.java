@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.app.Activity;
@@ -16,15 +22,13 @@ import com.nomprenom2.R;
 import com.nomprenom2.utils.NothingSelectedSpinnerAdapter;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import static java.util.Arrays.asList;
-
-
+/**
+ * Incapsulates name parameters fields
+ */
 public class NameParamsFragment extends Fragment implements
         FragmentItem.OnFragmentInteractionListener {
     public HashSet<String> regions;
@@ -33,6 +37,10 @@ public class NameParamsFragment extends Fragment implements
     private Spinner zod_spinner;
     private List<WeakReference<Fragment>> frag_list;
 
+    /**
+     * Instantinates fragment
+     * @return
+     */
     public static NameParamsFragment newInstance() {
         return new NameParamsFragment();
     }
@@ -46,22 +54,42 @@ public class NameParamsFragment extends Fragment implements
 
     }
 
+    /**
+     * Returns selected gender ordinal
+     * @return
+     */
     public Integer getSelectedSex(){
         return sex_spinner.getSelectedItemPosition();
     }
 
+    /**
+     * Returns selected zodiac ordinal
+     * @return
+     */
     public Integer getSelectedZod(){
         return zod_spinner.getSelectedItemPosition();
     }
 
+    /**
+     * Sets single selection mode for region list
+     * @param bsingle
+     */
     public void setSingleSel(boolean bsingle){
         single_sel = bsingle;
     }
 
+    /**
+     * Constructs fragment view, sets fields and click listener
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_name_params, container, false);
+        // TODO: Move non-ui data to presenter layer
         String[] sex_sel = getResources().getStringArray(R.array.sex_sels);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, sex_sel);
@@ -93,11 +121,14 @@ public class NameParamsFragment extends Fragment implements
         return v;
     }
 
+    /**
+     * Fills region view with fragments: adds selected and deletes deselected
+     */
     private void setGroupList(){
         View v = getView();
         if (v != null && v.findViewById(R.id.fragment_container) != null) {
             HashSet<String> regs = new HashSet<>();
-            regs.addAll(regions); // copy regions set for proccessing
+            regs.addAll(regions); // copy regions set for processing
             FragmentManager mngr = getFragmentManager();
             FragmentTransaction tr = mngr.beginTransaction();
             Fragment fr;
@@ -112,7 +143,7 @@ public class NameParamsFragment extends Fragment implements
                         tr.remove(fr);
                         it.remove();  // remove deleted region from fragments list
                     }else{
-                        regs.remove(tg); // remove proccessed region
+                        regs.remove(tg); // remove processed region
                     }
                 }
             }
@@ -126,7 +157,12 @@ public class NameParamsFragment extends Fragment implements
         }
     }
 
-
+    /**
+     * Receives result from select region activity, apply new regions list
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == MainActivity.GROUP_REQUEST) {
@@ -138,6 +174,9 @@ public class NameParamsFragment extends Fragment implements
         }
     }
 
+    /**
+     * Calls select regions activity for current region list (can be empty)
+     */
     private void selectRegion() {
         Intent intent = new Intent( getActivity(), SelectedRegionActivity.class );
         if( !regions.isEmpty() ) {
@@ -149,12 +188,10 @@ public class NameParamsFragment extends Fragment implements
         startActivityForResult( intent, MainActivity.GROUP_REQUEST );
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
+    /**
+     * processe fragment item remove
+     * @param frag_name
+     */
     public void onFragmentInteraction(String frag_name){
         FragmentManager mngr = getFragmentManager();
         FragmentTransaction tr = mngr.beginTransaction();

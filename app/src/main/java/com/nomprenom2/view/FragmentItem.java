@@ -1,4 +1,11 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +16,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.nomprenom2.R;
 
+/**
+ * Represents regions form item
+ */
 public class FragmentItem extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private OnFragmentInteractionListener mCallback;
@@ -41,6 +51,13 @@ public class FragmentItem extends Fragment {
         }
     }
 
+    /**
+     * Precesses item creation and assigns touch listener
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

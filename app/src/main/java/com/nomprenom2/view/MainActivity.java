@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.content.Intent;
@@ -17,7 +23,9 @@ import com.nomprenom2.utils.ColorUtils;
 
 import io.fabric.sdk.android.Fabric;
 
-
+/**
+ * Gets search criterias from user, invokes names searching in database
+ */
 public class MainActivity extends AppCompatActivity {
     public static final int GROUP_REQUEST = 1;
     public static final String PATRONYMIC = "com.nomprenom2.view.patronymic";
@@ -25,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String ZODIAC = "com.nomprenom2.view.zodiac";
     public static final String REGIONS = "com.nomprenom2.view.regions";
     public static final String SINGLE_REGION = "com.nomprenom2.view.single_region";
-
     private EditText patr_tw;
-    private TextView title_txt;
     private NameParamsFragment param_frag;
 
 
+    /**
+     * Initializes activity, sets toolbar and view variables, loads parameters fragment
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,33 +57,28 @@ public class MainActivity extends AppCompatActivity {
             ColorUtils.initTeamColors(this);
         }
 
-        title_txt = (TextView) findViewById(R.id.title_text);
         patr_tw = (EditText) findViewById(R.id.input_first_name);
         param_frag =
                 (NameParamsFragment) getSupportFragmentManager().
                         findFragmentById(R.id.name_params_fragment);
     }
 
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-    }
-
-
-    @Override
-    public void onNewIntent(Intent intent){
-        setIntent(intent);
-        super.onNewIntent(intent);
-    }
-
-
+    /**
+     * Inflates menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * Processes menu item selection
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -87,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Processes and validates fragment variables and sets intent`s data
+     * for launch search results activity
+     */
     public void searchNames(){
         Intent intent = new Intent(this, SearchResultActivity.class);
         if( !param_frag.regions.isEmpty() ){

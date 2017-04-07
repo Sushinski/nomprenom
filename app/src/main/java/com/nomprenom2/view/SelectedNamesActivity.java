@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.content.Intent;
@@ -9,10 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.model.NameRecord;
@@ -21,9 +25,11 @@ import java.util.List;
 import com.nomprenom2.interfaces.IListItemDeleter;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
-
 import io.fabric.sdk.android.Fabric;
 
+/**
+ * Shows bookmarked names and allows to share it
+ */
 public class SelectedNamesActivity extends AppCompatActivity implements IListItemDeleter {
     private List<NameRecord> names;
     private String patr;
@@ -31,6 +37,11 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
     private int zod;
     FloatingActionButton fab;
 
+    /**
+     * Initializes activity with data
+     * Assigns share button click listener to share function via intent
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +95,10 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
 
     }
 
-
+    /**
+     * Prepares share string
+     * @return
+     */
     private String getNamesString(){
         String res = String.format(getResources().getString(R.string.names_string_prefix),
                 getResources().getString(R.string.app_name)) + "\n";
@@ -93,18 +107,21 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         return res;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_selected_names, menu);
-        return true;
-    }
-
+    /**
+     * Remove item from selected names list
+     * @param obj
+     */
     public void onDeleteListItem(Object obj){
         NameRecord nr = (NameRecord)obj;
         names.remove(nr);
         NameRecord.setSelection(nr.name, 0);
     }
 
+    /**
+     * Processes menu item selection
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -118,6 +135,10 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Saves from data
+     * @param bundle
+     */
     @Override
     protected void onSaveInstanceState(Bundle bundle){
         bundle.putString(MainActivity.PATRONYMIC, patr);
@@ -126,6 +147,10 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         super.onSaveInstanceState(bundle);
     }
 
+    /**
+     * Restores form data
+     * @param savedInstance
+     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstance){
         super.onRestoreInstanceState(savedInstance);
@@ -133,10 +158,4 @@ public class SelectedNamesActivity extends AppCompatActivity implements IListIte
         sex = savedInstance.getInt(MainActivity.SEX);
         zod = savedInstance.getInt(MainActivity.ZODIAC);
     }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-    }
-
 }

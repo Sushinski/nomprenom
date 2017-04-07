@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.content.Intent;
@@ -7,17 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.crashlytics.android.Crashlytics;
 import com.nomprenom2.R;
 import com.nomprenom2.utils.ColorUtils;
 import com.nomprenom2.utils.SelectedNameAdapter;
-
 import io.fabric.sdk.android.Fabric;
 
+/**
+ * Shows detailed name description
+ */
 public class NameDetailActivity extends AppCompatActivity {
     private String name_descr;
 
+
+    /**
+     * Initializes activity, sets toolbar and view variables
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +61,11 @@ public class NameDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Processes back button
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

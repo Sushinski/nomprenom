@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.view;
 
 import android.content.Intent;
@@ -17,16 +23,20 @@ import com.nomprenom2.utils.ColorUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adds new name with zodiac sign, gender and description to database
+ */
 public class AddNameActivity extends AppCompatActivity {
     private NameParamsFragment param_frag;
     private EditText name_et;
     private EditText descr_et;
 
+    /**
+     * Initializes activity, sets toolbar and view variables
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setAllowEnterTransitionOverlap(true);
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -46,6 +56,11 @@ public class AddNameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Inflates menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -53,6 +68,11 @@ public class AddNameActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Processes menu item selection
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
        switch(item.getItemId()) {
@@ -70,9 +90,13 @@ public class AddNameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Processes save name and parameters to database:
+     * validates fields and converts it to accepted range
+     * calls models save method
+     * @return
+     */
     private boolean addName(){
-        // todo get zodiac list
         AppToast toast = new AppToast(getApplicationContext());
         List<Integer> zod_list = new ArrayList<>();
         Integer z = param_frag.getSelectedZod();

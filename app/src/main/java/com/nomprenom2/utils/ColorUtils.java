@@ -1,3 +1,9 @@
+/*
+ * created by Pavel Golubev golubev.pavel.spb@gmail.com
+ * no license applied
+ * You may use this file without any restrictions
+ */
+
 package com.nomprenom2.utils;
 
 import android.graphics.Color;
@@ -7,18 +13,31 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+/**
+ * Helper class for working with app colors
+ */
 public class ColorUtils {
-    private static int active_ab_color;
     private final static String TEAM_COLORS[] = new String[]{
             "#00838F", "#f41d6c", "#611df4", "#58ecb3", "#00beec"
     };
 
-    public static  void initTeamColors(AppCompatActivity activity){
-        active_ab_color = Color.parseColor(TEAM_COLORS[4]);
+    /**
+     * inits team color
+     *
+     * @param activity
+     */
+    public static void initTeamColors(AppCompatActivity activity) {
+        int active_ab_color = Color.parseColor(TEAM_COLORS[4]);
         initActionBarColor(activity, active_ab_color);
         initStatusBarColor(activity, active_ab_color);
     }
 
+    /**
+     * Init activity status bar with color
+     *
+     * @param activity
+     * @param teamColor
+     */
     private static void initStatusBarColor(AppCompatActivity activity, int teamColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -26,13 +45,25 @@ public class ColorUtils {
         }
     }
 
-    private static void initActionBarColor(AppCompatActivity activity, int teamColor){
+    /**
+     * inits activity action bar with color
+     *
+     * @param activity
+     * @param teamColor
+     */
+    private static void initActionBarColor(AppCompatActivity activity, int teamColor) {
         ActionBar ab = activity.getSupportActionBar();
-        if( ab != null ) {
+        if (ab != null) {
             ab.setBackgroundDrawable(new ColorDrawable(teamColor));
         }
     }
 
+    /**
+     * calculates color offtet
+     *
+     * @param actionBarColor
+     * @return
+     */
     private static int calcStatusBarColor(int actionBarColor) {
         float[] hsv = new float[3];
         Color.colorToHSV(actionBarColor, hsv);
