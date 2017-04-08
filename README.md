@@ -13,3 +13,5 @@ As main idea, application has 3 features:
 3) share preferred names with others usingmessages or social networks.
 
 For now, application has only russian-based names.
+
+Google Play application page: https://play.google.com/store/apps/details?id=com.nomprenom2 
